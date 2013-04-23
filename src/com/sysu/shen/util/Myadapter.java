@@ -54,13 +54,13 @@ public class Myadapter extends BaseAdapter {
 		if (converview == null)
 			vi = inflater.inflate(R.layout.list_row, parent, false);
 
-		TextView adress = (TextView) vi.findViewById(R.id.adress);
+		TextView address = (TextView) vi.findViewById(R.id.adress);
 		TextView title = (TextView) vi.findViewById(R.id.title);
 		ImageView thumb_image = (ImageView) vi.findViewById(R.id.list_image);
 		RatingBar rate_bar = (RatingBar) vi.findViewById(R.id.rating_bar);
 		HashMap<String, String> linedata = new HashMap<String, String>();
 		linedata = data.get(position);
-		adress.setText(linedata.get("address"));
+		address.setText(linedata.get("address"));
 		title.setText(linedata.get("title"));
 		rate_bar.setRating(Float.parseFloat(linedata.get("score")));
 		imageLoader.DisplayImage(linedata.get("thumbnail"), thumb_image);

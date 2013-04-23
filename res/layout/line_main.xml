@@ -6,7 +6,6 @@
     android:orientation="vertical" >
 
     <RelativeLayout
-        android:id="@+id/title"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:background="@color/grey"
@@ -31,7 +30,7 @@
             android:textSize="20sp" />
 
         <ImageButton
-            android:id="@+id/nearmeBtton"
+            android:id="@+id/collectBttonClicked"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentRight="true"
@@ -54,7 +53,10 @@
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:padding="15dp" >
@@ -70,9 +72,9 @@
                     android:background="@color/white" >
 
                     <ImageView
-                        android:id="@+id/list_image"
-                        android:layout_width="90dip"
-                        android:layout_height="90dip"
+                        android:id="@+id/line_image"
+                        android:layout_width="100dip"
+                        android:layout_height="100dip"
                         android:scaleType="centerInside"
                         android:src="@drawable/no_image" />
                 </LinearLayout>
@@ -120,6 +122,7 @@
                     android:layout_alignBottom="@+id/thumbnail"
                     android:layout_alignLeft="@+id/title"
                     android:background="@color/orange"
+                    android:onClick="stopDetailClicked"
                     android:paddingBottom="5dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
@@ -131,14 +134,15 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_marginTop="2dp"
                 android:background="@color/grey"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingBottom="5dp"
                 android:paddingLeft="15dp"
-                android:paddingTop="5dp" >
+                android:paddingTop="5dp"
+                 >
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -150,7 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
-                    android:paddingRight="15dp"
+                    android:paddingRight="10dp"
                     android:text="5"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
@@ -164,8 +168,8 @@
                     android:id="@+id/total_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="15dp"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="10dp"
                     android:text="4d"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
@@ -180,7 +184,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
-                    android:paddingRight="15dp"
+                    android:paddingRight="10dp"
                     android:text="3km"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
@@ -191,11 +195,11 @@
                     android:background="@drawable/musicwrite" />
 
                 <TextView
-                    android:id="@+id/total_length"
+                    android:id="@+id/line_language"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
-                    android:paddingRight="15dp"
+                    android:paddingRight="10dp"
                     android:text="中文"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
@@ -207,12 +211,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:background="@color/white"
                 android:padding="10dp"
                 android:text="线路简介"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="15sp" />
 
             <RelativeLayout
                 android:id="@+id/author"
@@ -220,7 +224,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="25dp"
                 android:background="@color/white" >
 
                 <LinearLayout
@@ -232,9 +237,9 @@
                     android:background="@color/white" >
 
                     <ImageView
-                        android:id="@+id/list_image"
-                        android:layout_width="45dip"
-                        android:layout_height="45dip"
+                        android:id="@+id/author_image"
+                        android:layout_width="50dip"
+                        android:layout_height="50dip"
                         android:scaleType="centerInside"
                         android:src="@drawable/no_image" />
                 </LinearLayout>
@@ -243,9 +248,9 @@
                     android:id="@+id/author_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/author_thumbnail"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="12dip"
+                    android:layout_toRightOf="@id/author_thumbnail"
                     android:text="李某某"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
@@ -270,11 +275,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/author_name"
-                    android:layout_toRightOf="@id/author_thumbnail"
                     android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/author_thumbnail"
                     android:text="一个喜欢周游世界的人"
                     android:textColor="@color/black"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
@@ -282,7 +287,8 @@
                     android:layout_below="@id/author_thumbnail"
                     android:background="@drawable/selector_list2"
                     android:clickable="true"
-                    android:gravity="center_vertical" >
+                    android:gravity="center_vertical"
+                    android:onClick="authorMoreClicked" >
 
                     <TextView
                         android:layout_width="wrap_content"

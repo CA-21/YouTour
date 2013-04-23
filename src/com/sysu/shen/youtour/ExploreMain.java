@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.sysu.shen.util.GlobalConst;
@@ -147,6 +148,13 @@ public class ExploreMain extends Activity {
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
+						Intent it = new Intent(ExploreMain.this, LineMain.class);
+						try {
+							it.putExtra("lineString", jarray.getJSONObject(position).toString());
+						} catch (JSONException e) {
+							Log.v("exploremain", "get onelinejsonobject exception:"+e.toString());
+						}
+						startActivity(it);
 
 					}
 				});
@@ -202,6 +210,30 @@ public class ExploreMain extends Activity {
 				}
 				adapter = new Myadapter(activity, mylist);
 				list.setAdapter(adapter);
+				list.setonRefreshListener(new OnRefreshListener() {
+
+					public void onRefresh() {
+						new GetJSONAsynTackList(ExploreMain.this)
+								.execute(URLString);
+					}
+				});
+
+				// Click event for single list row
+				list.setOnItemClickListener(new OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						Intent it = new Intent(ExploreMain.this, LineMain.class);
+						try {
+							it.putExtra("lineString", jarray.getJSONObject(position).toString());
+						} catch (JSONException e) {
+							Log.v("exploremain", "get onelinejsonobject exception:"+e.toString());
+						}
+						startActivity(it);
+
+					}
+				});
 
 			}
 			list.onRefreshComplete();
@@ -313,9 +345,9 @@ public class ExploreMain extends Activity {
 	 */
 	public void nearmeClicked(View v) {
 		Toast.makeText(this, "nearmebutton clicked", Toast.LENGTH_SHORT).show();
-		Intent it = new Intent(ExploreMain.this,
-				com.sysu.shen.util.GoogleMap.class);
-		startActivity(it);
+		// Intent it = new Intent(ExploreMain.this,
+		// com.sysu.shen.util.GoogleMap.class);
+		// startActivity(it);
 	}
 
 	/**

@@ -63,7 +63,7 @@ public class TextAdapter extends ArrayAdapter<String> {
 	}
 
 	/**
-	 * 设置选中的position,并�?知列表刷�?
+	 * 设置选中的position,并通知知列表刷新
 	 */
 	public void setSelectedPosition(int pos) {
 		if (mListData != null && pos < mListData.size()) {
