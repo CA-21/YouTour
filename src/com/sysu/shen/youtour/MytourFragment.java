@@ -33,16 +33,16 @@ public class MytourFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		//»ñÈ¡fragmentÊÓÍ¼
+		//è·å–fragmentè§†å›¾
 		View v = inflater.inflate(R.layout.main_tab_mytour, container, false);
-		//Ìî³ätabÄÚÈİ
+		//å¡«å……tabå†…å®¹
 		findTabView(v);
 		tabHost.setup();
-		//ÉèÖÃtab¼àÌıÆ÷
+		//è®¾ç½®tabç›‘å¬å™¨
 		TabHost.OnTabChangeListener tabChangeListener = new TabHost.OnTabChangeListener() {
 			@Override
 			public void onTabChanged(String tabId) {
-				//»ñÈ¡×ÓfragmentManager
+				//è·å–å­fragmentManager
 				android.support.v4.app.FragmentManager fm = getChildFragmentManager();
 				downloadFragment = (MytourTabDownload) fm
 						.findFragmentByTag("download");
@@ -123,7 +123,7 @@ public class MytourFragment extends Fragment {
 		};
 		tabHost.setCurrentTab(0);
 		tabHost.setOnTabChangedListener(tabChangeListener);
-		//³õÊ¼»¯tab
+		//åˆå§‹åŒ–tab
 		initTab(v);
 		tabHost.setCurrentTab(0);
 		return v;

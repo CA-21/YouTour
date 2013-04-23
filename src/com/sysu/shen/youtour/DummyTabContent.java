@@ -8,7 +8,6 @@ public class DummyTabContent implements TabContentFactory {
 
 	private Context mContext;
 
-	//构造方法
 	public DummyTabContent(Context context) {
 		mContext = context;
 	}

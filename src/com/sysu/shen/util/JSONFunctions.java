@@ -26,7 +26,7 @@ import android.util.Log;
 public class JSONFunctions {
 
 	/**
-	 * ´Ó·şÎñ¶Ë»ñÈ¡json£¬²¢±£´æ»º´æµ½±¾µØ
+	 * ä»æœåŠ¡ç«¯è·å–jsonï¼Œå¹¶ä¿å­˜ç¼“å­˜åˆ°æœ¬åœ°
 	 * 
 	 * @param URLString
 	 * @return
@@ -37,7 +37,7 @@ public class JSONFunctions {
 		JSONArray jarray = null;
 		// http
 		try {
-			// ´ÓÍøÂç»ñÈ¡json
+			// ä»ç½‘ç»œè·å–json
 
 			URL url = new URL(URLString);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -80,7 +80,7 @@ public class JSONFunctions {
 					"Error parsing data from network: " + e.toString());
 		}
 
-		// °Ñ¸Õ¸ÕµÃµ½µÄjson»º´æµ½±¾µØ
+		// æŠŠåˆšåˆšå¾—åˆ°çš„jsonç¼“å­˜åˆ°æœ¬åœ°
 		try {
 			File cacheDir;
 			if (android.os.Environment.getExternalStorageState().equals(
@@ -110,7 +110,7 @@ public class JSONFunctions {
 	}
 
 	/**
-	 * ´ÓÎÄ¼ş»º´æÖĞ¶ÁÈ¡json
+	 * ä»æ–‡ä»¶ç¼“å­˜ä¸­è¯»å–json
 	 * 
 	 * @param context
 	 * @param URLString
@@ -161,7 +161,7 @@ public class JSONFunctions {
 			lineMap.put("thumbnail", line.getString("coverThumbnail"));
 			Float score = Float.parseFloat(line.getString("totalScore"))
 					/ Float.parseFloat(line.getString("totalPeople"));
-			lineMap.put("score", score/2 + "");
+			lineMap.put("score", score / 2 + "");
 
 		} catch (Exception e) {
 			Log.e("jsonfunction", "analyseJsonexception:" + e.toString());

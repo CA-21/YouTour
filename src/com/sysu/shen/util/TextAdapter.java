@@ -63,7 +63,7 @@ public class TextAdapter extends ArrayAdapter<String> {
 	}
 
 	/**
-	 * 设置选中的position,并�?知列表刷�?
+	 * 设置选中的position,并�?知列表刷�?
 	 */
 	public void setSelectedPosition(int pos) {
 		if (mListData != null && pos < mListData.size()) {
@@ -137,9 +137,9 @@ public class TextAdapter extends ArrayAdapter<String> {
 		view.setTextSize(TypedValue.COMPLEX_UNIT_SP,textSize);
 
 		if (selectedText != null && selectedText.equals(mString)) {
-			view.setBackgroundDrawable(selectedDrawble);//设置选中的背景图�?
+			view.setBackgroundDrawable(selectedDrawble);//设置选中的背景图片
 		} else {
-			view.setBackgroundDrawable(mContext.getResources().getDrawable(normalDrawbleId));//设置未�?中状态背景图�?
+			view.setBackgroundDrawable(mContext.getResources().getDrawable(normalDrawbleId));//设置未选中状态背景图片
 		}
 		view.setPadding(20, 0, 0, 0);
 		view.setOnClickListener(onClickListener);

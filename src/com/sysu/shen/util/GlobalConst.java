@@ -3,10 +3,10 @@ package com.sysu.shen.util;
 public class GlobalConst {
 	public static final String SDCARD_JSONCACHE_DIR = "/youtour/jsoncache";
 	public static final String SDCARD_IMAGECACHE_DIR = "/youtour";
-	public static final String[] TOPIC_ITEMS = new String[] { "È«²¿Ö÷Ìâ", "Éú»î", "×ÔÈ»",
-			"ÈËÎÄ", "ÀúÊ·" };
-	public static final String[] SORT_METHORD = new String[] { "Ä¬ÈÏÅÅĞò", "°´ÂÃ³ÌÊ±¼ä",
-			"°´ÂÃ³Ì¾àÀë", "¼Û¸ñÓÉµÍµ½¸ß", "¼Û¸ñÓÉ¸ßµ½µÍ", "×îĞÂ·¢²¼" };
+	public static final String[] TOPIC_ITEMS = new String[] { "å…¨éƒ¨ä¸»é¢˜", "ç”Ÿæ´»", "è‡ªç„¶",
+			"äººæ–‡", "å†å²" };
+	public static final String[] SORT_METHORD = new String[] { "é»˜è®¤æ’åº", "æŒ‰æ—…ç¨‹æ—¶é—´",
+			"æŒ‰æ—…ç¨‹è·ç¦»", "ä»·æ ¼ç”±ä½åˆ°é«˜", "ä»·æ ¼ç”±é«˜åˆ°ä½", "æœ€æ–°å‘å¸ƒ" };
 	public static final String EXPLORE_PLACE = "roughPlace";
 	public static final String EXPLORE_TOPIC = "throughTopic";
 	public static String EXPLORE_URL="";

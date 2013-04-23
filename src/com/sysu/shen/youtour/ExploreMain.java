@@ -40,8 +40,8 @@ public class ExploreMain extends Activity {
 	private String URLStringTopic = "&topic=";
 	private String URLStringBegin = "&beg=";
 	private String URLStringEnd = "&end=";
-	private String address = "国内全部";
-	private String topic = "全部主题";
+	private String address = "鍥藉唴鍏ㄩ儴";
+	private String topic = "鍏ㄩ儴涓婚";
 	private MyListView list;
 	private Myadapter adapter;
 	private JSONArray jarray;
@@ -67,14 +67,14 @@ public class ExploreMain extends Activity {
 
 	}
 
-	// 处理线程中抛出的massage
+	// 澶勭悊绾跨▼涓姏鍑虹殑massage
 	private Handler mhandle = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case NO_NETWORK:
-				Toast.makeText(ExploreMain.this, "连接网络才能看到更多哦！",
+				Toast.makeText(ExploreMain.this, "杩炴帴缃戠粶鎵嶈兘鐪嬪埌鏇村鍝︼紒",
 						Toast.LENGTH_LONG).show();
 				break;
 
@@ -98,7 +98,7 @@ public class ExploreMain extends Activity {
 		protected Void doInBackground(String... strings) {
 			String URLString = strings[0];
 
-			// 判断是否联网
+			// 鍒ゆ柇鏄惁鑱旂綉
 			final ConnectivityManager conMgr = (ConnectivityManager) activity
 					.getSystemService(Context.CONNECTIVITY_SERVICE);
 			final NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
@@ -168,7 +168,7 @@ public class ExploreMain extends Activity {
 		protected Void doInBackground(String... strings) {
 			String URLString = strings[0];
 
-			// 判断是否联网
+			// 鍒ゆ柇鏄惁鑱旂綉
 			final ConnectivityManager conMgr = (ConnectivityManager) activity
 					.getSystemService(Context.CONNECTIVITY_SERVICE);
 			final NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
@@ -232,9 +232,9 @@ public class ExploreMain extends Activity {
 		mViewArray.add(viewMiddle);
 		mViewArray.add(viewRight);
 		ArrayList<String> mTextArray = new ArrayList<String>();
-		mTextArray.add("区域");
-		mTextArray.add("主题");
-		mTextArray.add("排序");
+		mTextArray.add("鍖哄煙");
+		mTextArray.add("涓婚");
+		mTextArray.add("鎺掑簭");
 		expandTabView.setValue(mTextArray, mViewArray);
 		expandTabView.setTitle(viewLeft.getShowText(), 0);
 		expandTabView.setTitle(viewMiddle.getShowText(), 1);
@@ -248,7 +248,7 @@ public class ExploreMain extends Activity {
 
 			@Override
 			public void getValue(String distance, String showText) {
-				// 填充请求URL
+				// 濉厖璇锋眰URL
 				address = showText;
 				onRefresh(viewMiddle, showText);
 			}
@@ -258,7 +258,7 @@ public class ExploreMain extends Activity {
 
 			@Override
 			public void getValue(String showText) {
-				// 填充请求URL
+				// 濉厖璇锋眰URL
 				topic = showText;
 				onRefresh(viewLeft, showText);
 			}
@@ -282,7 +282,7 @@ public class ExploreMain extends Activity {
 			expandTabView.setTitle(showText, position);
 		}
 		// URLString=URLStringHead+URLStringAddress+address+URLStringTopic+topic+URLStringBegin+"0"+URLStringEnd+"25";
-		// 更新列表
+		// 鏇存柊鍒楄〃
 		new GetJSONAsynTack(this).execute(URLString);
 		Toast.makeText(ExploreMain.this, showText, Toast.LENGTH_SHORT).show();
 
@@ -307,7 +307,7 @@ public class ExploreMain extends Activity {
 	}
 
 	/**
-	 * 点击邻近
+	 * 鐐瑰嚮閭昏繎
 	 * 
 	 * @param v
 	 */
@@ -319,7 +319,7 @@ public class ExploreMain extends Activity {
 	}
 
 	/**
-	 * 点击返回
+	 * 鐐瑰嚮杩斿洖
 	 * 
 	 * @param v
 	 */

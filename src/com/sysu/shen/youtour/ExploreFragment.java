@@ -28,7 +28,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
 public class ExploreFragment extends ListFragment {
-	// 标记没有联网
+	// 鏍囪娌℃湁鑱旂綉
 	public final static int NO_NETWORK = 0;
 	// ListView list;
 	private Myadapter adapter;
@@ -47,14 +47,14 @@ public class ExploreFragment extends ListFragment {
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.main_tab_explore, container, false);
 
-		// 异步更新列表
+		// 寮傛鏇存柊鍒楄〃
 		new GetJSONAsynTack(this.getActivity()).execute(URLString);
 
 		return v;
 
 	}
 
-	// 处理线程中抛出的massage
+	// 澶勭悊绾跨▼涓姏鍑虹殑massage
 	private Handler mhandle = new Handler() {
 
 		@Override
@@ -62,7 +62,7 @@ public class ExploreFragment extends ListFragment {
 			switch (msg.what) {
 			case NO_NETWORK:
 				Toast.makeText(ExploreFragment.this.getActivity(),
-						"连接网络才能看到更多哦！", Toast.LENGTH_LONG).show();
+						"杩炴帴缃戠粶鎵嶈兘鐪嬪埌鏇村鍝︼紒", Toast.LENGTH_LONG).show();
 				break;
 
 			default:
@@ -85,7 +85,7 @@ public class ExploreFragment extends ListFragment {
 		protected Void doInBackground(String... strings) {
 			String URLString = strings[0];
 
-			// 判断是否联网
+			// 鍒ゆ柇鏄惁鑱旂綉
 			final ConnectivityManager conMgr = (ConnectivityManager) activity
 					.getSystemService(Context.CONNECTIVITY_SERVICE);
 			final NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
@@ -121,12 +121,12 @@ public class ExploreFragment extends ListFragment {
 				setListAdapter(adapter);
 				getListView().setOnItemClickListener(new OnItemClickListener() {
 
-			        public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-			                long arg3) {
-			            // TODO Auto-generated method stub
+					public void onItemClick(AdapterView<?> arg0, View arg1,
+							int arg2, long arg3) {
+						// TODO Auto-generated method stub
 
-			        }
-			    });
+					}
+				});
 
 			}
 			super.onPostExecute(result);

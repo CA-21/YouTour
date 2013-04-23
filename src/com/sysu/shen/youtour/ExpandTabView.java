@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 /**
- * 菜单控件头部，封装了下拉动画，动态生成头部按钮个�?
+ * 菜单控件头部，封装了下拉动画，动态生成头部按钮个数 
  * 
  * @author yueyueniao
  */
@@ -44,7 +44,7 @@ public class ExpandTabView extends LinearLayout implements OnDismissListener {
 	}
 
 	/**
-	 * 根据选择的位置设置tabitem显示的�?
+	 * 根据选择的位置设置tabitem显示的文字
 	 */
 	public void setTitle(String valueText, int position) {
 		if (position < mToggleButton.size()) {
@@ -75,7 +75,7 @@ public class ExpandTabView extends LinearLayout implements OnDismissListener {
 	}
 
 	/**
-	 * 设置tabitem的个数和初始�?
+	 * 设置tabitem的个数和初始化
 	 */
 	public void setValue(ArrayList<String> textArray, ArrayList<View> viewArray) {
 		if (mContext == null) {
@@ -177,7 +177,7 @@ public class ExpandTabView extends LinearLayout implements OnDismissListener {
 	}
 
 	/**
-	 * 如果菜单成展�?��态，则让菜单收回�?
+	 * 如果菜单成展开状态，则让菜单收回
 	 */
 	public boolean onPressBack() {
 		if (popupWindow != null && popupWindow.isShowing()) {
@@ -219,7 +219,7 @@ public class ExpandTabView extends LinearLayout implements OnDismissListener {
 	private OnButtonClickListener mOnButtonClickListener;
 
 	/**
-	 * 设置tabitem的点击监听事�?
+	 * 设置tabitem的点击监听事件
 	 */
 	public void setOnButtonClickListener(OnButtonClickListener l) {
 		mOnButtonClickListener = l;
