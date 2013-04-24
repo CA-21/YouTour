@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.sysu.shen.util.JSONFunctions;
@@ -121,9 +122,18 @@ public class ExploreFragment extends ListFragment {
 				setListAdapter(adapter);
 				getListView().setOnItemClickListener(new OnItemClickListener() {
 
-					public void onItemClick(AdapterView<?> arg0, View arg1,
-							int arg2, long arg3) {
-						// TODO Auto-generated method stub
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						Intent it = new Intent(getActivity().getBaseContext(), LineMain.class);
+						try {
+							it.putExtra("lineString",
+									jarray.getJSONObject(position).toString());
+						} catch (JSONException e) {
+							Log.v("exploreFragment",
+									"get onelinejsonobject exception:"
+											+ e.toString());
+						}
+						startActivity(it);
 
 					}
 				});

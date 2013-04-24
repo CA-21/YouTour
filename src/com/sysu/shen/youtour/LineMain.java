@@ -14,7 +14,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 public class LineMain extends Activity {
-	private ImageLoader imageLoader;
+	private ImageLoader imageLoader1;
+	private ImageLoader imageLoader2;
 	private ImageView lineThumb;
 	private TextView lineAddress;
 	private TextView lineTitle;
@@ -42,14 +43,15 @@ public class LineMain extends Activity {
 		try {
 			lineJson = new JSONObject(lineString);
 		} catch (JSONException e) {
-			Log.v("linemain", "praselinejsonerror:" + e.toString());
+			Log.e("linemain", "praselinejsonerror:" + e.toString());
 		}
 		initView();
 		initValue();
 	}
 
 	private void initView() {
-		imageLoader = new ImageLoader(this.getApplicationContext());
+		imageLoader1 = new ImageLoader(this.getApplicationContext());
+		imageLoader2 = new ImageLoader(this.getApplicationContext());
 		lineThumb = (ImageView) findViewById(R.id.line_image);
 		lineTitle = (TextView) findViewById(R.id.title);
 		lineAddress = (TextView) findViewById(R.id.adress);
@@ -68,10 +70,10 @@ public class LineMain extends Activity {
 
 	private void initValue() {
 		try {
-			imageLoader.DisplayImage(lineJson.getString("coverThumbnail"),
+			imageLoader1.DisplayImage(lineJson.getString("coverThumbnail"),
 					lineThumb);
-			// imageLoader.DisplayImage(lineJson.getString("authorThumb"),
-			// authorThumb);
+			imageLoader2.DisplayImage(lineJson.getString("authorThumb"),
+					authorThumb);
 			lineAddress.setText(lineJson.getString("address"));
 			lineTitle.setText(lineJson.getString("lineName"));
 			Float score = Float.parseFloat(lineJson.getString("totalScore"))

@@ -88,7 +88,7 @@
                     android:layout_toRightOf="@id/thumbnail"
                     android:text="中国广州"
                     android:textColor="@color/black"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/title"
@@ -102,7 +102,8 @@
                     android:text="广州大学城四日游"
                     android:textColor="@color/black"
                     android:textSize="17sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    />
 
                 <RatingBar
                     android:id="@+id/rating_bar"
@@ -118,18 +119,16 @@
                 <Button
                     android:id="@+id/price_text"
                     android:layout_width="wrap_content"
-                    android:layout_height="25dp"
+                    android:layout_height="30dp"
                     android:layout_alignBottom="@+id/thumbnail"
                     android:layout_alignLeft="@+id/title"
-                    android:background="@color/orange"
+                    android:background="@drawable/selector_list2"
                     android:onClick="stopDetailClicked"
-                    android:paddingBottom="5dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-                    android:paddingTop="5dp"
                     android:text="@string/more"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
             </RelativeLayout>
 
             <LinearLayout
@@ -141,8 +140,7 @@
                 android:orientation="horizontal"
                 android:paddingBottom="5dp"
                 android:paddingLeft="15dp"
-                android:paddingTop="5dp"
-                 >
+                android:paddingTop="5dp" >
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -216,16 +214,17 @@
                 android:padding="10dp"
                 android:text="线路简介"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="17sp" 
+                />
 
             <RelativeLayout
                 android:id="@+id/author"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginBottom="25dp"
                 android:background="@color/white" >
 
                 <LinearLayout
@@ -253,7 +252,7 @@
                     android:layout_toRightOf="@id/author_thumbnail"
                     android:text="李某某"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/autor_type"
@@ -268,7 +267,7 @@
                     android:padding="5dp"
                     android:text="执业导游"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/author_bio"
@@ -279,7 +278,8 @@
                     android:layout_toRightOf="@id/author_thumbnail"
                     android:text="一个喜欢周游世界的人"
                     android:textColor="@color/black"
-                    android:textSize="13sp" />
+                    android:textSize="14sp" 
+                    android:layout_toLeftOf="@id/autor_type"/>
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
