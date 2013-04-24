@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import com.sysu.shen.util.ImageLoader;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -131,7 +132,14 @@ public class LineMain extends Activity {
 	 * @param v
 	 */
 	public void stopDetailClicked(View v) {
-
+		Intent it = new Intent(LineMain.this, StopsList.class);
+		try {
+			it.putExtra("stopJArray", lineJson.getJSONArray("stops").toString());
+			it.putExtra("lineName", lineTitle.getText());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		startActivity(it);
 	}
 
 	/**

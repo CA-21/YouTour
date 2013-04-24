@@ -43,12 +43,11 @@
     </RelativeLayout>
     
      <ListView
-        android:id="@+id/android:list"
+        android:id="@+id/stop_list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:divider="#b5b5b5"
-        android:dividerHeight="1dp"
         android:listSelector="@drawable/selector_list" />
 
 </LinearLayout>
