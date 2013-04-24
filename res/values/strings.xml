@@ -33,6 +33,7 @@
     <string name="no_data">找不到更多信息</string>
     <string name="discover">发现探索</string>
     <string name="line_detail">线路信息</string>
-    <string name="more">浏览更多</string>
+    <string name="more">浏览站点</string>
     <string name="author_other">浏览作者其他作品</string>
+    <string name="tourStops">地标景点</string>
 </resources>

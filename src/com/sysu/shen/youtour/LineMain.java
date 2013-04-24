@@ -79,7 +79,7 @@ public class LineMain extends Activity {
 			Float score = Float.parseFloat(lineJson.getString("totalScore"))
 					/ Float.parseFloat(lineJson.getString("totalPeople"));
 			rateBar.setRating(score / 2);
-			lineSummary.setText(lineJson.getString("lineSummary"));
+			lineSummary.setText("\t"+lineJson.getString("lineSummary"));
 			int stopNumInt = lineJson.getJSONArray("stops").length();
 			stopNum.setText(stopNumInt + "");
 			lineTime.setText(timeConvert(Integer.parseInt(lineJson
