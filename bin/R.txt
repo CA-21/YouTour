@@ -238,7 +238,7 @@ int id rating_bar 0x7f050014
 int id realtabcontent 0x7f050005
 int id searchBtton 0x7f050023
 int id share 0x7f050032
-int id stopDetail 0x7f050033
+int id stop_detail 0x7f050033
 int id stop_image 0x7f050035
 int id stop_list 0x7f05003a
 int id stop_name 0x7f05002c
