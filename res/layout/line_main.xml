@@ -7,14 +7,14 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="45dp"
+        android:layout_height="50dp"
         android:background="@color/grey"
         android:gravity="center_vertical" >
 
         <ImageButton
             android:id="@+id/backBtton"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:background="@color/orange"
@@ -31,8 +31,8 @@
 
         <ImageButton
             android:id="@+id/collectBttonClicked"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:background="@color/orange"
