@@ -1,28 +1,29 @@
 package com.sysu.shen.youtour;
 
+import java.util.ArrayList;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import com.viewpagerindicator.IconPagerAdapter;
 
-class TestFragmentAdapter extends FragmentPagerAdapter implements
+class StopMainFragmentAdapter extends FragmentPagerAdapter implements
 		IconPagerAdapter {
-	private int[] Images = new int[] { R.drawable.blue,
-			R.drawable.green,
-			R.drawable.red,
-			R.drawable.yellow
+	
+	private ArrayList<String> images = new ArrayList<String>();
 
-	};
+	private int mCount;
 
-	private int mCount = Images.length;
-
-	public TestFragmentAdapter(FragmentManager fm) {
+	
+	public StopMainFragmentAdapter(FragmentManager fm,ArrayList<String> stopImagesArray) {
 		super(fm);
+		images = stopImagesArray;
+		mCount = images.size();
 	}
 
 	@Override
 	public Fragment getItem(int position) {
-		return TestFragment.newInstance(Images[position]);
+		return StopImageFragment.newInstance(images.get(position));
 	}
 
 	@Override

@@ -52,7 +52,7 @@
             android:theme="@style/CustomNotitle" >
         </activity>
         <activity
-            android:name="com.sysu.shen.youtour.SampleCirclesSnap"
+            android:name="com.sysu.shen.youtour.StopMain"
             android:theme="@style/CustomNotitle" >
         </activity>
 

@@ -81,14 +81,9 @@ public class StopsList extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Intent it = new Intent(StopsList.this, SampleCirclesSnap.class);
-				try {
-					it.putExtra("stopString",
-							stopsJArray.getJSONObject(position-1).toString());
-				} catch (JSONException e) {
-					Log.e("stopslist",
-							"get onelinejsonobject exception:" + e.toString());
-				}
+				Intent it = new Intent(StopsList.this, StopMain.class);
+				it.putExtra("stopsJarray", stopsJArray.toString());
+				it.putExtra("position", position+"");
 				startActivity(it);
 
 			}

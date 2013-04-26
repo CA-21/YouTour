@@ -13,7 +13,7 @@ import android.widget.Toast;
 public abstract class BaseSampleActivity extends FragmentActivity {
     private static final Random RANDOM = new Random();
 
-    TestFragmentAdapter mAdapter;
+    StopMainFragmentAdapter mAdapter;
     ViewPager mPager;
     PageIndicator mIndicator;
 

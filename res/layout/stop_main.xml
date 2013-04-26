@@ -59,20 +59,21 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="fill_parent"
-        android:layout_height="150dp"
+        android:layout_height="170dp"
         android:background="@color/background" />
 
     <com.viewpagerindicator.CirclePageIndicator
         android:id="@+id/indicator"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background"
+        android:background="@color/grey"
         android:padding="5dip" />
 
     <MediaController
         android:id="@+id/mediaController"
         android:layout_width="match_parent"
-        android:layout_height="50dp" >
+        android:layout_height="35dp"
+        android:background="@color/grey" >
     </MediaController>
 
     <RelativeLayout

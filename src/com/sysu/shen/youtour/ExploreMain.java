@@ -35,7 +35,7 @@ public class ExploreMain extends Activity {
 	private ViewRight viewRight;
 	private Boolean isFromPlace = false;
 	private Boolean isFromTopic = false;
-	private String URLString = "http://172.18.217.231:3000/androidtest";
+	private String URLString = GlobalConst.EXPLORE_URL;
 	private String URLStringHead = "http://youtour.com/browsebyaddresstopic?";
 	private String URLStringAddress = "address=";
 	private String URLStringTopic = "&topic=";

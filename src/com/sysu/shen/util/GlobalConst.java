@@ -9,6 +9,6 @@ public class GlobalConst {
 			"按旅程距离", "价格由低到高", "价格由高到低", "最新发布" };
 	public static final String EXPLORE_PLACE = "roughPlace";
 	public static final String EXPLORE_TOPIC = "throughTopic";
-	public static String EXPLORE_URL="";
+	public static String EXPLORE_URL="http://172.18.219.95:3000/androidtest";
 
 }

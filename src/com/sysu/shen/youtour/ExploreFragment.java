@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.sysu.shen.util.GlobalConst;
 import com.sysu.shen.util.JSONFunctions;
 import com.sysu.shen.util.Myadapter;
 
@@ -34,7 +35,7 @@ public class ExploreFragment extends ListFragment {
 	// ListView list;
 	private Myadapter adapter;
 	private JSONArray jarray;
-	String URLString = "http://172.18.217.231:3000/androidtest";
+	String URLString = GlobalConst.EXPLORE_URL;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
