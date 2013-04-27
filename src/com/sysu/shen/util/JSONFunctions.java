@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
@@ -40,7 +41,9 @@ public class JSONFunctions {
 			// 从网络获取json
 
 			URL url = new URL(URLString);
+			Log.i("jsonrequesturl", url.toString());
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");
 
@@ -155,7 +158,7 @@ public class JSONFunctions {
 	public static HashMap<String, String> praseJSONToMap(JSONObject line) {
 		HashMap<String, String> lineMap = new HashMap<String, String>();
 		try {
-			lineMap.put("address", line.getString("address"));
+			lineMap.put("address", line.getString("mapAddress"));
 			lineMap.put("title", line.getString("lineName"));
 			lineMap.put("thumbnail", line.getString("coverThumbnail"));
 			Float score = Float.parseFloat(line.getString("totalScore"))

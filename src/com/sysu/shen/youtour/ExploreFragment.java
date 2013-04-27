@@ -35,7 +35,9 @@ public class ExploreFragment extends ListFragment {
 	// ListView list;
 	private Myadapter adapter;
 	private JSONArray jarray;
-	String URLString = GlobalConst.EXPLORE_URL;
+	String URLString = "";
+	private String URLStringBegin = "beg=";
+	private String URLStringEnd = "end=";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,8 +51,11 @@ public class ExploreFragment extends ListFragment {
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.main_tab_explore, container, false);
 
+		URLString = GlobalConst.URL_HAEDER_ALL + URLStringBegin + "0" + "&"
+				+ URLStringEnd + "25";
 		// 异步更新列表
 		new GetJSONAsynTack(this.getActivity()).execute(URLString);
+		Log.i("mainRequestURL", URLString);
 
 		return v;
 

@@ -10,5 +10,9 @@ public class GlobalConst {
 	public static final String EXPLORE_PLACE = "roughPlace";
 	public static final String EXPLORE_TOPIC = "throughTopic";
 	public static String EXPLORE_URL="http://172.18.219.95:3000/androidtest";
+	public static final String URL_HEADER_ADDTOP="http://172.18.63.104:3000/browsebyaddresstopic?";
+	public static final String URL_HAEDER_ADD="http://172.18.63.104:3000/browsebyaddress?";
+	public static final String URL_HAEDER_TOP="http://172.18.63.104:3000/browsebytopic?";
+	public static final String URL_HAEDER_ALL="http://172.18.63.104:3000/browseallbytime?";
 
 }

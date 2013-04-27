@@ -1,5 +1,6 @@
 package com.sysu.shen.youtour;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -35,12 +36,11 @@ public class ExploreMain extends Activity {
 	private ViewRight viewRight;
 	private Boolean isFromPlace = false;
 	private Boolean isFromTopic = false;
-	private String URLString = GlobalConst.EXPLORE_URL;
-	private String URLStringHead = "http://youtour.com/browsebyaddresstopic?";
+	private String URLString = "";
 	private String URLStringAddress = "address=";
-	private String URLStringTopic = "&topic=";
-	private String URLStringBegin = "&beg=";
-	private String URLStringEnd = "&end=";
+	private String URLStringTopic = "topic=";
+	private String URLStringBegin = "beg=";
+	private String URLStringEnd = "end=";
 	private String address = "国内全部";
 	private String topic = "全部主题";
 	private MyListView list;
@@ -151,7 +151,8 @@ public class ExploreMain extends Activity {
 						Intent it = new Intent(ExploreMain.this, LineMain.class);
 						try {
 							it.putExtra("lineString",
-									jarray.getJSONObject(position-1).toString());
+									jarray.getJSONObject(position - 1)
+											.toString());
 						} catch (JSONException e) {
 							Log.v("exploremain",
 									"get onelinejsonobject exception:"
@@ -260,7 +261,7 @@ public class ExploreMain extends Activity {
 			@Override
 			public void getValue(String distance, String showText) {
 				// 填充请求URL
-				address = showText;
+				topic = showText;
 				onRefresh(viewMiddle, showText);
 			}
 		});
@@ -270,7 +271,7 @@ public class ExploreMain extends Activity {
 			@Override
 			public void getValue(String showText) {
 				// 填充请求URL
-				topic = showText;
+				address = showText;
 				onRefresh(viewLeft, showText);
 			}
 		});
@@ -292,10 +293,36 @@ public class ExploreMain extends Activity {
 		if (position >= 0 && !expandTabView.getTitle(position).equals(showText)) {
 			expandTabView.setTitle(showText, position);
 		}
-		// URLString=URLStringHead+URLStringAddress+address+URLStringTopic+topic+URLStringBegin+"0"+URLStringEnd+"25";
+		try {
+			if (address.equals("国内全部") && !topic.equals("全部主题"))
+				URLString = GlobalConst.URL_HAEDER_TOP + URLStringTopic
+						+ URLEncoder.encode(topic, "UTF-8") + "&"
+						+ URLStringBegin + "0" + "&" + URLStringEnd + "25";
+			
+			else if (topic.equals("全部主题") && !address.equals("国内全部"))
+				URLString = GlobalConst.URL_HAEDER_ADD + URLStringAddress
+						+ URLEncoder.encode(address, "UTF-8") + "&"
+						+ URLStringBegin + "0" + "&" + URLStringEnd + "25";
+			
+			else if (topic.equals("全部主题") && address.equals("国内全部"))
+				URLString = GlobalConst.URL_HAEDER_ALL + URLStringBegin + "0"
+						+ "&" + URLStringEnd + "25";
+			
+			else if (!topic.equals("全部主题") && !address.equals("国内全部"))
+				URLString = GlobalConst.URL_HEADER_ADDTOP + URLStringAddress
+						+ URLEncoder.encode(address, "UTF-8") + "&"
+						+ URLStringTopic + URLEncoder.encode(topic, "UTF-8")
+						+ "&" + URLStringBegin + "0" + "&" + URLStringEnd
+						+ "25";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		// 更新列表
 		new GetJSONAsynTack(this).execute(URLString);
-		Toast.makeText(ExploreMain.this, showText, Toast.LENGTH_SHORT).show();
+		Toast.makeText(ExploreMain.this,
+				"address:" + address + " topic:" + topic, Toast.LENGTH_SHORT)
+				.show();
+		Log.i("requestURL: ", URLString);
 
 	}
 

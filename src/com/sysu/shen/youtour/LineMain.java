@@ -73,9 +73,9 @@ public class LineMain extends Activity {
 		try {
 			imageLoader1.DisplayImage(lineJson.getString("coverThumbnail"),
 					lineThumb);
-			imageLoader2.DisplayImage(lineJson.getString("authorThumb"),
+			imageLoader2.DisplayImage(lineJson.getString("authorImage"),
 					authorThumb);
-			lineAddress.setText(lineJson.getString("address"));
+			lineAddress.setText(lineJson.getString("mapAddress"));
 			lineTitle.setText(lineJson.getString("lineName"));
 			Float score = Float.parseFloat(lineJson.getString("totalScore"))
 					/ Float.parseFloat(lineJson.getString("totalPeople"));
@@ -90,6 +90,7 @@ public class LineMain extends Activity {
 			authorName.setText(lineJson.getString("author"));
 			authorBio.setText(lineJson.getString("authorBio"));
 			authorType.setText(lineJson.getString("authorType"));
+//			Log.i("lineJson", lineJson.toString());
 
 		} catch (JSONException e) {
 			Log.v("linemain", "jsonegeterroe" + e.toString());

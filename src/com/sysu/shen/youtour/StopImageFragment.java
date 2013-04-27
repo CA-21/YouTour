@@ -52,51 +52,51 @@ public final class StopImageFragment extends Fragment {
 				LayoutParams.MATCH_PARENT));
 		layout.setGravity(Gravity.CENTER);
 		layout.addView(image);
-		//判断是否wifi环境
-		ConnectivityManager connManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-		if (mWifi.isConnected()) {
-			new DownloadImageTask(image).execute(imageResourceUrl);
-		}
-		else{
-			imageLoader = new ImageLoader(getActivity());
-			imageLoader.DisplayImage(imageResourceUrl, image);
-		}
-		
+		// 判断是否wifi环境
+		// ConnectivityManager connManager = (ConnectivityManager)
+		// getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+		// NetworkInfo mWifi =
+		// connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+		// if (mWifi.isConnected()) {
+		// new DownloadImageTask(image).execute(imageResourceUrl);
+		// }
+		// else{
+		imageLoader = new ImageLoader(getActivity());
+		imageLoader.DisplayImage(imageResourceUrl, image);
+		// }
 
 		return layout;
 	}
-	
+
 	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-	    ImageView bmImage;
+		ImageView bmImage;
 
-	    public DownloadImageTask(ImageView bmImage) {
-	        this.bmImage = bmImage;
-	    }
-	    
+		public DownloadImageTask(ImageView bmImage) {
+			this.bmImage = bmImage;
+		}
 
-	    @Override
+		@Override
 		protected void onPreExecute() {
 			bmImage.setImageResource(R.drawable.loding_image);
 		}
 
-
 		protected Bitmap doInBackground(String... urls) {
-	        String urldisplay = urls[0];
-	        Bitmap mIcon11 = null;
-	        try {
-	            InputStream in = new java.net.URL(urldisplay).openStream();
-	            mIcon11 = BitmapFactory.decodeStream(in);
-	        } catch (Exception e) {
-	            Log.e("Error", e.getMessage());
-	            Toast.makeText(getActivity(), "网络连接出现问题了T^T", Toast.LENGTH_SHORT).show();
-	            e.printStackTrace();
-	        }
-	        return mIcon11;
-	    }
+			String urldisplay = urls[0];
+			Bitmap mIcon11 = null;
+			try {
+				InputStream in = new java.net.URL(urldisplay).openStream();
+				mIcon11 = BitmapFactory.decodeStream(in);
+			} catch (Exception e) {
+				Log.e("Error", e.getMessage());
+				Toast.makeText(getActivity(), "网络连接出现问题了T^T",
+						Toast.LENGTH_SHORT).show();
+				e.printStackTrace();
+			}
+			return mIcon11;
+		}
 
-	    protected void onPostExecute(Bitmap result) {
-	        bmImage.setImageBitmap(result);
-	    }
+		protected void onPostExecute(Bitmap result) {
+			bmImage.setImageBitmap(result);
+		}
 	}
 }
