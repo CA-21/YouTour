@@ -74,7 +74,7 @@ public class StopsList extends Activity {
 		}
 		myadapter = new StopListAdapter(this, mylist);
 
-		list.addHeaderView(header);
+		list.addHeaderView(header, null, false);
 		list.setAdapter(myadapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
 

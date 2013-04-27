@@ -65,11 +65,11 @@ public class JSONFunctions {
 
 		} catch (MalformedURLException e) {
 
-			Log.e("jsonfucntion", "Error MalformedURLException " + e.toString());
+			e.printStackTrace();
 
 		} catch (IOException e) {
 
-			Log.e("jsonfucntion", "Error IOException: " + e.toString());
+			e.printStackTrace();
 
 		}
 
@@ -103,7 +103,7 @@ public class JSONFunctions {
 
 			f.close();
 		} catch (Exception e) {
-			Log.e("jsonfucntion", "Error cache json file: " + e.toString());
+			e.printStackTrace();
 		}
 
 		return jarray;
@@ -141,13 +141,12 @@ public class JSONFunctions {
 			/* Instead of using default, pass in a decoder. */
 			result = Charset.defaultCharset().decode(bb).toString();
 		} catch (Exception e) {
-			Log.e("jsonfucntion", "Error read cachedjsonfile: " + e.toString());
+			e.printStackTrace();
 		}
 		try {
 			jarray = new JSONArray(result);
 		} catch (JSONException e) {
-			Log.e("jsonfucntion",
-					"Error parsing data form file: " + e.toString());
+			e.printStackTrace();
 		}
 
 		return jarray;
@@ -164,7 +163,7 @@ public class JSONFunctions {
 			lineMap.put("score", score / 2 + "");
 
 		} catch (Exception e) {
-			Log.e("jsonfunction", "analyseJsonexception:" + e.toString());
+			e.printStackTrace();
 		}
 		return lineMap;
 

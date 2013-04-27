@@ -8,14 +8,14 @@
     <RelativeLayout
         android:id="@+id/title"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:background="@color/grey"
         android:gravity="center_vertical" >
 
         <ImageButton
             android:id="@+id/nextBtton"
-            android:layout_width="30dp"
-            android:layout_height="50dp"
+            android:layout_width="25dp"
+            android:layout_height="45dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_margin="5dp"
@@ -25,11 +25,10 @@
 
         <ImageButton
             android:id="@+id/preBtton"
-            android:layout_width="30dp"
-            android:layout_height="50dp"
+            android:layout_width="25dp"
+            android:layout_height="45dp"
             android:layout_alignParentTop="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_margin="5dp"
             android:layout_toLeftOf="@id/nextBtton"
             android:background="@color/orange"
             android:onClick="prebuttonClicked"
@@ -37,8 +36,8 @@
 
         <ImageButton
             android:id="@+id/backBtton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:background="@color/orange"
@@ -59,7 +58,7 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="fill_parent"
-        android:layout_height="170dp"
+        android:layout_height="180dp"
         android:background="@color/background" />
 
     <com.viewpagerindicator.CirclePageIndicator
@@ -72,7 +71,7 @@
     <MediaController
         android:id="@+id/mediaController"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="30dp"
         android:background="@color/grey" >
     </MediaController>
 
