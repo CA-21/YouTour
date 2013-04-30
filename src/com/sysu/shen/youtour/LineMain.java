@@ -6,7 +6,13 @@ import org.json.JSONObject;
 import com.sysu.shen.util.ImageLoader;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -80,7 +86,7 @@ public class LineMain extends Activity {
 			Float score = Float.parseFloat(lineJson.getString("totalScore"))
 					/ Float.parseFloat(lineJson.getString("totalPeople"));
 			rateBar.setRating(score / 2);
-			lineSummary.setText("\t"+lineJson.getString("lineSummary"));
+			lineSummary.setText("\t" + lineJson.getString("lineSummary"));
 			int stopNumInt = lineJson.getJSONArray("stops").length();
 			stopNum.setText(stopNumInt + "");
 			lineTime.setText(timeConvert(Integer.parseInt(lineJson
@@ -90,7 +96,7 @@ public class LineMain extends Activity {
 			authorName.setText(lineJson.getString("author"));
 			authorBio.setText(lineJson.getString("authorBio"));
 			authorType.setText(lineJson.getString("authorType"));
-//			Log.i("lineJson", lineJson.toString());
+			// Log.i("lineJson", lineJson.toString());
 
 		} catch (JSONException e) {
 			Log.v("linemain", "jsonegeterroe" + e.toString());
@@ -133,14 +139,59 @@ public class LineMain extends Activity {
 	 * @param v
 	 */
 	public void stopDetailClicked(View v) {
-		Intent it = new Intent(LineMain.this, StopsList.class);
-		try {
-			it.putExtra("stopJArray", lineJson.getJSONArray("stops").toString());
-			it.putExtra("lineName", lineTitle.getText());
-		} catch (JSONException e) {
-			e.printStackTrace();
+		// 判断是否wifi环境
+		ConnectivityManager connManager = (ConnectivityManager) this
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo mobileCon = connManager
+				.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+		if (mobileCon.isConnected()) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setIcon(android.R.drawable.ic_dialog_info);
+			builder.setTitle("设置WIFI更精彩");
+			builder.setMessage("小游检测到您正使用移动网络，站点包括很多图片和音频哦，还是设置一下WIFI吧！");
+			builder.setPositiveButton("马上设置",
+					new DialogInterface.OnClickListener() {
+
+				public void onClick(DialogInterface dialog, int whichButton) {
+                    final Intent intent = new Intent(Intent.ACTION_MAIN, null);
+                    intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                    final ComponentName cn = new ComponentName("com.android.settings", "com.android.settings.wifi.WifiSettings");
+                    intent.setComponent(cn);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity( intent);
+                }
+					});
+			builder.setNegativeButton("继续浏览",
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.cancel();
+							Intent it = new Intent(LineMain.this, StopsList.class);
+							try {
+								it.putExtra("stopJArray", lineJson.getJSONArray("stops")
+										.toString());
+								it.putExtra("lineName", lineTitle.getText());
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+							startActivity(it);
+						}
+					});
+			builder.create();
+			builder.show();
+		} else {
+			Intent it = new Intent(LineMain.this, StopsList.class);
+			try {
+				it.putExtra("stopJArray", lineJson.getJSONArray("stops")
+						.toString());
+				it.putExtra("lineName", lineTitle.getText());
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			startActivity(it);
 		}
-		startActivity(it);
+
 	}
 
 	/**
