@@ -22,6 +22,7 @@
             android:layout_centerVertical="true"
             android:background="@drawable/number"
             android:gravity="center"
+            android:layout_marginLeft="3dp"
             android:text="1"
             android:textColor="@color/white"
             android:textSize="14sp"

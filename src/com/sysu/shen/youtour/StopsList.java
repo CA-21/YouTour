@@ -27,6 +27,7 @@ public class StopsList extends Activity {
 	private JSONArray stopsJArray;
 	private String stopString;
 	private View header;
+	private View footer;
 	private String lineNameString;
 
 	@Override
@@ -48,6 +49,7 @@ public class StopsList extends Activity {
 	private void initView() {
 		lineName = (TextView) findViewById(R.id.line_name);
 		header = getLayoutInflater().inflate(R.layout.stopheader, null);
+		footer = getLayoutInflater().inflate(R.layout.stopfooter, null);
 		list = (ListView) findViewById(R.id.stop_list);
 
 	}
@@ -75,6 +77,7 @@ public class StopsList extends Activity {
 		myadapter = new StopListAdapter(this, mylist);
 
 		list.addHeaderView(header, null, false);
+		list.addFooterView(footer, null, false);
 		list.setAdapter(myadapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
 
