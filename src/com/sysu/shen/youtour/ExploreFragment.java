@@ -12,6 +12,7 @@ import com.sysu.shen.util.JSONFunctions;
 import com.sysu.shen.util.Myadapter;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -38,6 +39,9 @@ public class ExploreFragment extends ListFragment {
 	String URLString = "";
 	private String URLStringBegin = "beg=";
 	private String URLStringEnd = "end=";
+	private final int LOADING = 1;
+	private final int LOADED = 2;
+	private ProgressDialog mProgressDialog;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -71,7 +75,15 @@ public class ExploreFragment extends ListFragment {
 				Toast.makeText(ExploreFragment.this.getActivity(),
 						"连接网络才能看到更多哦！", Toast.LENGTH_LONG).show();
 				break;
-
+			case LOADING:
+				mProgressDialog = new ProgressDialog(ExploreFragment.this.getActivity());
+				mProgressDialog.setTitle("正在加载…"); // 设置标题
+				mProgressDialog.setMessage("最新内容马上为你呈现"); // 设置body信息
+				mProgressDialog.show();
+				break;
+			case LOADED:
+				mProgressDialog.dismiss();
+				break;
 			default:
 				break;
 			}
@@ -90,6 +102,9 @@ public class ExploreFragment extends ListFragment {
 
 		@Override
 		protected Void doInBackground(String... strings) {
+			Message m = new Message();
+			m.what = LOADING;
+			mhandle.sendMessage(m);
 			String URLString = strings[0];
 
 			// 判断是否联网
@@ -99,9 +114,9 @@ public class ExploreFragment extends ListFragment {
 			if (activeNetwork != null && activeNetwork.isConnected()) {
 				jarray = JSONFunctions.getJsonFromNetwork(activity, URLString);
 			} else {
-				Message m = new Message();
-				m.what = NO_NETWORK;
-				mhandle.sendMessage(m);
+				Message m1 = new Message();
+				m1.what = NO_NETWORK;
+				mhandle.sendMessage(m1);
 				jarray = JSONFunctions.getJSONFromFile(activity, URLString);
 			}
 
@@ -130,7 +145,8 @@ public class ExploreFragment extends ListFragment {
 
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
-						Intent it = new Intent(getActivity().getBaseContext(), LineMain.class);
+						Intent it = new Intent(getActivity().getBaseContext(),
+								LineMain.class);
 						try {
 							it.putExtra("lineString",
 									jarray.getJSONObject(position).toString());
@@ -145,6 +161,9 @@ public class ExploreFragment extends ListFragment {
 				});
 
 			}
+			Message m = new Message();
+			m.what = LOADED;
+			mhandle.sendMessage(m);
 			super.onPostExecute(result);
 		}
 	}

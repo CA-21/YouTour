@@ -8,14 +8,14 @@
     <RelativeLayout
         android:id="@+id/title"
         android:layout_width="fill_parent"
-        android:layout_height="45dp"
+        android:layout_height="50dp"
         android:background="@color/grey"
         android:gravity="center_vertical" >
 
         <ImageButton
             android:id="@+id/nextBtton"
             android:layout_width="25dp"
-            android:layout_height="45dp"
+            android:layout_height="50dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_margin="5dp"
@@ -26,7 +26,7 @@
         <ImageButton
             android:id="@+id/preBtton"
             android:layout_width="25dp"
-            android:layout_height="45dp"
+            android:layout_height="50dp"
             android:layout_alignParentTop="true"
             android:layout_margin="5dp"
             android:layout_toLeftOf="@id/nextBtton"
@@ -36,8 +36,8 @@
 
         <ImageButton
             android:id="@+id/backBtton"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:background="@color/orange"
@@ -87,27 +87,75 @@
                 android:layout_below="@id/indicator"
                 android:background="@color/grey" >
 
+                <ImageView
+                    android:id="@+id/orangetop"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@color/orange" />
+
                 <ImageButton
                     android:id="@+id/btn_play"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
                     android:layout_alignParentLeft="true"
+                    android:layout_below="@id/orangetop"
                     android:layout_centerVertical="true"
-                    android:background="@color/grey"
-                    android:src="@drawable/play_w" 
-                    android:onClick="playMusic"/>
+                    android:background="@color/orange"
+                    android:onClick="playMusic"
+                    android:src="@drawable/play_w" />
+
+                <TextView
+                    android:id="@+id/songCurrentDurationLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_toRightOf="@id/btn_play"
+                    android:gravity="left"
+                    android:text="0:0"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+                <!-- Total Duration Label -->
+
+                <TextView
+                    android:id="@+id/songTotalDurationLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="3dp"
+                    android:paddingRight="15dp"
+                    android:text="0:0"
+                    android:textColor="@color/orange"
+                    android:textStyle="bold" />
 
                 <SeekBar
                     android:id="@+id/songProgressBar"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
+                    android:layout_below="@id/songTotalDurationLabel"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="1dp"
                     android:layout_toRightOf="@id/btn_play"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="6dp"
+                    android:paddingLeft="10dp"
                     android:progressDrawable="@drawable/seekbar_progress"
                     android:thumb="@drawable/seek_handler" />
+
+                <ImageView
+                    android:id="@+id/orangebuttom"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_below="@id/btn_play"
+                    android:background="@color/orange" />
+
+                <ImageView
+                    android:id="@+id/musicplayerbuttom"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_below="@id/orangebuttom"
+                    android:background="@color/grey" />
             </RelativeLayout>
 
             <TextView
@@ -131,7 +179,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/mediaPlayer"
                 android:layout_margin="10dp"
-                android:background="@drawable/mapblack"
+                android:background="@drawable/map_btn_bg"
                 android:onClick="mapclicked" />
 
             <ImageView
@@ -141,7 +189,7 @@
                 android:layout_below="@id/mediaPlayer"
                 android:layout_margin="10dp"
                 android:layout_toLeftOf="@id/map"
-                android:background="@drawable/share"
+                android:background="@drawable/share_btn_bg"
                 android:onClick="shareclicked" />
 
             <TextView

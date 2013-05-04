@@ -59,6 +59,10 @@ public class ExploreMain extends Activity {
 		initView();
 		initVaule();
 		initListener();
+		//初始加载
+		URLString = GlobalConst.URL_HAEDER_ALL + URLStringBegin + "0" + "&"
+				+ URLStringEnd + "25";
+		// 异步更新列表
 		new GetJSONAsynTack(this).execute(URLString);
 		new Handler().postDelayed(new Runnable() {
 			public void run() {

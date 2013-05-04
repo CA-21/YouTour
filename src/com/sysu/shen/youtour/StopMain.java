@@ -6,8 +6,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +26,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sysu.shen.util.Player;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -43,6 +50,10 @@ public class StopMain extends BaseSampleActivity {
 	private final int LOADING = 0;
 	private final int LOADED = 1;
 	private Boolean firstClick = true;
+	private ImageButton preBtn;
+	private ImageButton nextBtn;
+	private TextView songCurrentDurationLabel;
+	private TextView songTotalDurationLabel;
 
 	private String audioURL;
 
@@ -53,25 +64,7 @@ public class StopMain extends BaseSampleActivity {
 		Bundle extras = getIntent().getExtras();
 		stopslistString = extras.getString("stopsJarray");
 		position = extras.getString("position");
-		try {
-			stopsJSONArray = new JSONArray(stopslistString);
-			stopJSON = stopsJSONArray
-					.getJSONObject(Integer.parseInt(position) - 1);
-			stopNameString = stopJSON.getString("stopName");
-			stopDetailString = stopJSON.getString("stopDes");
-			stopImages = stopJSON.getJSONArray("stopImages");
-			audioURL = stopJSON.getString("stopAudio");
-			Log.i("audioURL: ", audioURL);
-			audioURL = "http://zhangmenshiting.baidu.com/data2/music/42800856/348157139600128.mp3?xcode=a42fd75c7c34b8b5d4ac3db16534fc89&_=1367650211375";
-			Log.i("audioURL: ", audioURL);
-			stopImagesArray = new ArrayList<String>();
 
-			for (int i = 0; i < stopImages.length(); i++) {
-				stopImagesArray.add(stopImages.getString(i));
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
 		initView();
 		initValue();
 
@@ -94,14 +87,52 @@ public class StopMain extends BaseSampleActivity {
 		btn_play = (ImageButton) findViewById(R.id.btn_play);
 		skbProgress = (SeekBar) findViewById(R.id.songProgressBar);
 		skbProgress.setOnSeekBarChangeListener(new SeekBarChangeEvent());
+		preBtn = (ImageButton) findViewById(R.id.preBtton);
+		nextBtn = (ImageButton) findViewById(R.id.nextBtton);
+		songCurrentDurationLabel = (TextView) findViewById(R.id.songCurrentDurationLabel);
+		songTotalDurationLabel = (TextView) findViewById(R.id.songTotalDurationLabel);
 	}
 
 	private void initValue() {
+		try {
+			stopsJSONArray = new JSONArray(stopslistString);
+			if (Integer.parseInt(position) == 1) {
+				preBtn.setBackgroundColor(this.getResources().getColor(
+						R.color.orangetransparent));
+			}
+			if (Integer.parseInt(position) == stopsJSONArray.length()) {
+				nextBtn.setBackgroundColor(this.getResources().getColor(
+						R.color.orangetransparent));
+			}
+			stopJSON = stopsJSONArray
+					.getJSONObject(Integer.parseInt(position) - 1);
+			stopNameString = stopJSON.getString("stopName");
+			stopDetailString = stopJSON.getString("stopDes");
+			stopImages = stopJSON.getJSONArray("stopImages");
+			audioURL = stopJSON.getString("stopAudio");
+			Log.i("audioURL: ", audioURL);
+			// 如果没有音频链接则让播放控件失效
+			if (audioURL.equals("")) {
+				btn_play.setImageResource(R.drawable.play);
+				skbProgress.setEnabled(false);
+			}
+			audioURL = "http://103.31.20.60:3000/audio/audio.mp3";
+			Log.i("audioURL: ", audioURL);
+			stopImagesArray = new ArrayList<String>();
+
+			for (int i = 0; i < stopImages.length(); i++) {
+				stopImagesArray.add(stopImages.getString(i));
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
 		stopName.setText(stopNameString);
 		stopDetail.setText(stopDetailString);
 		stopNum.setText(position);
 
-		player = new Player(audioURL, skbProgress);
+		player = new Player(audioURL, skbProgress, songTotalDurationLabel,
+				songCurrentDurationLabel);
 
 		TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		telephonyManager.listen(new MyPhoneListener(),
@@ -217,7 +248,16 @@ public class StopMain extends BaseSampleActivity {
 	 * @param v
 	 */
 	public void prebuttonClicked(View v) {
-
+		if (Integer.parseInt(position) == 1) {
+			Toast.makeText(this, "已经是第一个站点了", Toast.LENGTH_SHORT).show();
+		} else {
+			Intent it = new Intent(StopMain.this, StopMain.class);
+			it.putExtra("stopsJarray", stopslistString);
+			it.putExtra("position", (Integer.parseInt(position) - 1) + "");
+			startActivity(it);
+			player.stop();
+			this.finish();
+		}
 	}
 
 	/**
@@ -226,7 +266,16 @@ public class StopMain extends BaseSampleActivity {
 	 * @param v
 	 */
 	public void nextbuttonClicked(View v) {
-
+		if (Integer.parseInt(position) == stopsJSONArray.length()) {
+			Toast.makeText(this, "已经是最后一个站点了", Toast.LENGTH_SHORT).show();
+		} else {
+			Intent it = new Intent(StopMain.this, StopMain.class);
+			it.putExtra("stopsJarray", stopslistString);
+			it.putExtra("position", (Integer.parseInt(position) + 1) + "");
+			startActivity(it);
+			player.stop();
+			this.finish();
+		}
 	}
 
 	/**
@@ -244,17 +293,80 @@ public class StopMain extends BaseSampleActivity {
 	 * @param v
 	 */
 	public void playMusic(View v) {
-		if (firstClick) {
-			new PlayMusicAsynTack().execute();
-			firstClick = false;
+		if (audioURL.equals("")) {
+			Toast.makeText(this, "这个站点没有音频信息哦", Toast.LENGTH_SHORT).show();
 		} else {
-			boolean pause = player.pause();
-			if (pause) {
-				btn_play.setImageResource(R.drawable.play_w);
+			if (firstClick) {
+				// 判断是否wifi环境
+				ConnectivityManager connManager = (ConnectivityManager) this
+						.getSystemService(Context.CONNECTIVITY_SERVICE);
+				NetworkInfo mobileCon = connManager
+						.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+				NetworkInfo netInfo = connManager.getActiveNetworkInfo();
+				if (mobileCon.isConnected()) {
+					// 使用移动网络连接
+					AlertDialog.Builder builder = new AlertDialog.Builder(this);
+					builder.setIcon(android.R.drawable.ic_dialog_info);
+					builder.setTitle("设置WIFI更流畅");
+					builder.setMessage("小游检测到您正使用移动网络，设置WIFI音频更流畅哦，还是设置一下WIFI吧！");
+					builder.setPositiveButton("马上设置",
+							new DialogInterface.OnClickListener() {
+
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									final Intent intent = new Intent(
+											Intent.ACTION_MAIN, null);
+									intent.addCategory(Intent.CATEGORY_LAUNCHER);
+									final ComponentName cn = new ComponentName(
+											"com.android.settings",
+											"com.android.settings.wifi.WifiSettings");
+									intent.setComponent(cn);
+									intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+									startActivity(intent);
+								}
+							});
+					builder.setNegativeButton("继续使用移动网络",
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									dialog.cancel();
+									new PlayMusicAsynTack().execute();
+									firstClick = false;
+								}
+							});
+					builder.create();
+					builder.show();
+				} else if (netInfo == null
+						|| !netInfo.isConnectedOrConnecting()) {
+					// 无网络连接
+					Toast.makeText(this, "连上网络才可以听音频介绍哦！", Toast.LENGTH_SHORT)
+							.show();
+				}
+				else{
+					//使用非移动网络
+					new PlayMusicAsynTack().execute();
+					firstClick = false;
+				}
+				
 			} else {
-				btn_play.setImageResource(R.drawable.pause_w);
+				boolean pause = player.pause();
+				if (pause) {
+					btn_play.setImageResource(R.drawable.play_w);
+				} else {
+					btn_play.setImageResource(R.drawable.pause_w);
+				}
 			}
 		}
 
 	}
+
+	@Override
+	public void onBackPressed() {
+		player.stop();
+		this.finish();
+		super.onBackPressed();
+	}
+
 }

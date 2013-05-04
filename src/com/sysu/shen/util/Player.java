@@ -6,11 +6,11 @@ import java.util.TimerTask;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnBufferingUpdateListener;
-import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 public class Player implements OnBufferingUpdateListener,
 		MediaPlayer.OnPreparedListener {
@@ -20,9 +20,13 @@ public class Player implements OnBufferingUpdateListener,
 	private String videoUrl;
 	private boolean pause;
 	private int playPosition;
+	private TextView songCurrentDurationLabel;
+	private TextView songTotalDurationLabel;
 
-	public Player(String videoUrl, SeekBar skbProgress) {
+	public Player(String videoUrl, SeekBar skbProgress, TextView songTotalDurationLabel, TextView songCurrentDurationLabel) {
 		this.skbProgress = skbProgress;
+		this.songCurrentDurationLabel = songCurrentDurationLabel;
+		this.songTotalDurationLabel = songTotalDurationLabel;
 		this.videoUrl = videoUrl;
 		try {
 			mediaPlayer = new MediaPlayer();
@@ -55,6 +59,10 @@ public class Player implements OnBufferingUpdateListener,
 		public void handleMessage(Message msg) {
 			int position = mediaPlayer.getCurrentPosition();
 			int duration = mediaPlayer.getDuration();
+			// Displaying Total Duration time
+			   songTotalDurationLabel.setText(""+Utils.milliSecondsToTimer(duration));
+			   // Displaying time completed playing
+			   songCurrentDurationLabel.setText(""+Utils.milliSecondsToTimer(position));
 			if (duration > 0) {
 				long pos = skbProgress.getMax() * position / duration;
 				skbProgress.setProgress((int) pos);

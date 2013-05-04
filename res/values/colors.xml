@@ -6,6 +6,7 @@
     <color name="transparent">#00000000</color>
     <color name="gold">#b89766</color>
     <color name="orange">#DF6D1E</color>
+    <color name="orangetransparent">#50DF6D1E</color>
     <color name="grey">#413E3E</color>
     <color name="background">#eee</color>
     <color name="black">#000</color>
@@ -16,5 +17,8 @@
     <color name="no_color">#00000000</color>
     <color name="elsebackground">#eee2d2</color>
     <color name="blue">#29a6e2</color>
+    <color name="red">#FD5B78</color>
+    <color name="green">#7fb80e</color>
+    <color name="purple">#6f599c</color>
 
 </resources>

@@ -32,10 +32,10 @@ public class MainActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		//填充tab内容
+		// 填充tab内容
 		findTabView();
 		tabHost.setup();
-		//设置tab按钮监听器
+		// 设置tab按钮监听器
 		TabHost.OnTabChangeListener tabChangeListener = new TabHost.OnTabChangeListener() {
 			@Override
 			public void onTabChanged(String tabId) {
@@ -121,7 +121,7 @@ public class MainActivity extends FragmentActivity {
 		};
 		tabHost.setCurrentTab(0);
 		tabHost.setOnTabChangedListener(tabChangeListener);
-		//初始化tab
+		// 初始化tab
 		initTab();
 		tabHost.setCurrentTab(0);
 
@@ -174,35 +174,48 @@ public class MainActivity extends FragmentActivity {
 
 	}
 
-	//菜单按钮
+	// 菜单按钮
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+
 	@Override
 	public void onBackPressed() {
 		this.finish();
 	}
 
-	//搜索按钮响应
+	// 搜索按钮响应
 	public void searchClicked(View v) {
 		Toast.makeText(this, "button is clicked", Toast.LENGTH_SHORT).show();
 	}
-	//按照地点浏览响应
-	public void placeClicked(View v){
+
+	// 按照地点浏览响应
+	public void placeClicked(View v) {
 		Intent it = new Intent(MainActivity.this, ExploreMain.class);
 		it.putExtra(GlobalConst.EXPLORE_PLACE, true);
 		it.putExtra(GlobalConst.EXPLORE_TOPIC, false);
 		startActivity(it);
 	}
-	//按照主题浏览响应
-	public void topicClicked(View v){
+
+	// 按照主题浏览响应
+	public void topicClicked(View v) {
 		Intent it = new Intent(MainActivity.this, ExploreMain.class);
 		it.putExtra(GlobalConst.EXPLORE_PLACE, false);
 		it.putExtra(GlobalConst.EXPLORE_TOPIC, true);
 		startActivity(it);
+	}
+
+	// 按照附近浏览响应
+	public void nearmeClicked(View v) {
+		Toast.makeText(this, "正在建设中，敬请期待！", Toast.LENGTH_SHORT).show();
+	}
+
+	// 按照二维码浏览响应
+	public void qrcodeClicked(View v) {
+		Toast.makeText(this, "正在建设中，敬请期待！", Toast.LENGTH_SHORT).show();
 	}
 
 }
