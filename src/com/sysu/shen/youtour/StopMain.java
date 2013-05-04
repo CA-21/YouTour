@@ -1,28 +1,27 @@
 package com.sysu.shen.youtour;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.media.AudioManager;
-import android.media.MediaMetadataRetriever;
-import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
+import com.sysu.shen.util.Player;
 import com.viewpagerindicator.CirclePageIndicator;
 
 public class StopMain extends BaseSampleActivity {
@@ -38,12 +37,14 @@ public class StopMain extends BaseSampleActivity {
 	private ArrayList<String> stopImagesArray;
 	private JSONArray stopImages;
 	private ImageButton btn_play;
-	private SeekBar seekBar_volume;
+	private SeekBar skbProgress;
+	private Player player;
+	private ProgressDialog mProgressDialog;
+	private final int LOADING = 0;
+	private final int LOADED = 1;
+	private Boolean firstClick = true;
 
-	private MediaPlayer mediaPlayer;
-	private MediaMetadataRetriever retriever;
 	private String audioURL;
-	private AudioManager audioManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +60,10 @@ public class StopMain extends BaseSampleActivity {
 			stopNameString = stopJSON.getString("stopName");
 			stopDetailString = stopJSON.getString("stopDes");
 			stopImages = stopJSON.getJSONArray("stopImages");
-//			audioURL = stopJSON.getString("stopAudio");
-			audioURL = "http://support.k-designed.net/test-z/music/Accordossie.mp3";
+			audioURL = stopJSON.getString("stopAudio");
+			Log.i("audioURL: ", audioURL);
+			audioURL = "http://zhangmenshiting.baidu.com/data2/music/42800856/348157139600128.mp3?xcode=a42fd75c7c34b8b5d4ac3db16534fc89&_=1367650211375";
+			Log.i("audioURL: ", audioURL);
 			stopImagesArray = new ArrayList<String>();
 
 			for (int i = 0; i < stopImages.length(); i++) {
@@ -89,67 +92,103 @@ public class StopMain extends BaseSampleActivity {
 		stopDetail = (TextView) findViewById(R.id.stop_detail);
 		stopNum = (TextView) findViewById(R.id.number);
 		btn_play = (ImageButton) findViewById(R.id.btn_play);
-		seekBar_volume = (SeekBar) findViewById(R.id.songProgressBar);
+		skbProgress = (SeekBar) findViewById(R.id.songProgressBar);
+		skbProgress.setOnSeekBarChangeListener(new SeekBarChangeEvent());
 	}
 
-	@SuppressLint("NewApi")
 	private void initValue() {
 		stopName.setText(stopNameString);
 		stopDetail.setText(stopDetailString);
 		stopNum.setText(position);
 
-		retriever = new MediaMetadataRetriever();
-		mediaPlayer = new MediaPlayer();
-		mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+		player = new Player(audioURL, skbProgress);
 
-		audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-		int maxVolume = audioManager
-				.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-		int curVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+		TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+		telephonyManager.listen(new MyPhoneListener(),
+				PhoneStateListener.LISTEN_CALL_STATE);
+	}
 
-		seekBar_volume.setMax(maxVolume);
-		seekBar_volume.setProgress(curVolume);
+	// 处理线程中抛出的massage
+	private Handler mhandle = new Handler() {
 
-		seekBar_volume
-				.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-
-					@Override
-					public void onStopTrackingTouch(SeekBar seekBar) {
-						// TODO Auto-generated method stub
-
-					}
-
-					@Override
-					public void onStartTrackingTouch(SeekBar seekBar) {
-						// TODO Auto-generated method stub
-
-					}
-
-					@Override
-					public void onProgressChanged(SeekBar seekBar,
-							int progress, boolean fromUser) {
-						audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
-								progress, 0);
-
-					}
-				});
-
-		btn_play.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				try {
-					Log.i("audioURL", audioURL);
-					mediaPlayer.setDataSource(audioURL);
-					retriever.setDataSource(audioURL);
-					mediaPlayer.prepare(); // might take long! (for buffering,
-											// etc)
-					mediaPlayer.start();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case LOADING:
+				mProgressDialog = new ProgressDialog(StopMain.this);
+				mProgressDialog.setTitle("正在加载音频…"); // 设置标题
+				mProgressDialog.setMessage("请稍等"); // 设置body信息
+				mProgressDialog.show();
+				break;
+			case LOADED:
+				btn_play.setImageResource(R.drawable.pause_w);
+				mProgressDialog.dismiss();
+				break;
+			default:
+				break;
 			}
-		});
+			super.handleMessage(msg);
+		}
+
+	};
+
+	/**
+	 * 只有电话来了之后才暂停音乐的播放
+	 */
+	private final class MyPhoneListener extends
+			android.telephony.PhoneStateListener {
+		@Override
+		public void onCallStateChanged(int state, String incomingNumber) {
+			switch (state) {
+			case TelephonyManager.CALL_STATE_RINGING:// 电话来了
+				player.callIsComing();
+				break;
+			case TelephonyManager.CALL_STATE_IDLE: // 通话结束
+				player.callIsDown();
+				break;
+			}
+		}
+	}
+
+	class SeekBarChangeEvent implements SeekBar.OnSeekBarChangeListener {
+		int progress;
+
+		@Override
+		public void onProgressChanged(SeekBar seekBar, int progress,
+				boolean fromUser) {
+			this.progress = progress * player.mediaPlayer.getDuration()
+					/ seekBar.getMax();
+		}
+
+		@Override
+		public void onStartTrackingTouch(SeekBar seekBar) {
+
+		}
+
+		@Override
+		public void onStopTrackingTouch(SeekBar seekBar) {
+			// seekTo()的参数是相对与影片时间的数字，而不是与seekBar.getMax()相对的数字
+			player.mediaPlayer.seekTo(progress);
+		}
+	}
+
+	private class PlayMusicAsynTack extends AsyncTask<Void, Void, Void> {
+		@Override
+		protected Void doInBackground(Void... params) {
+			Message m = new Message();
+			m.what = LOADING;
+			mhandle.sendMessage(m);
+			player.play();
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			Message m = new Message();
+			m.what = LOADED;
+			mhandle.sendMessage(m);
+			super.onPostExecute(result);
+		}
 
 	}
 
@@ -159,6 +198,7 @@ public class StopMain extends BaseSampleActivity {
 	 * @param v
 	 */
 	public void backClicked(View v) {
+		player.stop();
 		this.finish();
 	}
 
@@ -195,6 +235,26 @@ public class StopMain extends BaseSampleActivity {
 	 * @param v
 	 */
 	public void shareclicked(View v) {
+
+	}
+
+	/**
+	 * 点击音乐播放
+	 * 
+	 * @param v
+	 */
+	public void playMusic(View v) {
+		if (firstClick) {
+			new PlayMusicAsynTack().execute();
+			firstClick = false;
+		} else {
+			boolean pause = player.pause();
+			if (pause) {
+				btn_play.setImageResource(R.drawable.play_w);
+			} else {
+				btn_play.setImageResource(R.drawable.pause_w);
+			}
+		}
 
 	}
 }
