@@ -210,7 +210,9 @@ public class MainActivity extends FragmentActivity {
 
 	// 按照附近浏览响应
 	public void nearmeClicked(View v) {
-		Toast.makeText(this, "正在建设中，敬请期待！", Toast.LENGTH_SHORT).show();
+//		Toast.makeText(this, "正在建设中，敬请期待！", Toast.LENGTH_SHORT).show();
+		Intent it = new Intent(MainActivity.this, NearMe.class);
+		startActivity(it);
 	}
 
 	// 按照二维码浏览响应

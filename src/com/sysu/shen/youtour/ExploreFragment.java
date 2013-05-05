@@ -31,14 +31,15 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
 public class ExploreFragment extends ListFragment {
-	// 标记没有联网
-	public final static int NO_NETWORK = 0;
+
 	// ListView list;
 	private Myadapter adapter;
 	private JSONArray jarray;
 	String URLString = "";
 	private String URLStringBegin = "beg=";
 	private String URLStringEnd = "end=";
+	// 标记没有联网
+	public final static int NO_NETWORK = 0;
 	private final int LOADING = 1;
 	private final int LOADED = 2;
 	private ProgressDialog mProgressDialog;
@@ -76,7 +77,8 @@ public class ExploreFragment extends ListFragment {
 						"连接网络才能看到更多哦！", Toast.LENGTH_LONG).show();
 				break;
 			case LOADING:
-				mProgressDialog = new ProgressDialog(ExploreFragment.this.getActivity());
+				mProgressDialog = new ProgressDialog(
+						ExploreFragment.this.getActivity());
 				mProgressDialog.setTitle("正在加载…"); // 设置标题
 				mProgressDialog.setMessage("最新内容马上为你呈现"); // 设置body信息
 				mProgressDialog.show();

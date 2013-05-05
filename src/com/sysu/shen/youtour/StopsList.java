@@ -7,7 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.sysu.shen.util.JSONFunctions;
 import com.sysu.shen.util.StopListAdapter;
 
 import android.app.Activity;

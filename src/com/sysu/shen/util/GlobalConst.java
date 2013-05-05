@@ -15,5 +15,6 @@ public class GlobalConst {
 	public static final String URL_HAEDER_ADD="http://103.31.20.60:3000/browsebyaddress?";
 	public static final String URL_HAEDER_TOP="http://103.31.20.60:3000/browsebytopic?";
 	public static final String URL_HAEDER_ALL="http://103.31.20.60:3000/browseallbytime?";
+	public static final String URL_HAEDER_LOC="http://103.31.20.60:3000/browsebylocation?";
 
 }
