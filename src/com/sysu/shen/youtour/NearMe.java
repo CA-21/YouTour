@@ -1,7 +1,6 @@
 package com.sysu.shen.youtour;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -13,8 +12,18 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.AMap.OnMapClickListener;
+import com.amap.api.maps.AMap.OnMarkerClickListener;
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.SupportMapFragment;
+import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.LatLngBounds;
+import com.amap.api.maps.model.LatLngBounds.Builder;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
 import com.amapv2.cn.apis.util.AMapUtil;
 import com.sysu.shen.util.GlobalConst;
 import com.sysu.shen.util.JSONFunctions;
@@ -31,17 +40,21 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Toast;
 
 public class NearMe extends FragmentActivity implements LocationSource,
-		AMapLocationListener {
+		AMapLocationListener, OnMarkerClickListener, OnMapClickListener {
 
 	private AMap aMap;
 	private OnLocationChangedListener mListener;
 	private LocationManagerProxy mAMapLocationManager;
-	private Double geoLat;
-	private Double geoLng;
+	private Double currentgeoLat;
+	private Double currentgeoLng;
 	private String cityCode = "";
 	private String desc = "";
 	public final static int NO_NETWORK = 0;
@@ -51,10 +64,15 @@ public class NearMe extends FragmentActivity implements LocationSource,
 	private String URLString = "";
 	private String URLStringBegin = "beg=";
 	private String URLStringEnd = "end=";
-	private JSONArray jarray;
+	private JSONArray jarray = null;
 	private Timer mTimer = new Timer();
 	private Boolean needReshLocation = true;
 	private ProgressDialog mProgressDialog;
+
+	private ArrayList<LatLng> markersList = new ArrayList<LatLng>();
+	private UiSettings mUiSettings;
+	
+	PopupWindow mPopupWindow;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,9 +117,16 @@ public class NearMe extends FragmentActivity implements LocationSource,
 	}
 
 	private void setUpMap() {
+		mUiSettings = aMap.getUiSettings();
+		mUiSettings.setAllGesturesEnabled(true);
+		mUiSettings.setCompassEnabled(true);
+		mUiSettings.setMyLocationButtonEnabled(true);
+		mUiSettings.setScaleControlsEnabled(true);
+		mUiSettings.setZoomControlsEnabled(true);
 		mAMapLocationManager = LocationManagerProxy.getInstance(NearMe.this);
 		aMap.setLocationSource(this);
 		aMap.setMyLocationEnabled(true);
+		aMap.setOnMarkerClickListener(this);
 
 	}
 
@@ -121,8 +146,8 @@ public class NearMe extends FragmentActivity implements LocationSource,
 				// + URLStringBegin + "0" + "&" + URLStringEnd + "25";
 				URLString = GlobalConst.URL_HAEDER_ALL + URLStringBegin + "0"
 						+ "&" + URLStringEnd + "25";
-				String str = ("定位成功:(" + geoLng + "," + geoLat + ")"
-						+ "\n城市编码:" + cityCode + "\n位置描述:" + desc);
+				String str = ("定位成功:(" + currentgeoLng + "," + currentgeoLat
+						+ ")" + "\n城市编码:" + cityCode + "\n位置描述:" + desc);
 				Log.i("locatinfo", str);
 				Log.i("nearmeurl", URLString);
 				// 异步更新列表
@@ -131,7 +156,7 @@ public class NearMe extends FragmentActivity implements LocationSource,
 			case LOADING:
 				mProgressDialog = new ProgressDialog(NearMe.this);
 				mProgressDialog.setTitle("正在查询附近线路"); // 设置标题
-				mProgressDialog.setMessage("附近线路马上为你呈现"); // 设置body信息
+				mProgressDialog.setMessage("附近线路马上为你呈现，请耐心等待..."); // 设置body信息
 				mProgressDialog.show();
 				break;
 			case LOADED:
@@ -166,6 +191,7 @@ public class NearMe extends FragmentActivity implements LocationSource,
 			final NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
 			if (activeNetwork != null && activeNetwork.isConnected()) {
 				jarray = JSONFunctions.getJsonFromNetwork(activity, URLString);
+
 			} else {
 				Message m1 = new Message();
 				m1.what = NO_NETWORK;
@@ -179,19 +205,28 @@ public class NearMe extends FragmentActivity implements LocationSource,
 		@Override
 		protected void onPostExecute(Void result) {
 			JSONObject line = null;
-			ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String, String>>();
 			if (jarray != null) {
 				Log.v("log_tag", "jarray.length():" + jarray.length());
 				try {
 					for (int i = 0; i < jarray.length(); i++) {
 						line = jarray.getJSONObject(i);
-						HashMap<String, String> lineMap = JSONFunctions
-								.praseJSONToMap(line);
-						mylist.add(lineMap);
+						double longitude = line.getJSONArray("locate")
+								.getDouble(0);
+						double latitude = line.getJSONArray("locate")
+								.getDouble(1);
+						LatLng marker = new LatLng(longitude, latitude);
+						markersList.add(marker);
+						aMap.addMarker(new MarkerOptions()
+								.position(marker)
+								.title(line.getString("lineName"))
+								.snippet(line.getString("mapAddress") + "@" + i)
+								.icon(BitmapDescriptorFactory
+										.fromResource(R.drawable.line)));
 					}
 				} catch (Exception e) {
-					Log.v("log_tag", "analyseJsonexception:" + e.toString());
+					e.printStackTrace();
 				}
+				loadMarker();
 			}
 			Message m = new Message();
 			m.what = LOADED;
@@ -200,12 +235,28 @@ public class NearMe extends FragmentActivity implements LocationSource,
 		}
 	}
 
+	public void loadMarker() {
+		// 设置所有maker显示在View中
+		Builder builder = new Builder();
+		for (int i = 0; i < markersList.size(); i++) {
+			builder.include(markersList.get(i));
+		}
+		LatLngBounds bounds = builder.build();
+		try {
+			aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 20));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	/**
 	 * 点击返回
 	 * 
 	 * @param v
 	 */
 	public void backClicked(View v) {
+		mTimerTask.cancel();
 		this.finish();
 	}
 
@@ -260,8 +311,8 @@ public class NearMe extends FragmentActivity implements LocationSource,
 			mListener.onLocationChanged(location);
 		}
 		if (location != null && needReshLocation) {
-			geoLat = location.getLatitude();
-			geoLng = location.getLongitude();
+			currentgeoLat = location.getLatitude();
+			currentgeoLng = location.getLongitude();
 			Bundle locBundle = location.getExtras();
 			if (locBundle != null) {
 				cityCode = locBundle.getString("citycode");
@@ -296,4 +347,36 @@ public class NearMe extends FragmentActivity implements LocationSource,
 		mAMapLocationManager = null;
 
 	}
+
+	@Override
+	public boolean onMarkerClick(Marker arg0) {
+		Log.i("marker",
+				"title:" + arg0.getTitle() + " snippet:" + arg0.getSnippet());
+		Context mContext = NearMe.this;
+		LayoutInflater mLayoutInflater = (LayoutInflater) mContext
+				.getSystemService(LAYOUT_INFLATER_SERVICE);
+		View line_popunwindwow = mLayoutInflater.inflate(
+				R.layout.map_popup_view, null);
+		mPopupWindow = new PopupWindow(line_popunwindwow,
+				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+
+		mPopupWindow.showAtLocation(findViewById(R.id.nearmemap),
+				Gravity.CENTER, 0, 0);
+		mPopupWindow.setFocusable(true);
+
+		return false;
+	}
+
+	@Override
+	public void onBackPressed() {
+		mTimerTask.cancel();
+		super.onBackPressed();
+	}
+
+	@Override
+	public void onMapClick(LatLng arg0) {
+		mPopupWindow.dismiss();
+		
+	}
+
 }

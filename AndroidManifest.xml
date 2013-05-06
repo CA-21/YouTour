@@ -31,7 +31,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.sysu.shen.youtour.MainActivity"
+            android:name="com.sysu.shen.youtour.Welcome"
             android:label="@string/app_name"
             android:theme="@style/CustomNotitle" >
             <intent-filter>
@@ -39,6 +39,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.sysu.shen.youtour.MainActivity"
+            android:theme="@style/CustomNotitle" >
         </activity>
         <activity
             android:name="com.sysu.shen.youtour.ExploreMain"
