@@ -5,6 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.amap.api.location.AMapLocation;
@@ -31,6 +32,7 @@ import com.sysu.shen.util.JSONFunctions;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -48,7 +50,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Toast;
 
 public class NearMe extends FragmentActivity implements LocationSource,
-		AMapLocationListener, OnMarkerClickListener, OnMapClickListener {
+		AMapLocationListener, OnMarkerClickListener {
 
 	private AMap aMap;
 	private OnLocationChangedListener mListener;
@@ -71,7 +73,7 @@ public class NearMe extends FragmentActivity implements LocationSource,
 
 	private ArrayList<LatLng> markersList = new ArrayList<LatLng>();
 	private UiSettings mUiSettings;
-	
+
 	PopupWindow mPopupWindow;
 
 	@Override
@@ -82,6 +84,7 @@ public class NearMe extends FragmentActivity implements LocationSource,
 		init();
 		// 定时过5分钟后再从新定位
 		mTimer.schedule(mTimerTask, 0, 5 * 60 * 1000);
+
 	}
 
 	/*******************************************************
@@ -142,7 +145,8 @@ public class NearMe extends FragmentActivity implements LocationSource,
 				break;
 			case LOCACHANGE:
 				// URLString = GlobalConst.URL_HAEDER_LOC + "x="
-				// + geoLng.toString() + "&y=" + geoLat.toString() + "&"
+				// + currentgeoLng.toString() + "&y=" + currentgeoLat.toString()
+				// + "&"
 				// + URLStringBegin + "0" + "&" + URLStringEnd + "25";
 				URLString = GlobalConst.URL_HAEDER_ALL + URLStringBegin + "0"
 						+ "&" + URLStringEnd + "25";
@@ -219,7 +223,7 @@ public class NearMe extends FragmentActivity implements LocationSource,
 						aMap.addMarker(new MarkerOptions()
 								.position(marker)
 								.title(line.getString("lineName"))
-								.snippet(line.getString("mapAddress") + "@" + i)
+								.snippet(i + "")
 								.icon(BitmapDescriptorFactory
 										.fromResource(R.drawable.line)));
 					}
@@ -264,6 +268,7 @@ public class NearMe extends FragmentActivity implements LocationSource,
 	protected void onPause() {
 		super.onPause();
 		deactivate();
+		mTimerTask.cancel();
 	}
 
 	@Override
@@ -339,12 +344,7 @@ public class NearMe extends FragmentActivity implements LocationSource,
 
 	@Override
 	public void deactivate() {
-		mListener = null;
-		if (mAMapLocationManager != null) {
-			mAMapLocationManager.removeUpdates(this);
-			mAMapLocationManager.destory();
-		}
-		mAMapLocationManager = null;
+		mAMapLocationManager.removeUpdates(this);
 
 	}
 
@@ -352,17 +352,17 @@ public class NearMe extends FragmentActivity implements LocationSource,
 	public boolean onMarkerClick(Marker arg0) {
 		Log.i("marker",
 				"title:" + arg0.getTitle() + " snippet:" + arg0.getSnippet());
-		Context mContext = NearMe.this;
-		LayoutInflater mLayoutInflater = (LayoutInflater) mContext
-				.getSystemService(LAYOUT_INFLATER_SERVICE);
-		View line_popunwindwow = mLayoutInflater.inflate(
-				R.layout.map_popup_view, null);
-		mPopupWindow = new PopupWindow(line_popunwindwow,
-				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-
-		mPopupWindow.showAtLocation(findViewById(R.id.nearmemap),
-				Gravity.CENTER, 0, 0);
-		mPopupWindow.setFocusable(true);
+		Intent it = new Intent(NearMe.this, MapLinePopup.class);
+		try {
+			it.putExtra("lineString",
+					jarray.getJSONObject(Integer.parseInt(arg0.getSnippet()))
+							.toString());
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		startActivity(it);
 
 		return false;
 	}
@@ -371,12 +371,6 @@ public class NearMe extends FragmentActivity implements LocationSource,
 	public void onBackPressed() {
 		mTimerTask.cancel();
 		super.onBackPressed();
-	}
-
-	@Override
-	public void onMapClick(LatLng arg0) {
-		mPopupWindow.dismiss();
-		
 	}
 
 }
