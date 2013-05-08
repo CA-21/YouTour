@@ -108,7 +108,9 @@ public class StopsList extends Activity {
 	 * @param v
 	 */
 	public void mapbuttonClicked(View v) {
-
+		Intent it = new Intent(StopsList.this, StopMap.class);
+		it.putExtra("stopsJarray", stopsJArray.toString());
+		startActivity(it);
 	}
 
 }

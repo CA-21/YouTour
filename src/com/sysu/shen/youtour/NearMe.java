@@ -19,6 +19,7 @@ import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.SupportMapFragment;
 import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.LatLngBounds;
@@ -33,6 +34,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -41,6 +45,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextPaint;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -76,6 +81,9 @@ public class NearMe extends FragmentActivity implements LocationSource,
 
 	PopupWindow mPopupWindow;
 
+	// private static final BitmapDescriptor lineIcon = BitmapDescriptorFactory
+	// .fromResource(R.drawable.line);
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -96,6 +104,19 @@ public class NearMe extends FragmentActivity implements LocationSource,
 			needReshLocation = true;
 		}
 	};
+
+	public Bitmap getBitMap(String text) {
+		Bitmap bitmap = BitmapDescriptorFactory.fromResource(R.drawable.line)
+				.getBitmap();
+		bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+				bitmap.getHeight());
+		Canvas canvas = new Canvas(bitmap);
+		TextPaint textPaint = new TextPaint();
+		textPaint.setTextSize(20f);
+		textPaint.setColor(Color.BLACK);
+		canvas.drawText(text, 20, 30, textPaint);// 设置bitmap上面的文字位置
+		return bitmap;
+	}
 
 	public boolean enableMyLocation() {
 		boolean result = false;
@@ -143,30 +164,6 @@ public class NearMe extends FragmentActivity implements LocationSource,
 				Toast.makeText(NearMe.this, "连接网络才能看到哦！", Toast.LENGTH_LONG)
 						.show();
 				break;
-			case LOCACHANGE:
-				// URLString = GlobalConst.URL_HAEDER_LOC + "x="
-				// + currentgeoLng.toString() + "&y=" + currentgeoLat.toString()
-				// + "&"
-				// + URLStringBegin + "0" + "&" + URLStringEnd + "25";
-				URLString = GlobalConst.URL_HAEDER_ALL + URLStringBegin + "0"
-						+ "&" + URLStringEnd + "25";
-				String str = ("定位成功:(" + currentgeoLng + "," + currentgeoLat
-						+ ")" + "\n城市编码:" + cityCode + "\n位置描述:" + desc);
-				Log.i("locatinfo", str);
-				Log.i("nearmeurl", URLString);
-				// 异步更新列表
-				new GetJSONAsynTack(NearMe.this).execute(URLString);
-				break;
-			case LOADING:
-				mProgressDialog = new ProgressDialog(NearMe.this);
-				mProgressDialog.setTitle("正在查询附近线路"); // 设置标题
-				mProgressDialog.setMessage("附近线路马上为你呈现，请耐心等待..."); // 设置body信息
-				mProgressDialog.show();
-				break;
-			case LOADED:
-				mProgressDialog.dismiss();
-				break;
-
 			default:
 				break;
 			}
@@ -184,10 +181,16 @@ public class NearMe extends FragmentActivity implements LocationSource,
 		}
 
 		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			mProgressDialog = new ProgressDialog(NearMe.this);
+			mProgressDialog.setTitle("正在查询附近线路"); // 设置标题
+			mProgressDialog.setMessage("附近线路马上为你呈现，请耐心等待..."); // 设置body信息
+			mProgressDialog.show();
+		}
+
+		@Override
 		protected Void doInBackground(String... strings) {
-			Message m = new Message();
-			m.what = LOADING;
-			mhandle.sendMessage(m);
 			String URLString = strings[0];
 			// 判断是否联网
 			final ConnectivityManager conMgr = (ConnectivityManager) activity
@@ -203,11 +206,6 @@ public class NearMe extends FragmentActivity implements LocationSource,
 				jarray = JSONFunctions.getJSONFromFile(activity, URLString);
 			}
 
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(Void result) {
 			JSONObject line = null;
 			if (jarray != null) {
 				Log.v("log_tag", "jarray.length():" + jarray.length());
@@ -225,17 +223,23 @@ public class NearMe extends FragmentActivity implements LocationSource,
 								.title(line.getString("lineName"))
 								.snippet(i + "")
 								.icon(BitmapDescriptorFactory
-										.fromResource(R.drawable.line)));
+										.fromBitmap(getBitMap(""))));
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				loadMarker();
+
 			}
-			Message m = new Message();
-			m.what = LOADED;
-			mhandle.sendMessage(m);
+
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+
 			super.onPostExecute(result);
+			loadMarker();
+			mProgressDialog.dismiss();
 		}
 	}
 
@@ -245,8 +249,8 @@ public class NearMe extends FragmentActivity implements LocationSource,
 		for (int i = 0; i < markersList.size(); i++) {
 			builder.include(markersList.get(i));
 		}
-		LatLngBounds bounds = builder.build();
 		try {
+			LatLngBounds bounds = builder.build();
 			aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 20));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -323,9 +327,24 @@ public class NearMe extends FragmentActivity implements LocationSource,
 				cityCode = locBundle.getString("citycode");
 				desc = locBundle.getString("desc");
 			}
-			Message m = new Message();
-			m.what = LOCACHANGE;
-			mhandle.sendMessage(m);
+			// Message m = new Message();
+			// m.what = LOCACHANGE;
+			// mhandle.sendMessage(m);
+			URLString = GlobalConst.URL_HAEDER_LOC + "x="
+					+ currentgeoLng.toString() + "&y="
+					+ currentgeoLat.toString() + "&" + URLStringBegin + "0"
+					+ "&" + URLStringEnd + "25";
+			Log.i("locaturl", URLString);
+			URLString = GlobalConst.URL_HAEDER_ALL + URLStringBegin + "0" + "&"
+					+ URLStringEnd + "25";
+			Log.i("locaturl", URLString);
+			String str = ("定位成功:(" + currentgeoLng + "," + currentgeoLat + ")"
+					+ "\n城市编码:" + cityCode + "\n位置描述:" + desc);
+			Log.i("locatinfo", str);
+			Log.i("nearmeurl", URLString);
+			// 异步更新列表
+			new GetJSONAsynTack(NearMe.this).execute(URLString);
+
 			needReshLocation = false;
 		}
 

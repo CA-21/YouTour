@@ -219,5 +219,10 @@ public class MainActivity extends FragmentActivity {
 	public void qrcodeClicked(View v) {
 		Toast.makeText(this, "正在建设中，敬请期待！", Toast.LENGTH_SHORT).show();
 	}
+	
+	//退出登陆按钮
+	public void exitLog(View v){
+		
+	}
 
 }

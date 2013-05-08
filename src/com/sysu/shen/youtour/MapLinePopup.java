@@ -28,7 +28,7 @@ public class MapLinePopup extends Activity {
 	private ImageView lineThumb;
 	private TextView lineAddress;
 	private TextView lineTitle;
-	private RatingBar rateBar;
+//	private RatingBar rateBar;
 	private RelativeLayout mapPopupLayout;
 	private String lineString;
 	private JSONObject lineJson;
@@ -55,7 +55,7 @@ public class MapLinePopup extends Activity {
 		lineThumb = (ImageView) findViewById(R.id.line_image);
 		lineTitle = (TextView) findViewById(R.id.title);
 		lineAddress = (TextView) findViewById(R.id.adress);
-		rateBar = (RatingBar) findViewById(R.id.rating_bar);
+//		rateBar = (RatingBar) findViewById(R.id.rating_bar);
 		
 
 	}
@@ -67,9 +67,9 @@ public class MapLinePopup extends Activity {
 				lineThumb);
 		lineAddress.setText(lineJson.getString("mapAddress"));
 		lineTitle.setText(lineJson.getString("lineName"));
-		Float score = Float.parseFloat(lineJson.getString("totalScore"))
-				/ Float.parseFloat(lineJson.getString("totalPeople"));
-		rateBar.setRating(score / 2);
+//		Float score = Float.parseFloat(lineJson.getString("totalScore"))
+//				/ Float.parseFloat(lineJson.getString("totalPeople"));
+//		rateBar.setRating(score / 2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

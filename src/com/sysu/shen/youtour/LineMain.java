@@ -129,7 +129,7 @@ public class LineMain extends Activity {
 	 * 
 	 * @param v
 	 */
-	public void collectBttonClicked(View v) {
+	public void collectClicked(View v) {
 
 	}
 

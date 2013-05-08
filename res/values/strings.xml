@@ -37,5 +37,6 @@
     <string name="author_other">浏览作者其他作品</string>
     <string name="tourStops">线路站点</string>
     <string name="nearmestring">附近线路</string>
+    <string name="stopmaptitle">站点分布</string>
     <string name="map_not_ready">SupportMapFragment初始化失败</string>
 </resources>
