@@ -17,7 +17,7 @@
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:background="@color/orange"
+            android:background="@drawable/selector_imagebutton"
             android:onClick="backClicked"
             android:src="@drawable/left" />
 
@@ -35,7 +35,7 @@
             android:layout_height="50dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:background="@color/orange"
+            android:background="@drawable/selector_imagebutton"
             android:onClick="collectClicked"
             android:src="@drawable/heart" />
     </RelativeLayout>

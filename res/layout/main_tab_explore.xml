@@ -18,7 +18,7 @@
             android:layout_height="50dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:background="@color/orange"
+            android:background="@drawable/selector_imagebutton"
             android:onClick="searchClicked"
             android:src="@drawable/search" />
 

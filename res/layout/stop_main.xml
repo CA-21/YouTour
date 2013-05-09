@@ -19,7 +19,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_margin="5dp"
-            android:background="@color/orange"
+            android:background="@drawable/selector_imagebutton"
             android:onClick="nextbuttonClicked"
             android:src="@drawable/next" />
 
@@ -30,7 +30,7 @@
             android:layout_alignParentTop="true"
             android:layout_margin="5dp"
             android:layout_toLeftOf="@id/nextBtton"
-            android:background="@color/orange"
+            android:background="@drawable/selector_imagebutton"
             android:onClick="prebuttonClicked"
             android:src="@drawable/pre" />
 
@@ -40,7 +40,7 @@
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:background="@color/orange"
+            android:background="@drawable/selector_imagebutton"
             android:onClick="backClicked"
             android:src="@drawable/left" />
 
@@ -101,7 +101,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_below="@id/orangetop"
                     android:layout_centerVertical="true"
-                    android:background="@color/orange"
+                    android:background="@drawable/selector_imagebutton"
                     android:onClick="playMusic"
                     android:src="@drawable/play_w" />
 

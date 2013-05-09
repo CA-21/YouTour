@@ -6,6 +6,8 @@
     <color name="transparent">#00000000</color>
     <color name="gold">#b89766</color>
     <color name="orange">#DF6D1E</color>
+    <color name="deeporange">#c55b11</color>
+    <color name="lightorange">#f28d00</color>
     <color name="orangetransparent">#50DF6D1E</color>
     <color name="grey">#413E3E</color>
     <color name="background">#eee</color>
