@@ -65,9 +65,6 @@ public class NearMe extends FragmentActivity implements LocationSource,
 	private String cityCode = "";
 	private String desc = "";
 	public final static int NO_NETWORK = 0;
-	private final int LOCACHANGE = 1;
-	private final int LOADING = 2;
-	private final int LOADED = 3;
 	private String URLString = "";
 	private String URLStringBegin = "beg=";
 	private String URLStringEnd = "end=";
@@ -371,11 +368,12 @@ public class NearMe extends FragmentActivity implements LocationSource,
 	public boolean onMarkerClick(Marker arg0) {
 		Log.i("marker",
 				"title:" + arg0.getTitle() + " snippet:" + arg0.getSnippet());
-		Intent it = new Intent(NearMe.this, MapLinePopup.class);
+		Intent it = new Intent(NearMe.this, MapPopup.class);
 		try {
 			it.putExtra("lineString",
 					jarray.getJSONObject(Integer.parseInt(arg0.getSnippet()))
 							.toString());
+			it.putExtra("type", "line");
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (JSONException e) {

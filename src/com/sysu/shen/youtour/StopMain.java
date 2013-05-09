@@ -28,6 +28,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sysu.shen.util.GlobalConst;
 import com.sysu.shen.util.Player;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -116,7 +117,7 @@ public class StopMain extends BaseSampleActivity {
 				btn_play.setImageResource(R.drawable.play);
 				skbProgress.setEnabled(false);
 			}
-			audioURL = "http://103.31.20.60:3000/audio/audio.mp3";
+			audioURL = GlobalConst.HOST+"audio/audio.mp3";
 			Log.i("audioURL: ", audioURL);
 			stopImagesArray = new ArrayList<String>();
 

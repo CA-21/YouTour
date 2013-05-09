@@ -136,10 +136,11 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/songTotalDurationLabel"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="5dp"
                     android:layout_marginTop="1dp"
                     android:layout_toRightOf="@id/btn_play"
                     android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:progressDrawable="@drawable/seekbar_progress"
                     android:thumb="@drawable/seek_handler" />
 

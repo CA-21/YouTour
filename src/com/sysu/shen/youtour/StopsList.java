@@ -85,7 +85,7 @@ public class StopsList extends Activity {
 					int position, long id) {
 				Intent it = new Intent(StopsList.this, StopMain.class);
 				it.putExtra("stopsJarray", stopsJArray.toString());
-				it.putExtra("position", position+"");
+				it.putExtra("position", position + "");
 				startActivity(it);
 
 			}

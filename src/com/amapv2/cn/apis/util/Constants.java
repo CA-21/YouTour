@@ -21,6 +21,8 @@ public class Constants {
 	public static final int BUSLINE_RESULT = 6000;
 	public static final int BUSLINE_DETAIL_RESULT = 6001;
 	public static final int BUSLINE_ERROR_RESULT = 6002;
+	
+	public static final int DRAWLINE_FINISH = 7001;
 
 	public static final LatLng BEIJING = new LatLng(39.90403, 116.407525);// 北京市经纬度
 	public static final LatLng ZHONGGUANCUN = new LatLng(39.983456, 116.3154950);// 北京市中关村经纬度

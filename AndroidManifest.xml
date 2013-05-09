@@ -71,7 +71,7 @@
             android:theme="@style/CustomNotitle" >
         </activity>
         <activity
-            android:name="com.sysu.shen.youtour.MapLinePopup"
+            android:name="com.sysu.shen.youtour.MapPopup"
             android:theme="@style/MyDialogStyleTop" >
         </activity>
 
