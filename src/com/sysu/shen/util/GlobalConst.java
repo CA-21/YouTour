@@ -9,14 +9,14 @@ public class GlobalConst {
 			"按旅程距离", "价格由低到高", "价格由高到低", "最新发布" };
 	public static final String EXPLORE_PLACE = "roughPlace";
 	public static final String EXPLORE_TOPIC = "throughTopic";
-//	public static final String HOST = "http://103.31.20.60:3000/";
-	public static final String HOST = "http://172.18.219.82:3000/";
-	public static String EXPLORE_URL = HOST + "androidtest";
+	public static final String HOST = "http://103.31.20.60:3000";
+	// public static final String HOST = "http://172.18.219.82:3000/";
+	// public static String EXPLORE_URL = HOST + "/androidtest";
 	public static final String URL_HEADER_ADDTOP = HOST
-			+ "browsebyaddresstopic?";
-	public static final String URL_HAEDER_ADD = HOST + "browsebyaddress?";
-	public static final String URL_HAEDER_TOP = HOST + "browsebytopic?";
-	public static final String URL_HAEDER_ALL = HOST + "browseallbytime?";
-	public static final String URL_HAEDER_LOC = HOST + "browsebylocation?";
+			+ "/browsebyaddresstopic?";
+	public static final String URL_HAEDER_ADD = HOST + "/browsebyaddress?";
+	public static final String URL_HAEDER_TOP = HOST + "/browsebytopic?";
+	public static final String URL_HAEDER_ALL = HOST + "/browseallbytime?";
+	public static final String URL_HAEDER_LOC = HOST + "/browsebylocation?";
 
 }

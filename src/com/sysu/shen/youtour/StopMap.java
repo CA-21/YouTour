@@ -42,7 +42,8 @@ import android.widget.Toast;
 public class StopMap extends FragmentActivity implements OnMarkerClickListener {
 
 	private static final float lineWidth = 6.9F;
-	private static final int zoomLevel = 2;
+	private static final float zoomLevel = (float) 9;
+	private static final int zoomPadding = 1;
 	private AMap mMap;
 	private UiSettings mUiSettings;
 
@@ -74,6 +75,15 @@ public class StopMap extends FragmentActivity implements OnMarkerClickListener {
 	}
 
 	public void drawLine() {
+		if (LatLonPointList.size() == 1) {
+			// 只有一个站点不能绘制线路之间返回marker
+			mMap.addMarker((new MarkerOptions()).position(
+					SearchPointConvert(LatLonPointList.get(0))).icon(
+					BitmapDescriptorFactory.fromBitmap(getBitMap(1 + ""))));
+			mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+					SearchPointConvert(LatLonPointList.get(0)),(float) (zoomLevel+4)));
+			return;
+		}
 		Thread t = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -211,7 +221,7 @@ public class StopMap extends FragmentActivity implements OnMarkerClickListener {
 		try {
 			LatLngBounds bounds = builder.build();
 			mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds,
-					zoomLevel));
+					zoomPadding));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

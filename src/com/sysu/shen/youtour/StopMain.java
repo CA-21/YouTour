@@ -55,6 +55,7 @@ public class StopMain extends BaseSampleActivity {
 	private ImageButton nextBtn;
 	private TextView songCurrentDurationLabel;
 	private TextView songTotalDurationLabel;
+	private Boolean haveAudio = true;
 
 	private String audioURL;
 
@@ -111,13 +112,14 @@ public class StopMain extends BaseSampleActivity {
 			stopDetailString = stopJSON.getString("stopDes");
 			stopImages = stopJSON.getJSONArray("stopImages");
 			audioURL = stopJSON.getString("stopAudio");
-			Log.i("audioURL: ", audioURL);
+			Log.i("audioURLorigin: ", audioURL);
 			// 如果没有音频链接则让播放控件失效
 			if (audioURL.equals("")) {
 				btn_play.setImageResource(R.drawable.play);
+				haveAudio = false;
 				skbProgress.setEnabled(false);
 			}
-			audioURL = GlobalConst.HOST+"audio/audio.mp3";
+			audioURL = GlobalConst.HOST + audioURL;
 			Log.i("audioURL: ", audioURL);
 			stopImagesArray = new ArrayList<String>();
 
@@ -258,7 +260,8 @@ public class StopMain extends BaseSampleActivity {
 			startActivity(it);
 			player.stop();
 			this.finish();
-			this.overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
+			this.overridePendingTransition(R.anim.slide_out_right,
+					R.anim.slide_in_left);
 		}
 	}
 
@@ -277,7 +280,8 @@ public class StopMain extends BaseSampleActivity {
 			startActivity(it);
 			player.stop();
 			this.finish();
-			this.overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
+			this.overridePendingTransition(R.anim.slide_out_left,
+					R.anim.slide_in_right);
 		}
 	}
 
@@ -296,7 +300,7 @@ public class StopMain extends BaseSampleActivity {
 	 * @param v
 	 */
 	public void playMusic(View v) {
-		if (audioURL.equals("")) {
+		if (!haveAudio) {
 			Toast.makeText(this, "这个站点没有音频信息哦", Toast.LENGTH_SHORT).show();
 		} else {
 			if (firstClick) {
@@ -346,13 +350,12 @@ public class StopMain extends BaseSampleActivity {
 					// 无网络连接
 					Toast.makeText(this, "连上网络才可以听音频介绍哦！", Toast.LENGTH_SHORT)
 							.show();
-				}
-				else{
-					//使用非移动网络
+				} else {
+					// 使用非移动网络
 					new PlayMusicAsynTack().execute();
 					firstClick = false;
 				}
-				
+
 			} else {
 				boolean pause = player.pause();
 				if (pause) {

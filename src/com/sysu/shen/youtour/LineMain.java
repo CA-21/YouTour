@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LineMain extends Activity {
 	private ImageLoader imageLoader1;
@@ -40,6 +41,8 @@ public class LineMain extends Activity {
 
 	private String lineString;
 	private JSONObject lineJson;
+
+	private int stopNumInt;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +90,7 @@ public class LineMain extends Activity {
 					/ Float.parseFloat(lineJson.getString("totalPeople"));
 			rateBar.setRating(score / 2);
 			lineSummary.setText("\t" + lineJson.getString("lineSummary"));
-			int stopNumInt = lineJson.getJSONArray("stops").length();
+			stopNumInt = lineJson.getJSONArray("stops").length();
 			stopNum.setText(stopNumInt + "");
 			lineTime.setText(timeConvert(Integer.parseInt(lineJson
 					.getString("duration"))));
@@ -139,6 +142,10 @@ public class LineMain extends Activity {
 	 * @param v
 	 */
 	public void stopDetailClicked(View v) {
+		if (stopNumInt == 0) {
+			Toast.makeText(this, "这个线路没有站点信息哦", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		// 判断是否wifi环境
 		ConnectivityManager connManager = (ConnectivityManager) this
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -152,14 +159,18 @@ public class LineMain extends Activity {
 			builder.setPositiveButton("马上设置",
 					new DialogInterface.OnClickListener() {
 
-				public void onClick(DialogInterface dialog, int whichButton) {
-                    final Intent intent = new Intent(Intent.ACTION_MAIN, null);
-                    intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                    final ComponentName cn = new ComponentName("com.android.settings", "com.android.settings.wifi.WifiSettings");
-                    intent.setComponent(cn);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity( intent);
-                }
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							final Intent intent = new Intent(
+									Intent.ACTION_MAIN, null);
+							intent.addCategory(Intent.CATEGORY_LAUNCHER);
+							final ComponentName cn = new ComponentName(
+									"com.android.settings",
+									"com.android.settings.wifi.WifiSettings");
+							intent.setComponent(cn);
+							intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+							startActivity(intent);
+						}
 					});
 			builder.setNegativeButton("继续浏览",
 					new DialogInterface.OnClickListener() {
@@ -167,10 +178,11 @@ public class LineMain extends Activity {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							dialog.cancel();
-							Intent it = new Intent(LineMain.this, StopsList.class);
+							Intent it = new Intent(LineMain.this,
+									StopsList.class);
 							try {
-								it.putExtra("stopJArray", lineJson.getJSONArray("stops")
-										.toString());
+								it.putExtra("stopJArray", lineJson
+										.getJSONArray("stops").toString());
 								it.putExtra("lineName", lineTitle.getText());
 							} catch (JSONException e) {
 								e.printStackTrace();
