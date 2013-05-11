@@ -57,6 +57,9 @@ import android.widget.Toast;
 public class NearMe extends FragmentActivity implements LocationSource,
 		AMapLocationListener, OnMarkerClickListener {
 
+	private String endNum = "15";
+	private String beginNum = "0";
+	private static final int zoomLevel = 10;
 	private AMap aMap;
 	private OnLocationChangedListener mListener;
 	private LocationManagerProxy mAMapLocationManager;
@@ -242,16 +245,19 @@ public class NearMe extends FragmentActivity implements LocationSource,
 
 	public void loadMarker() {
 		// 设置所有maker显示在View中
-		Builder builder = new Builder();
-		for (int i = 0; i < markersList.size(); i++) {
-			builder.include(markersList.get(i));
-		}
-		try {
-			LatLngBounds bounds = builder.build();
-			aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 20));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// Builder builder = new Builder();
+		// for (int i = 0; i < markersList.size(); i++) {
+		// builder.include(markersList.get(i));
+		// }
+		// try {
+		// LatLngBounds bounds = builder.build();
+		// aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 20));
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
+		LatLng curretnLatLng = new LatLng(currentgeoLat, currentgeoLng);
+		aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curretnLatLng,
+				zoomLevel));
 
 	}
 
@@ -328,12 +334,13 @@ public class NearMe extends FragmentActivity implements LocationSource,
 			// m.what = LOCACHANGE;
 			// mhandle.sendMessage(m);
 			URLString = GlobalConst.URL_HAEDER_LOC + "x="
-					+ currentgeoLng.toString() + "&y="
-					+ currentgeoLat.toString() + "&" + URLStringBegin + "0"
-					+ "&" + URLStringEnd + "25";
+					+ currentgeoLat.toString() + "&y="
+					+ currentgeoLng.toString() + "&" + URLStringBegin
+					+ beginNum + "&" + URLStringEnd + endNum;
 			Log.i("locaturl", URLString);
-			URLString = GlobalConst.URL_HAEDER_ALL + URLStringBegin + "0" + "&"
-					+ URLStringEnd + "25";
+			// URLString = GlobalConst.URL_HAEDER_ALL + URLStringBegin + "0" +
+			// "&"
+			// + URLStringEnd + "25";
 			Log.i("locaturl", URLString);
 			String str = ("定位成功:(" + currentgeoLng + "," + currentgeoLat + ")"
 					+ "\n城市编码:" + cityCode + "\n位置描述:" + desc);

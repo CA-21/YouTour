@@ -105,6 +105,8 @@ public class MainActivity extends FragmentActivity {
 			}
 
 			private void isTabMytour() {
+				// Toast.makeText(MainActivity.this, "正在建设中，敬请期待",
+				// Toast.LENGTH_SHORT).show();
 				if (mytourFragment == null) {
 					ft.add(R.id.realtabcontent, new MytourFragment(), "mytour");
 				} else {
@@ -254,7 +256,7 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	// 检查更新
-	public void checkVersion(View v){
+	public void checkVersion(View v) {
 		WVersionManager versionManager = new WVersionManager(this);
 
 		versionManager.setVersionContentUrl(GlobalConst.URL_APP_UPDATE);

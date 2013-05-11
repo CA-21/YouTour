@@ -29,6 +29,8 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class ExploreMain extends Activity {
+	private String endNum = "25";
+	private String beginNum = "0";
 	private ExpandTabView expandTabView;
 	private ArrayList<View> mViewArray = new ArrayList<View>();
 	private ViewLeft viewLeft;
@@ -59,9 +61,9 @@ public class ExploreMain extends Activity {
 		initView();
 		initVaule();
 		initListener();
-		//初始加载
-		URLString = GlobalConst.URL_HAEDER_ALL + URLStringBegin + "0" + "&"
-				+ URLStringEnd + "25";
+		// 初始加载
+		URLString = GlobalConst.URL_HAEDER_ALL + URLStringBegin + beginNum
+				+ "&" + URLStringEnd + endNum;
 		// 异步更新列表
 		new GetJSONAsynTack(this).execute(URLString);
 		new Handler().postDelayed(new Runnable() {
@@ -301,23 +303,25 @@ public class ExploreMain extends Activity {
 			if (address.equals("国内全部") && !topic.equals("全部主题"))
 				URLString = GlobalConst.URL_HAEDER_TOP + URLStringTopic
 						+ URLEncoder.encode(topic, "UTF-8") + "&"
-						+ URLStringBegin + "0" + "&" + URLStringEnd + "25";
-			
+						+ URLStringBegin + beginNum + "&" + URLStringEnd
+						+ endNum;
+
 			else if (topic.equals("全部主题") && !address.equals("国内全部"))
 				URLString = GlobalConst.URL_HAEDER_ADD + URLStringAddress
 						+ URLEncoder.encode(address, "UTF-8") + "&"
-						+ URLStringBegin + "0" + "&" + URLStringEnd + "25";
-			
+						+ URLStringBegin + beginNum + "&" + URLStringEnd
+						+ endNum;
+
 			else if (topic.equals("全部主题") && address.equals("国内全部"))
-				URLString = GlobalConst.URL_HAEDER_ALL + URLStringBegin + "0"
-						+ "&" + URLStringEnd + "25";
-			
+				URLString = GlobalConst.URL_HAEDER_ALL + URLStringBegin
+						+ beginNum + "&" + URLStringEnd + endNum;
+
 			else if (!topic.equals("全部主题") && !address.equals("国内全部"))
 				URLString = GlobalConst.URL_HEADER_ADDTOP + URLStringAddress
 						+ URLEncoder.encode(address, "UTF-8") + "&"
 						+ URLStringTopic + URLEncoder.encode(topic, "UTF-8")
-						+ "&" + URLStringBegin + "0" + "&" + URLStringEnd
-						+ "25";
+						+ "&" + URLStringBegin + beginNum + "&" + URLStringEnd
+						+ endNum;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -354,10 +358,10 @@ public class ExploreMain extends Activity {
 	 * @param v
 	 */
 	public void nearmeClicked(View v) {
-		Toast.makeText(this, "nearmebutton clicked", Toast.LENGTH_SHORT).show();
-		// Intent it = new Intent(ExploreMain.this,
-		// com.sysu.shen.util.GoogleMap.class);
-		// startActivity(it);
+		// Toast.makeText(this, "nearmebutton clicked",
+		// Toast.LENGTH_SHORT).show();
+		Intent it = new Intent(ExploreMain.this, NearMe.class);
+		startActivity(it);
 	}
 
 	/**

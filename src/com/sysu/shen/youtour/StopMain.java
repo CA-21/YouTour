@@ -119,7 +119,7 @@ public class StopMain extends BaseSampleActivity {
 				haveAudio = false;
 				skbProgress.setEnabled(false);
 			}
-			audioURL = GlobalConst.HOST + audioURL;
+			// audioURL = GlobalConst.HOST + audsioURL;
 			Log.i("audioURL: ", audioURL);
 			stopImagesArray = new ArrayList<String>();
 

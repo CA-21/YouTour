@@ -39,7 +39,7 @@ public class ImageLoader {
 	final int stub_id = R.drawable.no_image;
 
 	public void DisplayImage(String url, ImageView imageView) {
-		url = GlobalConst.HOST + url;
+//		url = GlobalConst.HOST + url;
 		Log.i("imageurl", url);
 		imageViews.put(imageView, url);
 		Bitmap bitmap = memoryCache.get(url);
