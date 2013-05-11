@@ -162,7 +162,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/preference_item"
                 android:clickable="true"
-                android:gravity="center_vertical" >
+                android:gravity="center_vertical" 
+                android:onClick="checkVersion">
 
                 <TextView
                     android:layout_width="wrap_content"

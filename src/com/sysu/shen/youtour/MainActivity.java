@@ -1,12 +1,17 @@
 package com.sysu.shen.youtour;
 
 import com.sysu.shen.util.GlobalConst;
+import com.winsontan520.wversionmanager.library.WVersionManager;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -183,8 +188,31 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	@Override
-	public void onBackPressed() {
+	public boolean onOptionsItemSelected(MenuItem item) {
 		this.finish();
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onBackPressed() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setIcon(android.R.drawable.ic_dialog_info);
+		builder.setTitle("确定退出吗?");
+		builder.setPositiveButton("退出", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				finish();
+			}
+		});
+		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+			}
+		});
+		builder.create();
+		builder.show();
+
 	}
 
 	// 搜索按钮响应
@@ -210,7 +238,7 @@ public class MainActivity extends FragmentActivity {
 
 	// 按照附近浏览响应
 	public void nearmeClicked(View v) {
-//		Toast.makeText(this, "正在建设中，敬请期待！", Toast.LENGTH_SHORT).show();
+		// Toast.makeText(this, "正在建设中，敬请期待！", Toast.LENGTH_SHORT).show();
 		Intent it = new Intent(MainActivity.this, NearMe.class);
 		startActivity(it);
 	}
@@ -219,10 +247,24 @@ public class MainActivity extends FragmentActivity {
 	public void qrcodeClicked(View v) {
 		Toast.makeText(this, "正在建设中，敬请期待！", Toast.LENGTH_SHORT).show();
 	}
-	
-	//退出登陆按钮
-	public void exitLog(View v){
-		
+
+	// 退出登陆按钮
+	public void exitLog(View v) {
+
 	}
 
+	// 检查更新
+	public void checkVersion(View v){
+		WVersionManager versionManager = new WVersionManager(this);
+
+		versionManager.setVersionContentUrl(GlobalConst.URL_APP_UPDATE);
+		versionManager.setTitle("检查到新的更新");
+		versionManager.setUpdateNowLabel("马上更新");
+		// versionManager.setRemindMeLaterLabel(remindMeLaterLabel.getText().toString());
+		versionManager.setIgnoreThisVersionLabel("取消");
+		// versionManager.setUpdateUrl("http://103.31.20.60:3000/YouTour.apk");
+		// versionManager.setReminderTimer(Integer.valueOf(reminderTimer.getText()
+		// .toString()));
+		versionManager.checkVersion();
+	}
 }
