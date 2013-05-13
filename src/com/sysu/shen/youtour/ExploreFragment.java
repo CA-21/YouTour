@@ -59,7 +59,7 @@ public class ExploreFragment extends ListFragment {
 		URLString = GlobalConst.URL_HAEDER_ALL + URLStringBegin + "0" + "&"
 				+ URLStringEnd + "25";
 		// 异步更新列表
-		new GetJSONAsynTack(this.getActivity()).execute(URLString);
+		// new GetJSONAsynTack(this.getActivity()).execute(URLString);
 		Log.i("mainRequestURL", URLString);
 
 		return v;
@@ -169,5 +169,20 @@ public class ExploreFragment extends ListFragment {
 			super.onPostExecute(result);
 		}
 	}
+
+	@Override
+	public void onResume() {
+		// onResume happens after onStart and onActivityCreate
+		new GetJSONAsynTack(this.getActivity()).execute(URLString);
+		super.onResume();
+	}
+	
+	@Override
+	public void onPause() {
+		mProgressDialog.dismiss();
+		super.onPause();
+	}
+	
+	
 
 }

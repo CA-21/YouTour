@@ -161,6 +161,7 @@ public class JSONFunctions {
 			lineMap.put("address", line.getString("mapAddress"));
 			lineMap.put("title", line.getString("lineName"));
 			lineMap.put("thumbnail", line.getString("coverThumbnail"));
+			lineMap.put("price", line.getString("price"));
 			Float score = Float.parseFloat(line.getString("totalScore"))
 					/ Float.parseFloat(line.getString("totalPeople"));
 			lineMap.put("score", score / 2 + "");

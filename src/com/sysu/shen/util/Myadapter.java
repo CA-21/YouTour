@@ -7,9 +7,11 @@ import com.sysu.shen.youtour.R;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -56,15 +58,22 @@ public class Myadapter extends BaseAdapter {
 
 		TextView address = (TextView) vi.findViewById(R.id.adress);
 		TextView title = (TextView) vi.findViewById(R.id.title);
+		TextView price = (TextView) vi.findViewById(R.id.price_text);
 		ImageView thumb_image = (ImageView) vi.findViewById(R.id.list_image);
 		RatingBar rate_bar = (RatingBar) vi.findViewById(R.id.rating_bar);
 		HashMap<String, String> linedata = new HashMap<String, String>();
 		linedata = data.get(position);
 		address.setText(linedata.get("address"));
 		title.setText(linedata.get("title"));
+		Log.i("lineprice", linedata.get("price"));
+		if(linedata.get("price").equals("0")){
+			price.setText("免费");
+		}
+		else{
+			price.setText("￥"+linedata.get("price"));
+		}
 		rate_bar.setRating(Float.parseFloat(linedata.get("score")));
 		imageLoader.DisplayImage(linedata.get("thumbnail"), thumb_image);
 		return vi;
 	}
-
 }
