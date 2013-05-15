@@ -128,12 +128,17 @@ public class Player implements OnBufferingUpdateListener,
 	 * 停止
 	 */
 	public void stop() {
-		if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+		mTimerTask.cancel();
+		if (mediaPlayer.isPlaying()) {
+			
+		}
+		if(mediaPlayer != null){
 			mediaPlayer.stop();
-			mTimerTask.cancel();
 			mediaPlayer.release();
 			mediaPlayer = null;
+			
 		}
+		
 	}
 
 	@Override

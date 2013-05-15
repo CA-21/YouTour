@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -56,6 +57,10 @@ public class StopMain extends BaseSampleActivity {
 	private TextView songCurrentDurationLabel;
 	private TextView songTotalDurationLabel;
 	private Boolean haveAudio = true;
+	private double longitude;
+	private double latitude;
+
+	private AsyncTask<Void, Void, Void> task;
 
 	private String audioURL;
 
@@ -112,6 +117,8 @@ public class StopMain extends BaseSampleActivity {
 			stopDetailString = stopJSON.getString("stopDes");
 			stopImages = stopJSON.getJSONArray("stopImages");
 			audioURL = stopJSON.getString("stopAudio");
+			longitude = stopJSON.getJSONArray("locate").getDouble(0);
+			latitude = stopJSON.getJSONArray("locate").getDouble(1);
 			Log.i("audioURLorigin: ", audioURL);
 			// 如果没有音频链接则让播放控件失效
 			if (audioURL.equals("")) {
@@ -233,6 +240,9 @@ public class StopMain extends BaseSampleActivity {
 	 */
 	public void backClicked(View v) {
 		player.stop();
+		if (task != null) {
+			task.cancel(true);
+		}
 		this.finish();
 	}
 
@@ -242,7 +252,10 @@ public class StopMain extends BaseSampleActivity {
 	 * @param v
 	 */
 	public void mapclicked(View v) {
-
+		// Uri mUri = Uri.parse("geo:"+latitude+","+longitude);
+		// Log.i("geo", "geo:"+longitude+","+latitude);
+		// Intent mIntent = new Intent(Intent.ACTION_VIEW,mUri);
+		// startActivity(mIntent);
 	}
 
 	/**
@@ -259,6 +272,9 @@ public class StopMain extends BaseSampleActivity {
 			it.putExtra("position", (Integer.parseInt(position) - 1) + "");
 			startActivity(it);
 			player.stop();
+			if (task != null) {
+				task.cancel(true);
+			}
 			this.finish();
 			this.overridePendingTransition(R.anim.slide_out_right,
 					R.anim.slide_in_left);
@@ -279,6 +295,9 @@ public class StopMain extends BaseSampleActivity {
 			it.putExtra("position", (Integer.parseInt(position) + 1) + "");
 			startActivity(it);
 			player.stop();
+			if (task != null) {
+				task.cancel(true);
+			}
 			this.finish();
 			this.overridePendingTransition(R.anim.slide_out_left,
 					R.anim.slide_in_right);
@@ -339,7 +358,9 @@ public class StopMain extends BaseSampleActivity {
 								public void onClick(DialogInterface dialog,
 										int which) {
 									dialog.cancel();
-									new PlayMusicAsynTack().execute();
+									task = new PlayMusicAsynTack();
+									task.execute();
+									// new PlayMusicAsynTack().execute();
 									firstClick = false;
 								}
 							});
@@ -352,7 +373,9 @@ public class StopMain extends BaseSampleActivity {
 							.show();
 				} else {
 					// 使用非移动网络
-					new PlayMusicAsynTack().execute();
+					// new PlayMusicAsynTack().execute();
+					task = new PlayMusicAsynTack();
+					task.execute();
 					firstClick = false;
 				}
 
@@ -371,6 +394,9 @@ public class StopMain extends BaseSampleActivity {
 	@Override
 	public void onBackPressed() {
 		player.stop();
+		if (task != null) {
+			task.cancel(true);
+		}
 		this.finish();
 		super.onBackPressed();
 	}

@@ -1,6 +1,5 @@
 package com.sysu.shen.youtour;
 
-
 import com.sysu.shen.util.GlobalConst;
 import com.sysu.shen.util.TextAdapter;
 
@@ -12,12 +11,12 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-
-public class ViewMiddle extends RelativeLayout implements ViewBaseAction{
+public class ViewMiddle extends RelativeLayout implements ViewBaseAction {
 
 	private ListView mListView;
-	private final String[] items = GlobalConst.TOPIC_ITEMS;//显示字段
-	private final String[] itemsVaule = new String[] { "1", "2", "3", "4", "5" };//隐藏id
+	private final String[] items = GlobalConst.TOPIC_ITEMS;// 显示字段
+	private final String[] itemsVaule = new String[] { "1", "2", "3", "4", "5",
+			"6", "7", "8" };// 隐藏id
 	private OnSelectListener mOnSelectListener;
 	private TextAdapter adapter;
 	private String mDistance;
@@ -45,11 +44,14 @@ public class ViewMiddle extends RelativeLayout implements ViewBaseAction{
 
 	private void init(Context context) {
 		mContext = context;
-		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		LayoutInflater inflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(R.layout.view_distance, this, true);
-		setBackgroundDrawable(getResources().getDrawable(R.drawable.choosearea_bg_mid));
+		setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.choosearea_bg_mid));
 		mListView = (ListView) findViewById(R.id.listView);
-		adapter = new TextAdapter(context, items, R.drawable.choose_item_right, R.drawable.choose_eara_item_selector);
+		adapter = new TextAdapter(context, items, R.drawable.choose_item_right,
+				R.drawable.choose_eara_item_selector);
 		adapter.setTextSize(17);
 		if (mDistance != null) {
 			for (int i = 0; i < itemsVaule.length; i++) {
@@ -68,7 +70,8 @@ public class ViewMiddle extends RelativeLayout implements ViewBaseAction{
 
 				if (mOnSelectListener != null) {
 					showText = items[position];
-					mOnSelectListener.getValue(itemsVaule[position], items[position]);
+					mOnSelectListener.getValue(itemsVaule[position],
+							items[position]);
 				}
 			}
 		});
@@ -84,12 +87,12 @@ public class ViewMiddle extends RelativeLayout implements ViewBaseAction{
 
 	@Override
 	public void hide() {
-		
+
 	}
 
 	@Override
 	public void show() {
-		
+
 	}
 
 }

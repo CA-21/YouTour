@@ -44,10 +44,18 @@ public class ExploreFragment extends ListFragment {
 	private final int LOADED = 2;
 	private ProgressDialog mProgressDialog;
 
+	// public static ExploreFragment newInstance() {
+	// return new ExploreFragment();
+	// }
+
+	private AsyncTask<String, Void, Void> task;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+
+		// setRetainInstance(true);
 
 	}
 
@@ -173,16 +181,27 @@ public class ExploreFragment extends ListFragment {
 	@Override
 	public void onResume() {
 		// onResume happens after onStart and onActivityCreate
-		new GetJSONAsynTack(this.getActivity()).execute(URLString);
+		task = new GetJSONAsynTack(this.getActivity());
+		task.execute(URLString);
 		super.onResume();
 	}
-	
+
 	@Override
 	public void onPause() {
 		mProgressDialog.dismiss();
 		super.onPause();
+		if (task != null) {
+			task.cancel(true);
+		}
 	}
-	
-	
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		mProgressDialog.dismiss();
+		if (task != null) {
+			task.cancel(true);
+		}
+	}
 
 }

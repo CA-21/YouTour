@@ -49,6 +49,7 @@ public class ExploreMain extends Activity {
 	private Myadapter adapter;
 	private JSONArray jarray;
 	private final int NO_NETWORK = 0;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

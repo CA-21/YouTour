@@ -13,17 +13,13 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
 import com.amap.api.maps.AMap;
-import com.amap.api.maps.AMap.OnMapClickListener;
 import com.amap.api.maps.AMap.OnMarkerClickListener;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.SupportMapFragment;
 import com.amap.api.maps.UiSettings;
-import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
-import com.amap.api.maps.model.LatLngBounds;
-import com.amap.api.maps.model.LatLngBounds.Builder;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amapv2.cn.apis.util.AMapUtil;
@@ -47,11 +43,8 @@ import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextPaint;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Toast;
 
 public class NearMe extends FragmentActivity implements LocationSource,
@@ -75,6 +68,7 @@ public class NearMe extends FragmentActivity implements LocationSource,
 	private Timer mTimer = new Timer();
 	private Boolean needReshLocation = true;
 	private ProgressDialog mProgressDialog;
+	private AsyncTask<String, Void, Void> task;
 
 	private ArrayList<LatLng> markersList = new ArrayList<LatLng>();
 	private UiSettings mUiSettings;
@@ -267,6 +261,9 @@ public class NearMe extends FragmentActivity implements LocationSource,
 	 * @param v
 	 */
 	public void backClicked(View v) {
+		if (task != null) {
+			task.cancel(true);
+		}
 		mTimerTask.cancel();
 		this.finish();
 	}
@@ -276,6 +273,9 @@ public class NearMe extends FragmentActivity implements LocationSource,
 		super.onPause();
 		deactivate();
 		mTimerTask.cancel();
+		if (task != null) {
+			task.cancel(true);
+		}
 	}
 
 	@Override
@@ -347,7 +347,9 @@ public class NearMe extends FragmentActivity implements LocationSource,
 			Log.i("locatinfo", str);
 			Log.i("nearmeurl", URLString);
 			// 异步更新列表
-			new GetJSONAsynTack(NearMe.this).execute(URLString);
+			task = new GetJSONAsynTack(NearMe.this);
+			task.execute(URLString);
+			// new GetJSONAsynTack(NearMe.this).execute(URLString);
 
 			needReshLocation = false;
 		}
@@ -394,6 +396,9 @@ public class NearMe extends FragmentActivity implements LocationSource,
 	@Override
 	public void onBackPressed() {
 		mTimerTask.cancel();
+		if (task != null) {
+			task.cancel(true);
+		}
 		super.onBackPressed();
 	}
 
