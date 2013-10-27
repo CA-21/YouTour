@@ -64,7 +64,7 @@ public class ExploreFragment extends ListFragment {
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.main_tab_explore, container, false);
 
-		URLString = GlobalConst.URL_HAEDER_ALL + URLStringBegin + "0" + "&"
+		URLString = GlobalConst.HOST + GlobalConst.URL_HAEDER_ALL + URLStringBegin + "0" + "&"
 				+ URLStringEnd + "25";
 		// 异步更新列表
 		// new GetJSONAsynTack(this.getActivity()).execute(URLString);

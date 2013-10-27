@@ -49,7 +49,6 @@ public class ExploreMain extends Activity {
 	private Myadapter adapter;
 	private JSONArray jarray;
 	private final int NO_NETWORK = 0;
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +62,8 @@ public class ExploreMain extends Activity {
 		initVaule();
 		initListener();
 		// 初始加载
-		URLString = GlobalConst.URL_HAEDER_ALL + URLStringBegin + beginNum
-				+ "&" + URLStringEnd + endNum;
+		URLString = GlobalConst.HOST + GlobalConst.URL_HAEDER_ALL
+				+ URLStringBegin + beginNum + "&" + URLStringEnd + endNum;
 		// 异步更新列表
 		new GetJSONAsynTack(this).execute(URLString);
 		new Handler().postDelayed(new Runnable() {
@@ -302,23 +301,26 @@ public class ExploreMain extends Activity {
 		}
 		try {
 			if (address.equals("国内全部") && !topic.equals("全部主题"))
-				URLString = GlobalConst.URL_HAEDER_TOP + URLStringTopic
-						+ URLEncoder.encode(topic, "UTF-8") + "&"
-						+ URLStringBegin + beginNum + "&" + URLStringEnd
+				URLString = GlobalConst.HOST + GlobalConst.URL_HAEDER_TOP
+						+ URLStringTopic + URLEncoder.encode(topic, "UTF-8")
+						+ "&" + URLStringBegin + beginNum + "&" + URLStringEnd
 						+ endNum;
 
 			else if (topic.equals("全部主题") && !address.equals("国内全部"))
-				URLString = GlobalConst.URL_HAEDER_ADD + URLStringAddress
+				URLString = GlobalConst.HOST + GlobalConst.URL_HAEDER_ADD
+						+ URLStringAddress
 						+ URLEncoder.encode(address, "UTF-8") + "&"
 						+ URLStringBegin + beginNum + "&" + URLStringEnd
 						+ endNum;
 
 			else if (topic.equals("全部主题") && address.equals("国内全部"))
-				URLString = GlobalConst.URL_HAEDER_ALL + URLStringBegin
-						+ beginNum + "&" + URLStringEnd + endNum;
+				URLString = GlobalConst.HOST + GlobalConst.URL_HAEDER_ALL
+						+ URLStringBegin + beginNum + "&" + URLStringEnd
+						+ endNum;
 
 			else if (!topic.equals("全部主题") && !address.equals("国内全部"))
-				URLString = GlobalConst.URL_HEADER_ADDTOP + URLStringAddress
+				URLString = GlobalConst.HOST + GlobalConst.URL_HEADER_ADDTOP
+						+ URLStringAddress
 						+ URLEncoder.encode(address, "UTF-8") + "&"
 						+ URLStringTopic + URLEncoder.encode(topic, "UTF-8")
 						+ "&" + URLStringBegin + beginNum + "&" + URLStringEnd

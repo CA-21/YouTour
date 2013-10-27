@@ -333,7 +333,7 @@ public class NearMe extends FragmentActivity implements LocationSource,
 			// Message m = new Message();
 			// m.what = LOCACHANGE;
 			// mhandle.sendMessage(m);
-			URLString = GlobalConst.URL_HAEDER_LOC + "x="
+			URLString = GlobalConst.HOST +GlobalConst.URL_HAEDER_LOC + "x="
 					+ currentgeoLat.toString() + "&y="
 					+ currentgeoLng.toString() + "&" + URLStringBegin
 					+ beginNum + "&" + URLStringEnd + endNum;
