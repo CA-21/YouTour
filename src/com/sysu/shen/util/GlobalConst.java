@@ -20,6 +20,6 @@ public class GlobalConst {
 	public static final String URL_HAEDER_LOC = HOST + "/browsebylocation?";
 	// public static final String URL_APP_UPDATE =
 	// "https://dl.dropboxusercontent.com/u/109241536/update2.json";
-	public static final String URL_APP_UPDATE = HOST + "/apkupdate";
+	public static final String URL_APP_UPDATE = "https://raw.github.com/shenguojun/YouTour/master/src/com/sysu/shen/youtour/update.json";
 
 }
