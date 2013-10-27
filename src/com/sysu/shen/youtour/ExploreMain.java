@@ -328,9 +328,8 @@ public class ExploreMain extends Activity {
 		}
 		// 更新列表
 		new GetJSONAsynTack(this).execute(URLString);
-		Toast.makeText(ExploreMain.this,
-				"address:" + address + " topic:" + topic, Toast.LENGTH_SHORT)
-				.show();
+		Toast.makeText(ExploreMain.this, address + "的" + topic + "正在加载……",
+				Toast.LENGTH_SHORT).show();
 		Log.i("requestURL: ", URLString);
 
 	}

@@ -219,7 +219,7 @@ public class MainActivity extends FragmentActivity {
 
 	// 搜索按钮响应
 	public void searchClicked(View v) {
-		Toast.makeText(this, "button is clicked", Toast.LENGTH_SHORT).show();
+		// Toast.makeText(this, "button is clicked", Toast.LENGTH_SHORT).show();
 	}
 
 	// 按照地点浏览响应
