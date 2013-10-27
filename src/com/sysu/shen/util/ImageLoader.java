@@ -41,6 +41,7 @@ public class ImageLoader {
 	public void DisplayImage(String url, ImageView imageView) {
 //		url = GlobalConst.HOST + url;
 		Log.i("imageurl", url);
+		url = GlobalConst.HOST + url;
 		imageViews.put(imageView, url);
 		Bitmap bitmap = memoryCache.get(url);
 		if (bitmap != null)

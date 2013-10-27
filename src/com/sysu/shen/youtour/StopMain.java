@@ -117,6 +117,7 @@ public class StopMain extends BaseSampleActivity {
 			stopDetailString = stopJSON.getString("stopDes");
 			stopImages = stopJSON.getJSONArray("stopImages");
 			audioURL = stopJSON.getString("stopAudio");
+			audioURL = GlobalConst.HOST + audioURL;
 			longitude = stopJSON.getJSONArray("locate").getDouble(0);
 			latitude = stopJSON.getJSONArray("locate").getDouble(1);
 			Log.i("audioURLorigin: ", audioURL);

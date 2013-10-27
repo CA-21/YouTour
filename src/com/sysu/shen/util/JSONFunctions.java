@@ -56,7 +56,7 @@ public class JSONFunctions {
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					conn.getInputStream(), "UTF-8"));
 
-			Log.v("jsonfucntion", "get connect to server");
+			Log.v("jsonfunction", "get connect to server");
 			StringBuilder sb = new StringBuilder();
 			String line = null;
 			while ((line = br.readLine()) != null) {
@@ -79,7 +79,7 @@ public class JSONFunctions {
 		try {
 			jarray = new JSONArray(result);
 		} catch (Exception e) {
-			Log.e("jsonfucntion",
+			Log.e("jsonfunction",
 					"Error parsing data from network: " + e.toString());
 		}
 

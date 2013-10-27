@@ -102,8 +102,7 @@
                     android:text="广州大学城四日游"
                     android:textColor="@color/black"
                     android:textSize="17sp"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
 
                 <RatingBar
                     android:id="@+id/rating_bar"
@@ -214,8 +213,7 @@
                 android:padding="10dp"
                 android:text="线路简介"
                 android:textColor="@color/black"
-                android:textSize="17sp" 
-                />
+                android:textSize="17sp" />
 
             <RelativeLayout
                 android:id="@+id/author"
@@ -227,64 +225,72 @@
                 android:layout_marginTop="15dp"
                 android:background="@color/white" >
 
-                <LinearLayout
-                    android:id="@+id/author_thumbnail"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:id="@+id/author_inner"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_margin="10dip"
+                    android:layout_marginBottom="10dp"
                     android:background="@color/white" >
 
-                    <ImageView
-                        android:id="@+id/author_image"
-                        android:layout_width="60dip"
-                        android:layout_height="60dip"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/no_image" />
-                </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/author_thumbnail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_margin="10dip"
+                        android:background="@color/white" >
 
-                <TextView
-                    android:id="@+id/author_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="12dip"
-                    android:layout_toRightOf="@id/author_thumbnail"
-                    android:text="李某某"
-                    android:textColor="@color/black"
-                    android:textSize="17sp" />
+                        <ImageView
+                            android:id="@+id/author_image"
+                            android:layout_width="60dip"
+                            android:layout_height="60dip"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/no_image" />
+                    </LinearLayout>
 
-                <TextView
-                    android:id="@+id/autor_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/orange"
-                    android:gravity="center_horizontal"
-                    android:padding="5dp"
-                    android:text="执业导游"
-                    android:textColor="@color/white"
-                    android:textSize="13sp" />
+                    <TextView
+                        android:id="@+id/author_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="12dip"
+                        android:layout_toRightOf="@id/author_thumbnail"
+                        android:text="李某某"
+                        android:textColor="@color/black"
+                        android:textSize="17sp" />
 
-                <TextView
-                    android:id="@+id/author_bio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/author_name"
-                    android:layout_marginTop="5dp"
-                    android:layout_toRightOf="@id/author_thumbnail"
-                    android:text="一个喜欢周游世界的人"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" 
-                    android:layout_toLeftOf="@id/autor_type"/>
+                    <TextView
+                        android:id="@+id/autor_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/orange"
+                        android:gravity="center_horizontal"
+                        android:padding="5dp"
+                        android:text="执业导游"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/author_bio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/author_name"
+                        android:layout_marginTop="5dp"
+                        android:layout_toLeftOf="@id/autor_type"
+                        android:layout_toRightOf="@id/author_thumbnail"
+                        android:text="一个喜欢周游世界的人"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/author_thumbnail"
+                    android:layout_below="@id/author_inner"
                     android:background="@drawable/selector_list2"
                     android:clickable="true"
                     android:gravity="center_vertical"

@@ -35,33 +35,7 @@ public class Welcome extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.welcome);
 		new GetPropertiesAsynTack(this).execute();
-		ImageView logo = (ImageView) findViewById(R.id.fengqilogo);
-		Animation logo_animation = AnimationUtils.loadAnimation(Welcome.this,
-				R.anim.push_left_in);
-		logo.setAnimation(logo_animation);
-		logo_animation.setAnimationListener(new AnimationListener() {
-
-			@Override
-			public void onAnimationStart(Animation animation) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				Intent it = new Intent(Welcome.this, MainActivity.class);
-				startActivity(it);
-				Welcome.this.finish();
-				// overridePendingTransition(R.anim.slide_out_left,
-				// R.anim.slide_in_right);
-			}
-		});
+		
 
 	}
 
@@ -103,6 +77,9 @@ public class Welcome extends Activity {
 					e.printStackTrace();
 				}
 			}
+			Intent it = new Intent(Welcome.this, MainActivity.class);
+			startActivity(it);
+			Welcome.this.finish();
 		}
 	}
 
