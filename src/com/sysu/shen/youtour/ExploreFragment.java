@@ -32,176 +32,175 @@ import android.widget.Toast;
 
 public class ExploreFragment extends ListFragment {
 
-	// ListView list;
-	private Myadapter adapter;
-	private JSONArray jarray;
-	String URLString = "";
-	private String URLStringBegin = "beg=";
-	private String URLStringEnd = "end=";
-	// 标记没有联网
-	public final static int NO_NETWORK = 0;
-	private final int LOADING = 1;
-	private final int LOADED = 2;
-	private ProgressDialog mProgressDialog;
+    // ListView list;
+    private Myadapter                     adapter;
 
-	// public static ExploreFragment newInstance() {
-	// return new ExploreFragment();
-	// }
+    private JSONArray                     jarray;
 
-	private AsyncTask<String, Void, Void> task;
+    String                                URLString      = "";
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
+    private String                        URLStringBegin = "beg=";
 
-		// setRetainInstance(true);
+    private String                        URLStringEnd   = "end=";
 
-	}
+    // 标记没有联网
+    public final static int               NO_NETWORK     = 0;
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.main_tab_explore, container, false);
+    private final int                     LOADING        = 1;
 
-		URLString = GlobalConst.HOST + GlobalConst.URL_HAEDER_ALL + URLStringBegin + "0" + "&"
-				+ URLStringEnd + "25";
-		// 异步更新列表
-		// new GetJSONAsynTack(this.getActivity()).execute(URLString);
-		Log.i("mainRequestURL", URLString);
+    private final int                     LOADED         = 2;
 
-		return v;
+    private ProgressDialog                mProgressDialog;
 
-	}
+    // public static ExploreFragment newInstance() {
+    // return new ExploreFragment();
+    // }
 
-	// 处理线程中抛出的massage
-	private Handler mhandle = new Handler() {
+    private AsyncTask<String, Void, Void> task;
 
-		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case NO_NETWORK:
-				Toast.makeText(ExploreFragment.this.getActivity(),
-						"连接网络才能看到更多哦！", Toast.LENGTH_LONG).show();
-				break;
-			case LOADING:
-				mProgressDialog = new ProgressDialog(
-						ExploreFragment.this.getActivity());
-				mProgressDialog.setTitle("正在加载…"); // 设置标题
-				mProgressDialog.setMessage("最新内容马上为你呈现"); // 设置body信息
-				mProgressDialog.show();
-				break;
-			case LOADED:
-				mProgressDialog.dismiss();
-				break;
-			default:
-				break;
-			}
-			super.handleMessage(msg);
-		}
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        super.onCreate(savedInstanceState);
 
-	};
+        // setRetainInstance(true);
 
-	private class GetJSONAsynTack extends AsyncTask<String, Void, Void> {
+    }
 
-		public Activity activity;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.main_tab_explore, container, false);
 
-		public GetJSONAsynTack(Activity activity2) {
-			activity = activity2;
-		}
+        URLString = GlobalConst.HOST + GlobalConst.URL_HAEDER_ALL + URLStringBegin + "0" + "&" + URLStringEnd + "25";
+        // 异步更新列表
+        // new GetJSONAsynTack(this.getActivity()).execute(URLString);
+        Log.i("mainRequestURL", URLString);
 
-		@Override
-		protected Void doInBackground(String... strings) {
-			Message m = new Message();
-			m.what = LOADING;
-			mhandle.sendMessage(m);
-			String URLString = strings[0];
+        return v;
 
-			// 判断是否联网
-			final ConnectivityManager conMgr = (ConnectivityManager) activity
-					.getSystemService(Context.CONNECTIVITY_SERVICE);
-			final NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
-			if (activeNetwork != null && activeNetwork.isConnected()) {
-				jarray = JSONFunctions.getJsonFromNetwork(activity, URLString);
-			} else {
-				Message m1 = new Message();
-				m1.what = NO_NETWORK;
-				mhandle.sendMessage(m1);
-				jarray = JSONFunctions.getJSONFromFile(activity, URLString);
-			}
+    }
 
-			return null;
-		}
+    // 处理线程中抛出的massage
+    private Handler mhandle = new Handler() {
 
-		@Override
-		protected void onPostExecute(Void result) {
-			JSONObject line = null;
-			ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String, String>>();
-			if (jarray != null) {
-				Log.v("log_tag", "jarray.length():" + jarray.length());
-				try {
-					for (int i = 0; i < jarray.length(); i++) {
-						line = jarray.getJSONObject(i);
-						HashMap<String, String> lineMap = JSONFunctions
-								.praseJSONToMap(line);
-						mylist.add(lineMap);
-					}
-				} catch (Exception e) {
-					Log.v("log_tag", "analyseJsonexception:" + e.toString());
-				}
-				adapter = new Myadapter(activity, mylist);
-				setListAdapter(adapter);
-				getListView().setOnItemClickListener(new OnItemClickListener() {
+                                @Override
+                                public void handleMessage(Message msg) {
+                                    switch (msg.what) {
+                                        case NO_NETWORK:
+                                            Toast.makeText(ExploreFragment.this.getActivity(), "连接网络才能看到更多哦！",
+                                                    Toast.LENGTH_LONG).show();
+                                            break;
+                                        case LOADING:
+                                            mProgressDialog = new ProgressDialog(ExploreFragment.this.getActivity());
+                                            mProgressDialog.setTitle("正在加载…"); // 设置标题
+                                            mProgressDialog.setMessage("最新内容马上为你呈现"); // 设置body信息
+                                            mProgressDialog.show();
+                                            break;
+                                        case LOADED:
+                                            mProgressDialog.dismiss();
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    super.handleMessage(msg);
+                                }
 
-					public void onItemClick(AdapterView<?> parent, View view,
-							int position, long id) {
-						Intent it = new Intent(getActivity().getBaseContext(),
-								LineMain.class);
-						try {
-							it.putExtra("lineString",
-									jarray.getJSONObject(position).toString());
-						} catch (JSONException e) {
-							Log.v("exploreFragment",
-									"get onelinejsonobject exception:"
-											+ e.toString());
-						}
-						startActivity(it);
+                            };
 
-					}
-				});
+    private class GetJSONAsynTack extends AsyncTask<String, Void, Void> {
 
-			}
-			Message m = new Message();
-			m.what = LOADED;
-			mhandle.sendMessage(m);
-			super.onPostExecute(result);
-		}
-	}
+        public Activity activity;
 
-	@Override
-	public void onResume() {
-		// onResume happens after onStart and onActivityCreate
-		task = new GetJSONAsynTack(this.getActivity());
-		task.execute(URLString);
-		super.onResume();
-	}
+        public GetJSONAsynTack(Activity activity2) {
+            activity = activity2;
+        }
 
-	@Override
-	public void onPause() {
-		mProgressDialog.dismiss();
-		super.onPause();
-		if (task != null) {
-			task.cancel(true);
-		}
-	}
+        @Override
+        protected Void doInBackground(String... strings) {
+            Message m = new Message();
+            m.what = LOADING;
+            mhandle.sendMessage(m);
+            String URLString = strings[0];
 
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		mProgressDialog.dismiss();
-		if (task != null) {
-			task.cancel(true);
-		}
-	}
+            // 判断是否联网
+            final ConnectivityManager conMgr = (ConnectivityManager) activity
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            final NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
+            if (activeNetwork != null && activeNetwork.isConnected()) {
+                jarray = JSONFunctions.getJsonFromNetwork(activity, URLString);
+            } else {
+                Message m1 = new Message();
+                m1.what = NO_NETWORK;
+                mhandle.sendMessage(m1);
+                jarray = JSONFunctions.getJSONFromFile(activity, URLString);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            JSONObject line = null;
+            ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String, String>>();
+            if (jarray != null) {
+                Log.v("log_tag", "jarray.length():" + jarray.length());
+                try {
+                    for (int i = 0; i < jarray.length(); i++) {
+                        line = jarray.getJSONObject(i);
+                        HashMap<String, String> lineMap = JSONFunctions.praseJSONToMap(line);
+                        mylist.add(lineMap);
+                    }
+                } catch (Exception e) {
+                    Log.v("log_tag", "analyseJsonexception:" + e.toString());
+                }
+                adapter = new Myadapter(activity, mylist);
+                setListAdapter(adapter);
+                getListView().setOnItemClickListener(new OnItemClickListener() {
+
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent it = new Intent(getActivity().getBaseContext(), LineMain.class);
+                        try {
+                            it.putExtra("lineString", jarray.getJSONObject(position).toString());
+                        } catch (JSONException e) {
+                            Log.v("exploreFragment", "get onelinejsonobject exception:" + e.toString());
+                        }
+                        startActivity(it);
+
+                    }
+                });
+
+            }
+            Message m = new Message();
+            m.what = LOADED;
+            mhandle.sendMessage(m);
+            super.onPostExecute(result);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        // onResume happens after onStart and onActivityCreate
+        task = new GetJSONAsynTack(this.getActivity());
+        task.execute(URLString);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        mProgressDialog.dismiss();
+        super.onPause();
+        if (task != null) {
+            task.cancel(true);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mProgressDialog.dismiss();
+        if (task != null) {
+            task.cancel(true);
+        }
+    }
 
 }

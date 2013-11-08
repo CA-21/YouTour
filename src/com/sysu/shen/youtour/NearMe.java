@@ -47,359 +47,357 @@ import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
-public class NearMe extends FragmentActivity implements LocationSource,
-		AMapLocationListener, OnMarkerClickListener {
+public class NearMe extends FragmentActivity implements LocationSource, AMapLocationListener, OnMarkerClickListener {
 
-	private String endNum = "15";
-	private String beginNum = "0";
-	private static final int zoomLevel = 10;
-	private AMap aMap;
-	private OnLocationChangedListener mListener;
-	private LocationManagerProxy mAMapLocationManager;
-	private Double currentgeoLat;
-	private Double currentgeoLng;
-	private String cityCode = "";
-	private String desc = "";
-	public final static int NO_NETWORK = 0;
-	private String URLString = "";
-	private String URLStringBegin = "beg=";
-	private String URLStringEnd = "end=";
-	private JSONArray jarray = null;
-	private Timer mTimer = new Timer();
-	private Boolean needReshLocation = true;
-	private ProgressDialog mProgressDialog;
-	private AsyncTask<String, Void, Void> task;
+    private String                        endNum           = "15";
 
-	private ArrayList<LatLng> markersList = new ArrayList<LatLng>();
-	private UiSettings mUiSettings;
+    private String                        beginNum         = "0";
 
-	PopupWindow mPopupWindow;
+    private static final int              zoomLevel        = 10;
 
-	// private static final BitmapDescriptor lineIcon = BitmapDescriptorFactory
-	// .fromResource(R.drawable.line);
+    private AMap                          aMap;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.nearme_map);
-		init();
-		// 定时过5分钟后再从新定位
-		mTimer.schedule(mTimerTask, 0, 5 * 60 * 1000);
+    private OnLocationChangedListener     mListener;
 
-	}
+    private LocationManagerProxy          mAMapLocationManager;
 
-	/*******************************************************
-	 * 通过定时器和Handler来改变是否需要更新位置
-	 ******************************************************/
-	TimerTask mTimerTask = new TimerTask() {
-		@Override
-		public void run() {
-			needReshLocation = true;
-		}
-	};
+    private Double                        currentgeoLat;
 
-	public Bitmap getBitMap(String text) {
-		Bitmap bitmap = BitmapDescriptorFactory.fromResource(R.drawable.line)
-				.getBitmap();
-		bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
-				bitmap.getHeight());
-		Canvas canvas = new Canvas(bitmap);
-		TextPaint textPaint = new TextPaint();
-		textPaint.setTextSize(20f);
-		textPaint.setColor(Color.BLACK);
-		canvas.drawText(text, 20, 30, textPaint);// 设置bitmap上面的文字位置
-		return bitmap;
-	}
+    private Double                        currentgeoLng;
 
-	public boolean enableMyLocation() {
-		boolean result = false;
-		if (mAMapLocationManager
-				.isProviderEnabled(LocationProviderProxy.AMapNetwork)) {
-			mAMapLocationManager.requestLocationUpdates(
-					LocationProviderProxy.AMapNetwork, 2000, 10, this);
-			result = true;
-		}
-		return result;
-	}
+    private String                        cityCode         = "";
 
-	private void init() {
-		if (aMap == null) {
-			aMap = ((SupportMapFragment) getSupportFragmentManager()
-					.findFragmentById(R.id.map)).getMap();
-			if (AMapUtil.checkReady(this, aMap)) {
-				setUpMap();
-			}
-		}
+    private String                        desc             = "";
 
-	}
+    public final static int               NO_NETWORK       = 0;
 
-	private void setUpMap() {
-		mUiSettings = aMap.getUiSettings();
-		mUiSettings.setAllGesturesEnabled(true);
-		mUiSettings.setCompassEnabled(true);
-		mUiSettings.setMyLocationButtonEnabled(true);
-		mUiSettings.setScaleControlsEnabled(true);
-		mUiSettings.setZoomControlsEnabled(true);
-		mAMapLocationManager = LocationManagerProxy.getInstance(NearMe.this);
-		aMap.setLocationSource(this);
-		aMap.setMyLocationEnabled(true);
-		aMap.setOnMarkerClickListener(this);
+    private String                        URLString        = "";
 
-	}
+    private String                        URLStringBegin   = "beg=";
 
-	// 处理线程中抛出的massage
-	private Handler mhandle = new Handler() {
+    private String                        URLStringEnd     = "end=";
 
-		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case NO_NETWORK:
-				Toast.makeText(NearMe.this, "连接网络才能看到哦！", Toast.LENGTH_LONG)
-						.show();
-				break;
-			default:
-				break;
-			}
-			super.handleMessage(msg);
-		}
+    private JSONArray                     jarray           = null;
 
-	};
+    private Timer                         mTimer           = new Timer();
 
-	private class GetJSONAsynTack extends AsyncTask<String, Void, Void> {
+    private Boolean                       needReshLocation = true;
 
-		public Activity activity;
+    private ProgressDialog                mProgressDialog;
 
-		public GetJSONAsynTack(Activity activity2) {
-			activity = activity2;
-		}
+    private AsyncTask<String, Void, Void> task;
 
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			mProgressDialog = new ProgressDialog(NearMe.this);
-			mProgressDialog.setTitle("正在查询附近线路"); // 设置标题
-			mProgressDialog.setMessage("附近线路马上为你呈现，请耐心等待..."); // 设置body信息
-			mProgressDialog.show();
-		}
+    private ArrayList<LatLng>             markersList      = new ArrayList<LatLng>();
 
-		@Override
-		protected Void doInBackground(String... strings) {
-			String URLString = strings[0];
-			// 判断是否联网
-			final ConnectivityManager conMgr = (ConnectivityManager) activity
-					.getSystemService(Context.CONNECTIVITY_SERVICE);
-			final NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
-			if (activeNetwork != null && activeNetwork.isConnected()) {
-				jarray = JSONFunctions.getJsonFromNetwork(activity, URLString);
+    private UiSettings                    mUiSettings;
 
-			} else {
-				Message m1 = new Message();
-				m1.what = NO_NETWORK;
-				mhandle.sendMessage(m1);
-				jarray = JSONFunctions.getJSONFromFile(activity, URLString);
-			}
+    PopupWindow                           mPopupWindow;
 
-			JSONObject line = null;
-			if (jarray != null) {
-				Log.v("log_tag", "jarray.length():" + jarray.length());
-				try {
-					for (int i = 0; i < jarray.length(); i++) {
-						line = jarray.getJSONObject(i);
-						double longitude = line.getJSONArray("locate")
-								.getDouble(0);
-						double latitude = line.getJSONArray("locate")
-								.getDouble(1);
-						LatLng marker = new LatLng(longitude, latitude);
-						markersList.add(marker);
-						aMap.addMarker(new MarkerOptions()
-								.position(marker)
-								.title(line.getString("lineName"))
-								.snippet(i + "")
-								.icon(BitmapDescriptorFactory
-										.fromBitmap(getBitMap(""))));
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+    // private static final BitmapDescriptor lineIcon = BitmapDescriptorFactory
+    // .fromResource(R.drawable.line);
 
-			}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.nearme_map);
+        init();
+        // 定时过5分钟后再从新定位
+        mTimer.schedule(mTimerTask, 0, 5 * 60 * 1000);
 
-			return null;
-		}
+    }
 
-		@Override
-		protected void onPostExecute(Void result) {
+    /*******************************************************
+     * 通过定时器和Handler来改变是否需要更新位置
+     ******************************************************/
+    TimerTask mTimerTask = new TimerTask() {
+                             @Override
+                             public void run() {
+                                 needReshLocation = true;
+                             }
+                         };
 
-			super.onPostExecute(result);
-			loadMarker();
-			mProgressDialog.dismiss();
-		}
-	}
+    public Bitmap getBitMap(String text) {
+        Bitmap bitmap = BitmapDescriptorFactory.fromResource(R.drawable.line).getBitmap();
+        bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight());
+        Canvas canvas = new Canvas(bitmap);
+        TextPaint textPaint = new TextPaint();
+        textPaint.setTextSize(20f);
+        textPaint.setColor(Color.BLACK);
+        canvas.drawText(text, 20, 30, textPaint);// 设置bitmap上面的文字位置
+        return bitmap;
+    }
 
-	public void loadMarker() {
-		// 设置所有maker显示在View中
-		// Builder builder = new Builder();
-		// for (int i = 0; i < markersList.size(); i++) {
-		// builder.include(markersList.get(i));
-		// }
-		// try {
-		// LatLngBounds bounds = builder.build();
-		// aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 20));
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
-		LatLng curretnLatLng = new LatLng(currentgeoLat, currentgeoLng);
-		aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curretnLatLng,
-				zoomLevel));
+    public boolean enableMyLocation() {
+        boolean result = false;
+        if (mAMapLocationManager.isProviderEnabled(LocationProviderProxy.AMapNetwork)) {
+            mAMapLocationManager.requestLocationUpdates(LocationProviderProxy.AMapNetwork, 2000, 10, this);
+            result = true;
+        }
+        return result;
+    }
 
-	}
+    private void init() {
+        if (aMap == null) {
+            aMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+            if (AMapUtil.checkReady(this, aMap)) {
+                setUpMap();
+            }
+        }
 
-	/**
-	 * 点击返回
-	 * 
-	 * @param v
-	 */
-	public void backClicked(View v) {
-		if (task != null) {
-			task.cancel(true);
-		}
-		mTimerTask.cancel();
-		this.finish();
-	}
+    }
 
-	@Override
-	protected void onPause() {
-		super.onPause();
-		deactivate();
-		mTimerTask.cancel();
-		if (task != null) {
-			task.cancel(true);
-		}
-	}
+    private void setUpMap() {
+        mUiSettings = aMap.getUiSettings();
+        mUiSettings.setAllGesturesEnabled(true);
+        mUiSettings.setCompassEnabled(true);
+        mUiSettings.setMyLocationButtonEnabled(true);
+        mUiSettings.setScaleControlsEnabled(true);
+        mUiSettings.setZoomControlsEnabled(true);
+        mAMapLocationManager = LocationManagerProxy.getInstance(NearMe.this);
+        aMap.setLocationSource(this);
+        aMap.setMyLocationEnabled(true);
+        aMap.setOnMarkerClickListener(this);
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		enableMyLocation();
-	}
+    }
 
-	@Override
-	protected void onDestroy() {
-		mListener = null;
-		if (mAMapLocationManager != null) {
-			mAMapLocationManager.removeUpdates(this);
-			mAMapLocationManager.destory();
-		}
-		mAMapLocationManager = null;
-		super.onDestroy();
-	}
+    // 处理线程中抛出的massage
+    private Handler mhandle = new Handler() {
 
-	@Override
-	public void onLocationChanged(Location location) {
-	}
+                                @Override
+                                public void handleMessage(Message msg) {
+                                    switch (msg.what) {
+                                        case NO_NETWORK:
+                                            Toast.makeText(NearMe.this, "连接网络才能看到哦！", Toast.LENGTH_LONG).show();
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    super.handleMessage(msg);
+                                }
 
-	@Override
-	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub
+                            };
 
-	}
+    private class GetJSONAsynTack extends AsyncTask<String, Void, Void> {
 
-	@Override
-	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub
+        public Activity activity;
 
-	}
+        public GetJSONAsynTack(Activity activity2) {
+            activity = activity2;
+        }
 
-	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressDialog = new ProgressDialog(NearMe.this);
+            mProgressDialog.setTitle("正在查询附近线路"); // 设置标题
+            mProgressDialog.setMessage("附近线路马上为你呈现，请耐心等待..."); // 设置body信息
+            mProgressDialog.show();
+        }
 
-	}
+        @Override
+        protected Void doInBackground(String... strings) {
+            String URLString = strings[0];
+            // 判断是否联网
+            final ConnectivityManager conMgr = (ConnectivityManager) activity
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            final NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
+            if (activeNetwork != null && activeNetwork.isConnected()) {
+                jarray = JSONFunctions.getJsonFromNetwork(activity, URLString);
 
-	@Override
-	public void onLocationChanged(AMapLocation location) {
-		if (mListener != null) {
-			mListener.onLocationChanged(location);
-		}
-		if (location != null && needReshLocation) {
-			currentgeoLat = location.getLatitude();
-			currentgeoLng = location.getLongitude();
-			Bundle locBundle = location.getExtras();
-			if (locBundle != null) {
-				cityCode = locBundle.getString("citycode");
-				desc = locBundle.getString("desc");
-			}
-			// Message m = new Message();
-			// m.what = LOCACHANGE;
-			// mhandle.sendMessage(m);
-			URLString = GlobalConst.HOST +GlobalConst.URL_HAEDER_LOC + "x="
-					+ currentgeoLat.toString() + "&y="
-					+ currentgeoLng.toString() + "&" + URLStringBegin
-					+ beginNum + "&" + URLStringEnd + endNum;
-			Log.i("locaturl", URLString);
-			// URLString = GlobalConst.URL_HAEDER_ALL + URLStringBegin + "0" +
-			// "&"
-			// + URLStringEnd + "25";
-			Log.i("locaturl", URLString);
-			String str = ("定位成功:(" + currentgeoLng + "," + currentgeoLat + ")"
-					+ "\n城市编码:" + cityCode + "\n位置描述:" + desc);
-			Log.i("locatinfo", str);
-			Log.i("nearmeurl", URLString);
-			// 异步更新列表
-			task = new GetJSONAsynTack(NearMe.this);
-			task.execute(URLString);
-			// new GetJSONAsynTack(NearMe.this).execute(URLString);
+            } else {
+                Message m1 = new Message();
+                m1.what = NO_NETWORK;
+                mhandle.sendMessage(m1);
+                jarray = JSONFunctions.getJSONFromFile(activity, URLString);
+            }
 
-			needReshLocation = false;
-		}
+            JSONObject line = null;
+            if (jarray != null) {
+                Log.v("log_tag", "jarray.length():" + jarray.length());
+                try {
+                    for (int i = 0; i < jarray.length(); i++) {
+                        line = jarray.getJSONObject(i);
+                        double longitude = line.getJSONArray("locate").getDouble(0);
+                        double latitude = line.getJSONArray("locate").getDouble(1);
+                        LatLng marker = new LatLng(longitude, latitude);
+                        markersList.add(marker);
+                        aMap.addMarker(new MarkerOptions().position(marker).title(line.getString("lineName"))
+                                .snippet(i + "").icon(BitmapDescriptorFactory.fromBitmap(getBitMap(""))));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-	}
+            }
 
-	@Override
-	public void activate(OnLocationChangedListener arg0) {
-		mListener = arg0;
-		if (mAMapLocationManager == null) {
-			mAMapLocationManager = LocationManagerProxy.getInstance(this);
-		}
-		// 网络定位
-		mAMapLocationManager.requestLocationUpdates(
-				LocationProviderProxy.AMapNetwork, 10, 5000, this);
-	}
+            return null;
+        }
 
-	@Override
-	public void deactivate() {
-		mAMapLocationManager.removeUpdates(this);
+        @Override
+        protected void onPostExecute(Void result) {
 
-	}
+            super.onPostExecute(result);
+            loadMarker();
+            mProgressDialog.dismiss();
+        }
+    }
 
-	@Override
-	public boolean onMarkerClick(Marker arg0) {
-		Log.i("marker",
-				"title:" + arg0.getTitle() + " snippet:" + arg0.getSnippet());
-		Intent it = new Intent(NearMe.this, MapPopup.class);
-		try {
-			it.putExtra("lineString",
-					jarray.getJSONObject(Integer.parseInt(arg0.getSnippet()))
-							.toString());
-			it.putExtra("type", "line");
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		startActivity(it);
+    public void loadMarker() {
+        // 设置所有maker显示在View中
+        // Builder builder = new Builder();
+        // for (int i = 0; i < markersList.size(); i++) {
+        // builder.include(markersList.get(i));
+        // }
+        // try {
+        // LatLngBounds bounds = builder.build();
+        // aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 20));
+        // } catch (Exception e) {
+        // e.printStackTrace();
+        // }
+        LatLng curretnLatLng = new LatLng(currentgeoLat, currentgeoLng);
+        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curretnLatLng, zoomLevel));
 
-		return false;
-	}
+    }
 
-	@Override
-	public void onBackPressed() {
-		mTimerTask.cancel();
-		if (task != null) {
-			task.cancel(true);
-		}
-		super.onBackPressed();
-	}
+    /**
+     * 点击返回
+     * 
+     * @param v
+     */
+    public void backClicked(View v) {
+        if (task != null) {
+            task.cancel(true);
+        }
+        mTimerTask.cancel();
+        this.finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        deactivate();
+        mTimerTask.cancel();
+        if (task != null) {
+            task.cancel(true);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        enableMyLocation();
+    }
+
+    @Override
+    protected void onDestroy() {
+        mListener = null;
+        if (mAMapLocationManager != null) {
+            mAMapLocationManager.removeUpdates(this);
+            mAMapLocationManager.destory();
+        }
+        mAMapLocationManager = null;
+        super.onDestroy();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onLocationChanged(AMapLocation location) {
+        if (mListener != null) {
+            mListener.onLocationChanged(location);
+        }
+        if (location != null && needReshLocation) {
+            currentgeoLat = location.getLatitude();
+            currentgeoLng = location.getLongitude();
+            Bundle locBundle = location.getExtras();
+            if (locBundle != null) {
+                cityCode = locBundle.getString("citycode");
+                desc = locBundle.getString("desc");
+            }
+            // Message m = new Message();
+            // m.what = LOCACHANGE;
+            // mhandle.sendMessage(m);
+            URLString = GlobalConst.HOST + GlobalConst.URL_HAEDER_LOC + "x=" + currentgeoLat.toString() + "&y="
+                    + currentgeoLng.toString() + "&" + URLStringBegin + beginNum + "&" + URLStringEnd + endNum;
+            Log.i("locaturl", URLString);
+            // URLString = GlobalConst.URL_HAEDER_ALL + URLStringBegin + "0" +
+            // "&"
+            // + URLStringEnd + "25";
+            Log.i("locaturl", URLString);
+            String str = ("定位成功:(" + currentgeoLng + "," + currentgeoLat + ")" + "\n城市编码:" + cityCode + "\n位置描述:" + desc);
+            Log.i("locatinfo", str);
+            Log.i("nearmeurl", URLString);
+            // 异步更新列表
+            task = new GetJSONAsynTack(NearMe.this);
+            task.execute(URLString);
+            // new GetJSONAsynTack(NearMe.this).execute(URLString);
+
+            needReshLocation = false;
+        }
+
+    }
+
+    @Override
+    public void activate(OnLocationChangedListener arg0) {
+        mListener = arg0;
+        if (mAMapLocationManager == null) {
+            mAMapLocationManager = LocationManagerProxy.getInstance(this);
+        }
+        // 网络定位
+        mAMapLocationManager.requestLocationUpdates(LocationProviderProxy.AMapNetwork, 10, 5000, this);
+    }
+
+    @Override
+    public void deactivate() {
+        mAMapLocationManager.removeUpdates(this);
+
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker arg0) {
+        Log.i("marker", "title:" + arg0.getTitle() + " snippet:" + arg0.getSnippet());
+        Intent it = new Intent(NearMe.this, MapPopup.class);
+        try {
+            it.putExtra("lineString", jarray.getJSONObject(Integer.parseInt(arg0.getSnippet())).toString());
+            it.putExtra("type", "line");
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        startActivity(it);
+
+        return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        mTimerTask.cancel();
+        if (task != null) {
+            task.cancel(true);
+        }
+        super.onBackPressed();
+    }
 
 }
