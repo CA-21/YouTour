@@ -28,6 +28,8 @@ int anim slide_out_left 0x7f04001a
 int anim slide_out_right 0x7f04001b
 int anim slide_out_top 0x7f04001c
 int anim welcome_animation 0x7f04001d
+int anim zoomin 0x7f04001e
+int anim zoomout 0x7f04001f
 int attr centered 0x7f010006
 int attr clipPadding 0x7f010011
 int attr fadeDelay 0x7f01001d

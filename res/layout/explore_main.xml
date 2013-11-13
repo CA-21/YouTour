@@ -42,13 +42,13 @@
     </RelativeLayout>
 
     
-    <com.sysu.shen.youtour.ExpandTabView
+    <com.sysu.youtour.controller.ExpandTabView
         android:id="@+id/expandtab_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         />
     
-     <com.sysu.shen.youtour.MyListView
+     <com.sysu.youtour.controller.MyListView
         android:id="@+id/list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

@@ -39,6 +39,8 @@ public final class R {
         public static final int slide_out_right=0x7f04001b;
         public static final int slide_out_top=0x7f04001c;
         public static final int welcome_animation=0x7f04001d;
+        public static final int zoomin=0x7f04001e;
+        public static final int zoomout=0x7f04001f;
     }
     public static final class attr {
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
