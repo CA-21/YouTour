@@ -1,11 +1,9 @@
 package com.sysu.shen.youtour;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
+
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,6 +13,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
@@ -35,9 +34,12 @@ public class DecoderActivity extends Activity implements OnQRCodeReadListener {
 
     private JSONArray                          jarray;
 
+    private TranslateAnimation                 mAnimation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.sendBroadcast(new Intent(MainActivity.SHOWLOCALLIST_HIDE_PROGRESS));
         setContentView(R.layout.activity_decoder);
 
         mydecoderview = (QRCodeReaderView) findViewById(R.id.qrdecoderview);
@@ -45,12 +47,12 @@ public class DecoderActivity extends Activity implements OnQRCodeReadListener {
 
         line_image = (ImageView) findViewById(R.id.red_line_image);
 
-        TranslateAnimation mAnimation = new TranslateAnimation(TranslateAnimation.ABSOLUTE, 0f,
-                TranslateAnimation.ABSOLUTE, 0f, TranslateAnimation.RELATIVE_TO_PARENT, 0f,
-                TranslateAnimation.RELATIVE_TO_PARENT, 0.5f);
-        mAnimation.setDuration(1000);
+        mAnimation = new TranslateAnimation(TranslateAnimation.ABSOLUTE, 0f,
+                TranslateAnimation.ABSOLUTE, 0f, TranslateAnimation.RELATIVE_TO_PARENT, -0.2f,
+                TranslateAnimation.RELATIVE_TO_PARENT, 0.2f);
+        mAnimation.setDuration(1500);
         mAnimation.setRepeatCount(-1);
-        mAnimation.setRepeatMode(Animation.REVERSE);
+        mAnimation.setRepeatMode(Animation.RESTART);
         mAnimation.setInterpolator(new LinearInterpolator());
         line_image.setAnimation(mAnimation);
 
@@ -61,9 +63,11 @@ public class DecoderActivity extends Activity implements OnQRCodeReadListener {
     // "points" : points where QR control points are placed
     @Override
     public void onQRCodeRead(String URLString, PointF[] points) {
-        if (URLString.contains("browseByID") && (task == null || task.getStatus() != AsyncTask.Status.RUNNING)) {
-            task = new GetJSONAsynTack(this);
-            task.execute(URLString);
+        if (URLString.contains("browseByID")) {
+            if ((task == null || task.getStatus() == AsyncTask.Status.PENDING)) {
+                task = new GetJSONAsynTack(this);
+                task.execute(URLString);
+            }
         }
     }
 
@@ -82,6 +86,7 @@ public class DecoderActivity extends Activity implements OnQRCodeReadListener {
     @Override
     protected void onResume() {
         super.onResume();
+        task = null;
         mydecoderview.getCameraManager().startPreview();
     }
 
@@ -143,4 +148,17 @@ public class DecoderActivity extends Activity implements OnQRCodeReadListener {
             super.onPostExecute(result);
         }
     }
+
+    /**
+     * 点击返回
+     * 
+     * @param v
+     */
+    public void backClicked(View v) {
+        if(task!=null){
+            task.cancel(true);
+        }
+        this.finish();
+    }
+
 }

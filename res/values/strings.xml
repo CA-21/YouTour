@@ -39,5 +39,8 @@
     <string name="nearmestring">附近线路</string>
     <string name="stopmaptitle">站点分布</string>
     <string name="map_not_ready">SupportMapFragment初始化失败</string>
+    <string name="qrcode">二维码</string>
+    <string name="qrcode_about">马上扫描二维码把线路装进手机！</string>
+    <string name="qrcode_remind">（请在方框内扫描二维码图案）</string>
 
 </resources>

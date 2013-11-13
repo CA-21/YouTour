@@ -3,10 +3,13 @@ package com.sysu.shen.youtour;
 import com.sysu.shen.util.GlobalConst;
 import com.winsontan520.wversionmanager.library.WVersionManager;
 
-import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -19,7 +22,6 @@ import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
 
@@ -29,13 +31,19 @@ public class MainActivity extends FragmentActivity {
 
     LinearLayout                               bottom_layout;
 
-    int                                        CURRENT_TAB = 0;
+    int                                        CURRENT_TAB                 = 0;
 
     ExploreFragment                            exploreFragment;
 
     MytourFragment                             mytourFragment;
 
     SettingFragment                            settingFragment;
+
+    public static String                       SHOWLOCALLIST_HIDE_PROGRESS = "SHOWLOCALLIST_HIDE_PROGRESS";
+
+    private HideProgressReceiver               hpReceiver;
+
+    private ProgressDialog                     mProgressDialog;
 
     android.support.v4.app.FragmentTransaction ft;
 
@@ -44,6 +52,11 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        IntentFilter filter = new IntentFilter(SHOWLOCALLIST_HIDE_PROGRESS);
+        hpReceiver = new HideProgressReceiver();
+        registerReceiver(hpReceiver, filter);
+
         setContentView(R.layout.activity_main);
         // 填充tab内容
         findTabView();
@@ -248,6 +261,7 @@ public class MainActivity extends FragmentActivity {
     // 按照二维码浏览响应
     public void qrcodeClicked(View v) {
         // Toast.makeText(this, "正在建设中，敬请期待！", Toast.LENGTH_SHORT).show();
+        showProgress("正在启动二维码……");
         Intent it = new Intent(MainActivity.this, DecoderActivity.class);
         startActivity(it);
     }
@@ -270,5 +284,25 @@ public class MainActivity extends FragmentActivity {
         // versionManager.setReminderTimer(Integer.valueOf(reminderTimer.getText()
         // .toString()));
         versionManager.checkVersion();
+    }
+
+    private class HideProgressReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context arg0, Intent arg1) {
+            hideProgress();
+        }
+    }
+
+    private void hideProgress() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            ProgressDialog tmp = mProgressDialog;
+            mProgressDialog = null;
+            tmp.dismiss();
+        }
+    }
+
+    private void showProgress(String message) {
+        mProgressDialog = ProgressDialog.show(this, "请稍后", message);
     }
 }

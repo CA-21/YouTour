@@ -7,41 +7,38 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import com.viewpagerindicator.IconPagerAdapter;
 
-class StopMainFragmentAdapter extends FragmentPagerAdapter implements
-		IconPagerAdapter {
-	
-	private ArrayList<String> images = new ArrayList<String>();
+class StopMainFragmentAdapter extends FragmentPagerAdapter implements IconPagerAdapter {
 
-	private int mCount;
+    private ArrayList<String> images = new ArrayList<String>();
 
-	
-	public StopMainFragmentAdapter(FragmentManager fm,ArrayList<String> stopImagesArray) {
-		super(fm);
-		images = stopImagesArray;
-		mCount = images.size();
-	}
+    private int               mCount;
 
-	@Override
-	public Fragment getItem(int position) {
-		return StopImageFragment.newInstance(images.get(position));
-	}
+    public StopMainFragmentAdapter(FragmentManager fm, ArrayList<String> stopImagesArray) {
+        super(fm);
+        images = stopImagesArray;
+        mCount = images.size();
+    }
 
-	@Override
-	public int getCount() {
-		return mCount;
-	}
+    @Override
+    public Fragment getItem(int position) {
+        return StopImageFragment.newInstance(images.get(position));
+    }
 
+    @Override
+    public int getCount() {
+        return mCount;
+    }
 
-	public void setCount(int count) {
-		if (count > 0 && count <= 10) {
-			mCount = count;
-			notifyDataSetChanged();
-		}
-	}
+    public void setCount(int count) {
+        if (count > 0 && count <= 10) {
+            mCount = count;
+            notifyDataSetChanged();
+        }
+    }
 
-	@Override
-	public int getIconResId(int index) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public int getIconResId(int index) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }
