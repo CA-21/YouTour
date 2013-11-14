@@ -20,7 +20,7 @@ public class GlobalConst {
     // public static final String HOST = "http://103.31.20.60:3000";
     public static String         HOST                  = "";
 
-    public static final String   HOST_URL              = "https://raw.github.com/shenguojun/YouTour/master/src/com/sysu/shen/youtour/init.properties";
+    public static final String   HOST_URL              = "https://raw.github.com/shenguojun/YouTour/master/init.properties";
 
     // public static String EXPLORE_URL = HOST + "/androidtest";
     public static final String   URL_HEADER_ADDTOP     = "/browsebyaddresstopic?";
@@ -35,6 +35,6 @@ public class GlobalConst {
 
     // public static final String URL_APP_UPDATE =
     // "https://dl.dropboxusercontent.com/u/109241536/update2.json";
-    public static final String   URL_APP_UPDATE        = "https://raw.github.com/shenguojun/YouTour/master/src/com/sysu/shen/youtour/update.json";
+    public static final String   URL_APP_UPDATE        = "https://raw.github.com/shenguojun/YouTour/master/update.json";
 
 }
