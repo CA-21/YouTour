@@ -86,6 +86,8 @@ public class DecoderActivity extends Activity implements OnQRCodeReadListener {
     @Override
     protected void onResume() {
         super.onResume();
+        mAnimation.reset();
+        mAnimation.start();
         task = null;
         mydecoderview.getCameraManager().startPreview();
     }
@@ -93,6 +95,7 @@ public class DecoderActivity extends Activity implements OnQRCodeReadListener {
     @Override
     protected void onPause() {
         super.onPause();
+        mAnimation.cancel();
         mydecoderview.getCameraManager().stopPreview();
     }
 
