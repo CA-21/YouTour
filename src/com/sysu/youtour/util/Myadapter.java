@@ -20,61 +20,62 @@ import android.widget.TextView;
 
 public class Myadapter extends BaseAdapter {
 
-	private Activity activity;
-	private ArrayList<HashMap<String, String>> data;
-	private static LayoutInflater inflater = null;
-	public ImageLoader imageLoader;
+    private Activity                           activity;
 
-	public Myadapter(Activity a, ArrayList<HashMap<String, String>> d) {
-		activity = a;
-		data = d;
-		inflater = (LayoutInflater) activity
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		imageLoader = new ImageLoader(activity.getApplicationContext());
-	}
+    private ArrayList<HashMap<String, String>> data;
 
-	@Override
-	public int getCount() {
-		// TODO Auto-generated method stub
-		return data.size();
-	}
+    private static LayoutInflater              inflater = null;
 
-	@Override
-	public Object getItem(int position) {
-		// TODO Auto-generated method stub
-		return position;
-	}
+    public ImageLoader                         imageLoader;
 
-	@Override
-	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		return position;
-	}
+    public Myadapter(Activity a, ArrayList<HashMap<String, String>> d) {
+        activity = a;
+        data = d;
+        inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        imageLoader = new ImageLoader(activity.getApplicationContext());
+    }
 
-	@Override
-	public View getView(int position, View converview, ViewGroup parent) {
-		View vi = converview;
-		if (converview == null)
-			vi = inflater.inflate(R.layout.list_row, parent, false);
+    @Override
+    public int getCount() {
+        // TODO Auto-generated method stub
+        return data.size();
+    }
 
-		TextView address = (TextView) vi.findViewById(R.id.adress);
-		TextView title = (TextView) vi.findViewById(R.id.title);
-		TextView price = (TextView) vi.findViewById(R.id.price_text);
-		ImageView thumb_image = (ImageView) vi.findViewById(R.id.list_image);
-		RatingBar rate_bar = (RatingBar) vi.findViewById(R.id.rating_bar);
-		HashMap<String, String> linedata = new HashMap<String, String>();
-		linedata = data.get(position);
-		address.setText(linedata.get("address"));
-		title.setText(linedata.get("title"));
-		Log.i("lineprice", linedata.get("price"));
-		if(linedata.get("price").equals("0")){
-			price.setText("免费");
-		}
-		else{
-			price.setText("￥"+linedata.get("price"));
-		}
-		rate_bar.setRating(Float.parseFloat(linedata.get("score")));
-		imageLoader.DisplayImage(linedata.get("thumbnail"), thumb_image);
-		return vi;
-	}
+    @Override
+    public Object getItem(int position) {
+        // TODO Auto-generated method stub
+        return position;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        // TODO Auto-generated method stub
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View converview, ViewGroup parent) {
+        View vi = converview;
+        if (converview == null)
+            vi = inflater.inflate(R.layout.list_row, parent, false);
+
+        TextView address = (TextView) vi.findViewById(R.id.adress);
+        TextView title = (TextView) vi.findViewById(R.id.title);
+        TextView price = (TextView) vi.findViewById(R.id.price_text);
+        ImageView thumb_image = (ImageView) vi.findViewById(R.id.list_image);
+        RatingBar rate_bar = (RatingBar) vi.findViewById(R.id.rating_bar);
+        HashMap<String, String> linedata = new HashMap<String, String>();
+        linedata = data.get(position);
+        address.setText(linedata.get("address"));
+        title.setText(linedata.get("title"));
+        Log.i("lineprice", linedata.get("price"));
+        if (linedata.get("price").equals("0")) {
+            price.setText("免费");
+        } else {
+            price.setText("￥" + linedata.get("price"));
+        }
+        rate_bar.setRating(Float.parseFloat(linedata.get("score")));
+        imageLoader.DisplayImage(linedata.get("thumbnail"), thumb_image);
+        return vi;
+    }
 }

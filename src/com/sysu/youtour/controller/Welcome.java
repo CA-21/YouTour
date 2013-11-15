@@ -77,7 +77,8 @@ public class Welcome extends Activity {
          * 
          */
         private static final String HOST_IP = "hostIp";
-        public Activity activity;
+
+        public Activity             activity;
 
         public GetPropertiesAsynTack(Activity activity1) {
             activity = activity1;
@@ -102,7 +103,7 @@ public class Welcome extends Activity {
         protected void onPostExecute(String result) {
             if (result == null) {
                 Toast.makeText(this.activity, "无法建立网络连接", Toast.LENGTH_SHORT).show();
-                //从缓存中读取hostip
+                // 从缓存中读取hostip
                 result = JSONFunctions.loadFromLocal(activity, HOST_IP, GlobalConst.SDCARD_HOSTIP_DIR);
                 InputStream in = new ByteArrayInputStream(result.getBytes());
                 Properties p = new Properties();

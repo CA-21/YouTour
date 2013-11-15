@@ -18,53 +18,55 @@ import android.widget.TextView;
 
 public class StopListAdapter extends BaseAdapter {
 
-	private Activity activity;
-	private ArrayList<HashMap<String, String>> data;
-	private static LayoutInflater inflater = null;
-	public ImageLoader imageLoader;
+    private Activity                           activity;
 
-	public StopListAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
-		activity = a;
-		data = d;
-		inflater = (LayoutInflater) activity
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		imageLoader = new ImageLoader(activity.getApplicationContext());
-	}
+    private ArrayList<HashMap<String, String>> data;
 
-	@Override
-	public int getCount() {
-		// TODO Auto-generated method stub
-		return data.size();
-	}
+    private static LayoutInflater              inflater = null;
 
-	@Override
-	public Object getItem(int position) {
-		// TODO Auto-generated method stub
-		return position;
-	}
+    public ImageLoader                         imageLoader;
 
-	@Override
-	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		return position;
-	}
+    public StopListAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
+        activity = a;
+        data = d;
+        inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        imageLoader = new ImageLoader(activity.getApplicationContext());
+    }
 
-	@Override
-	public View getView(int position, View converview, ViewGroup parent) {
-		View vi = converview;
-		if (converview == null)
-			vi = inflater.inflate(R.layout.stops_list, parent, false);
+    @Override
+    public int getCount() {
+        // TODO Auto-generated method stub
+        return data.size();
+    }
 
-		TextView number = (TextView) vi.findViewById(R.id.number);
-		TextView title = (TextView) vi.findViewById(R.id.stoptitle);
-		ImageView thumb_image = (ImageView) vi.findViewById(R.id.stop_image);
-		HashMap<String, String> linedata = new HashMap<String, String>();
-		linedata = data.get(position);
-		int numberString = position +1;
-		number.setText(numberString+"");
-		title.setText(linedata.get("title"));
-		imageLoader.DisplayImage(linedata.get("thumbnail"), thumb_image);
-		return vi;
-	}
+    @Override
+    public Object getItem(int position) {
+        // TODO Auto-generated method stub
+        return position;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        // TODO Auto-generated method stub
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View converview, ViewGroup parent) {
+        View vi = converview;
+        if (converview == null)
+            vi = inflater.inflate(R.layout.stops_list, parent, false);
+
+        TextView number = (TextView) vi.findViewById(R.id.number);
+        TextView title = (TextView) vi.findViewById(R.id.stoptitle);
+        ImageView thumb_image = (ImageView) vi.findViewById(R.id.stop_image);
+        HashMap<String, String> linedata = new HashMap<String, String>();
+        linedata = data.get(position);
+        int numberString = position + 1;
+        number.setText(numberString + "");
+        title.setText(linedata.get("title"));
+        imageLoader.DisplayImage(linedata.get("thumbnail"), thumb_image);
+        return vi;
+    }
 
 }

@@ -60,7 +60,8 @@ public class Stop {
     }
 
     /**
-     * @param num the num to set
+     * @param num
+     *            the num to set
      */
     public void setNum(int num) {
         this.num = num;
@@ -74,7 +75,8 @@ public class Stop {
     }
 
     /**
-     * @param stopName the stopName to set
+     * @param stopName
+     *            the stopName to set
      */
     public void setStopName(String stopName) {
         this.stopName = stopName;
@@ -88,7 +90,8 @@ public class Stop {
     }
 
     /**
-     * @param stopDes the stopDes to set
+     * @param stopDes
+     *            the stopDes to set
      */
     public void setStopDes(String stopDes) {
         this.stopDes = stopDes;
@@ -102,7 +105,8 @@ public class Stop {
     }
 
     /**
-     * @param locate the locate to set
+     * @param locate
+     *            the locate to set
      */
     public void setLocate(double[] locate) {
         this.locate = locate;
@@ -116,7 +120,8 @@ public class Stop {
     }
 
     /**
-     * @param stopThumbnail the stopThumbnail to set
+     * @param stopThumbnail
+     *            the stopThumbnail to set
      */
     public void setStopThumbnail(String stopThumbnail) {
         this.stopThumbnail = stopThumbnail;
@@ -130,7 +135,8 @@ public class Stop {
     }
 
     /**
-     * @param stopAudio the stopAudio to set
+     * @param stopAudio
+     *            the stopAudio to set
      */
     public void setStopAudio(String stopAudio) {
         this.stopAudio = stopAudio;
@@ -144,7 +150,8 @@ public class Stop {
     }
 
     /**
-     * @param imageOrder the imageOrder to set
+     * @param imageOrder
+     *            the imageOrder to set
      */
     public void setImageOrder(String imageOrder) {
         this.imageOrder = imageOrder;
@@ -158,12 +165,11 @@ public class Stop {
     }
 
     /**
-     * @param stopImages the stopImages to set
+     * @param stopImages
+     *            the stopImages to set
      */
     public void setStopImages(ArrayList<String> stopImages) {
         this.stopImages = stopImages;
     }
-    
-    
 
 }

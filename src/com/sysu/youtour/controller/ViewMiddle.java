@@ -14,86 +14,88 @@ import android.widget.Toast;
 
 public class ViewMiddle extends RelativeLayout implements ViewBaseAction {
 
-	private ListView mListView;
-	private final String[] items = GlobalConst.TOPIC_ITEMS;// 显示字段
-	private final String[] itemsVaule = new String[] { "1", "2", "3", "4", "5",
-			"6", "7", "8" };// 隐藏id
-	private OnSelectListener mOnSelectListener;
-	private TextAdapter adapter;
-	private String mDistance;
-	private String showText = GlobalConst.TOPIC_ITEMS[0];
-	private Context mContext;
+    private ListView         mListView;
 
-	public String getShowText() {
-		return showText;
-	}
+    private final String[]   items      = GlobalConst.TOPIC_ITEMS;                                 // 显示字段
 
-	public ViewMiddle(Context context) {
-		super(context);
-		init(context);
-	}
+    private final String[]   itemsVaule = new String[] { "1", "2", "3", "4", "5", "6", "7", "8" }; // 隐藏id
 
-	public ViewMiddle(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-		init(context);
-	}
+    private OnSelectListener mOnSelectListener;
 
-	public ViewMiddle(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		init(context);
-	}
+    private TextAdapter      adapter;
 
-	private void init(Context context) {
-		mContext = context;
-		LayoutInflater inflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		inflater.inflate(R.layout.view_distance, this, true);
-		setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.choosearea_bg_mid));
-		mListView = (ListView) findViewById(R.id.listView);
-		adapter = new TextAdapter(context, items, R.drawable.choose_item_right,
-				R.drawable.choose_eara_item_selector);
-		adapter.setTextSize(17);
-		if (mDistance != null) {
-			for (int i = 0; i < itemsVaule.length; i++) {
-				if (itemsVaule[i].equals(mDistance)) {
-					adapter.setSelectedPositionNoNotify(i);
-					showText = items[i];
-					break;
-				}
-			}
-		}
-		mListView.setAdapter(adapter);
-		adapter.setOnItemClickListener(new TextAdapter.OnItemClickListener() {
+    private String           mDistance;
 
-			@Override
-			public void onItemClick(View view, int position) {
+    private String           showText   = GlobalConst.TOPIC_ITEMS[0];
 
-				if (mOnSelectListener != null) {
-					showText = items[position];
-					mOnSelectListener.getValue(itemsVaule[position],
-							items[position]);
-				}
-			}
-		});
-	}
+    private Context          mContext;
 
-	public void setOnSelectListener(OnSelectListener onSelectListener) {
-		mOnSelectListener = onSelectListener;
-	}
+    public String getShowText() {
+        return showText;
+    }
 
-	public interface OnSelectListener {
-		public void getValue(String distance, String showText);
-	}
+    public ViewMiddle(Context context) {
+        super(context);
+        init(context);
+    }
 
-	@Override
-	public void hide() {
+    public ViewMiddle(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        init(context);
+    }
 
-	}
+    public ViewMiddle(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context);
+    }
 
-	@Override
-	public void show() {
+    private void init(Context context) {
+        mContext = context;
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.view_distance, this, true);
+        setBackgroundDrawable(getResources().getDrawable(R.drawable.choosearea_bg_mid));
+        mListView = (ListView) findViewById(R.id.listView);
+        adapter = new TextAdapter(context, items, R.drawable.choose_item_right, R.drawable.choose_eara_item_selector);
+        adapter.setTextSize(17);
+        if (mDistance != null) {
+            for (int i = 0; i < itemsVaule.length; i++) {
+                if (itemsVaule[i].equals(mDistance)) {
+                    adapter.setSelectedPositionNoNotify(i);
+                    showText = items[i];
+                    break;
+                }
+            }
+        }
+        mListView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new TextAdapter.OnItemClickListener() {
 
-	}
+            @Override
+            public void onItemClick(View view, int position) {
+
+                if (mOnSelectListener != null) {
+                    showText = items[position];
+                    mOnSelectListener.getValue(itemsVaule[position], items[position]);
+                }
+            }
+        });
+    }
+
+    public void setOnSelectListener(OnSelectListener onSelectListener) {
+        mOnSelectListener = onSelectListener;
+    }
+
+    public interface OnSelectListener {
+        public void getValue(String distance, String showText);
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void show() {
+
+    }
 
 }

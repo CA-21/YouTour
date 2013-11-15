@@ -1,6 +1,5 @@
 package com.sysu.youtour.controller;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -47,9 +46,8 @@ public class DecoderActivity extends Activity implements OnQRCodeReadListener {
 
         line_image = (ImageView) findViewById(R.id.red_line_image);
 
-        mAnimation = new TranslateAnimation(TranslateAnimation.ABSOLUTE, 0f,
-                TranslateAnimation.ABSOLUTE, 0f, TranslateAnimation.RELATIVE_TO_PARENT, -0.2f,
-                TranslateAnimation.RELATIVE_TO_PARENT, 0.2f);
+        mAnimation = new TranslateAnimation(TranslateAnimation.ABSOLUTE, 0f, TranslateAnimation.ABSOLUTE, 0f,
+                TranslateAnimation.RELATIVE_TO_PARENT, -0.2f, TranslateAnimation.RELATIVE_TO_PARENT, 0.2f);
         mAnimation.setDuration(1500);
         mAnimation.setRepeatCount(-1);
         mAnimation.setRepeatMode(Animation.RESTART);
@@ -158,7 +156,7 @@ public class DecoderActivity extends Activity implements OnQRCodeReadListener {
      * @param v
      */
     public void backClicked(View v) {
-        if(task!=null){
+        if (task != null) {
             task.cancel(true);
         }
         this.finish();

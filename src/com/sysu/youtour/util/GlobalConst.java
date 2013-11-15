@@ -4,8 +4,8 @@ public class GlobalConst {
     public static final String   SDCARD_JSONCACHE_DIR  = "/youtour/jsoncache";
 
     public static final String   SDCARD_IMAGECACHE_DIR = "/youtour";
-    
-    public static final String   SDCARD_HOSTIP_DIR  = "/youtour/hostip";
+
+    public static final String   SDCARD_HOSTIP_DIR     = "/youtour/hostip";
 
     public static final String[] TOPIC_ITEMS           = new String[] { "全部主题", "历史", "艺术", "时尚", "体育", "家庭", "生活方式",
             "自然"                                      };

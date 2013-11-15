@@ -83,12 +83,10 @@ public class JSONFunctions {
         }
 
         // 把刚刚得到的json缓存到本地
-        saveInLocal(context, URLString, result,GlobalConst.SDCARD_JSONCACHE_DIR);
+        saveInLocal(context, URLString, result, GlobalConst.SDCARD_JSONCACHE_DIR);
 
         return jarray;
     }
-
-    
 
     /**
      * 从文件缓存中读取json
@@ -109,20 +107,18 @@ public class JSONFunctions {
 
         return jarray;
     }
-    
-    
+
     /**
      * @param context
      * @param URLString
      * @param result
-     * @param sdcardDir 
+     * @param sdcardDir
      */
     public static void saveInLocal(Context context, String URLString, String result, String sdcardDir) {
         try {
             File cacheDir;
             if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED))
-                cacheDir = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath()
-                        + sdcardDir);
+                cacheDir = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath() + sdcardDir);
             else
                 cacheDir = context.getCacheDir();
             if (!cacheDir.exists())
@@ -153,8 +149,7 @@ public class JSONFunctions {
         try {
             File cacheDir;
             if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED))
-                cacheDir = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath()
-                        + sdcardDir);
+                cacheDir = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath() + sdcardDir);
             else
                 cacheDir = context.getCacheDir();
             if (!cacheDir.exists())

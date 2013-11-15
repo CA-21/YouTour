@@ -25,79 +25,76 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.Toast;
 
 public final class StopImageFragment extends Fragment {
-	public ImageLoader imageLoader;
-	private String imageResourceUrl;
+    public ImageLoader imageLoader;
 
-	public static StopImageFragment newInstance(String imageUrl) {
-		StopImageFragment fragment = new StopImageFragment();
-		fragment.imageResourceUrl = imageUrl;
-		return fragment;
-	}
+    private String     imageResourceUrl;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    public static StopImageFragment newInstance(String imageUrl) {
+        StopImageFragment fragment = new StopImageFragment();
+        fragment.imageResourceUrl = imageUrl;
+        return fragment;
+    }
 
-	}
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+    }
 
-		ImageView image = new ImageView(getActivity());
-		image.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-				LayoutParams.MATCH_PARENT));
-		image.setScaleType(ScaleType.CENTER_CROP);
-		LinearLayout layout = new LinearLayout(getActivity());
-		layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-				LayoutParams.MATCH_PARENT));
-		layout.setGravity(Gravity.CENTER);
-		layout.addView(image);
-		// 判断是否wifi环境
-		// ConnectivityManager connManager = (ConnectivityManager)
-		// getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-		// NetworkInfo mWifi =
-		// connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-		// if (mWifi.isConnected()) {
-		// new DownloadImageTask(image).execute(imageResourceUrl);
-		// }
-		// else{
-		imageLoader = new ImageLoader(getActivity());
-		imageLoader.DisplayImage(imageResourceUrl, image);
-		// }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		return layout;
-	}
+        ImageView image = new ImageView(getActivity());
+        image.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        image.setScaleType(ScaleType.CENTER_CROP);
+        LinearLayout layout = new LinearLayout(getActivity());
+        layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        layout.setGravity(Gravity.CENTER);
+        layout.addView(image);
+        // 判断是否wifi环境
+        // ConnectivityManager connManager = (ConnectivityManager)
+        // getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        // NetworkInfo mWifi =
+        // connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        // if (mWifi.isConnected()) {
+        // new DownloadImageTask(image).execute(imageResourceUrl);
+        // }
+        // else{
+        imageLoader = new ImageLoader(getActivity());
+        imageLoader.DisplayImage(imageResourceUrl, image);
+        // }
 
-	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-		ImageView bmImage;
+        return layout;
+    }
 
-		public DownloadImageTask(ImageView bmImage) {
-			this.bmImage = bmImage;
-		}
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
 
-		@Override
-		protected void onPreExecute() {
-			bmImage.setImageResource(R.drawable.loding_image);
-		}
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
 
-		protected Bitmap doInBackground(String... urls) {
-			String urldisplay = urls[0];
-			Bitmap mIcon11 = null;
-			try {
-				InputStream in = new java.net.URL(urldisplay).openStream();
-				mIcon11 = BitmapFactory.decodeStream(in);
-			} catch (Exception e) {
-				Log.e("Error", e.getMessage());
-				Toast.makeText(getActivity(), "网络连接出现问题了T^T",
-						Toast.LENGTH_SHORT).show();
-				e.printStackTrace();
-			}
-			return mIcon11;
-		}
+        @Override
+        protected void onPreExecute() {
+            bmImage.setImageResource(R.drawable.loding_image);
+        }
 
-		protected void onPostExecute(Bitmap result) {
-			bmImage.setImageBitmap(result);
-		}
-	}
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                Toast.makeText(getActivity(), "网络连接出现问题了T^T", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
 }
