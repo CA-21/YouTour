@@ -33,6 +33,8 @@ public class GlobalConst {
 
     public static final String   URL_HAEDER_LOC          = "/browsebylocation?";
 
+    public static final String   URL_HAEDER_LINEID       = "/browsebyid?";
+
     // public static final String URL_APP_UPDATE =
     // "https://dl.dropboxusercontent.com/u/109241536/update2.json";
     public static final String   URL_APP_UPDATE          = "https://raw.github.com/shenguojun/YouTour/master/update.json";
@@ -42,4 +44,6 @@ public class GlobalConst {
     public static final String   JSON_FILE_NAME          = "lineJson";
 
     public static final String   LINE_THUMBNAIL_DIR_NAME = "thumbnail_dir";
+
+    public static final String   ALL_DOWNLOADED          = "alldownload";
 }

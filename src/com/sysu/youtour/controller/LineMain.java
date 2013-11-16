@@ -1,11 +1,14 @@
 package com.sysu.youtour.controller;
 
+import java.util.ArrayList;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.sysu.shen.youtour.R;
 import com.sysu.youtour.dao.ImageLoader;
 import com.sysu.youtour.util.GlobalConst;
+import com.sysu.youtour.util.Utils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -24,43 +27,47 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class LineMain extends Activity {
-    private ImageLoader imageLoader1;
+    private ImageLoader       imageLoader1;
 
-    private ImageLoader imageLoader2;
+    private ImageLoader       imageLoader2;
 
-    private ImageView   lineThumb;
+    private ImageView         lineThumb;
 
-    private TextView    lineAddress;
+    private TextView          lineAddress;
 
-    private TextView    lineTitle;
+    private TextView          lineTitle;
 
-    private RatingBar   rateBar;
+    private RatingBar         rateBar;
 
-    private TextView    lineSummary;
+    private TextView          lineSummary;
 
-    private TextView    stopNum;
+    private TextView          stopNum;
 
-    private TextView    lineTime;
+    private TextView          lineTime;
 
-    private TextView    lineLength;
+    private TextView          lineLength;
 
-    private TextView    lineLanguage;
+    private TextView          lineLanguage;
 
-    private ImageView   authorThumb;
+    private ImageView         authorThumb;
 
-    private TextView    authorName;
+    private TextView          authorName;
 
-    private TextView    authorBio;
+    private TextView          authorBio;
 
-    private TextView    authorType;
+    private TextView          authorType;
 
-    private String      lineString;
+    private String            lineString;
 
-    private JSONObject  lineJson;
+    private JSONObject        lineJson;
 
-    private int         stopNumInt;
+    private int               stopNumInt;
 
-    private String      lineID;
+    private String            lineID;
+
+    private ImageView         downloadButton;
+
+    private ArrayList<String> needDownloadURLS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +105,7 @@ public class LineMain extends Activity {
         authorName = (TextView) findViewById(R.id.author_name);
         authorBio = (TextView) findViewById(R.id.author_bio);
         authorType = (TextView) findViewById(R.id.autor_type);
+        downloadButton = (ImageView) findViewById(R.id.download);
 
     }
 
@@ -120,6 +128,12 @@ public class LineMain extends Activity {
             authorBio.setText(lineJson.getString("authorBio"));
             authorType.setText(lineJson.getString("authorType"));
             // Log.i("lineJson", lineJson.toString());
+            needDownloadURLS = Utils.checkLineDownloaded(lineID);
+            if (needDownloadURLS.size() == 0) {
+                downloadButton.setBackgroundResource(R.drawable.selector_downloadedbutton);
+            } else {
+                downloadButton.setBackgroundResource(R.drawable.selector_downloadbutton);
+            }
 
         } catch (JSONException e) {
             Log.v("linemain", "jsonegeterroe" + e.toString());
@@ -225,6 +239,46 @@ public class LineMain extends Activity {
      */
     public void authorMoreClicked(View v) {
 
+    }
+
+    public void downloadClicked(View v) {
+        if (needDownloadURLS.size() == 0) {
+            Toast.makeText(this, "已下载完成！", Toast.LENGTH_SHORT).show();
+        } else {
+            // 判断是否wifi环境
+            ConnectivityManager connManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mobileCon = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+            if (mobileCon.isConnected()) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setIcon(android.R.drawable.ic_dialog_info);
+                builder.setTitle("设置WIFI省流量");
+                builder.setMessage("站点包括很多图片和音频哦，离线下载还是先设置一下WIFI吧！");
+                builder.setPositiveButton("马上设置", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        final Intent intent = new Intent(Intent.ACTION_MAIN, null);
+                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                        final ComponentName cn = new ComponentName("com.android.settings",
+                                "com.android.settings.wifi.WifiSettings");
+                        intent.setComponent(cn);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                });
+                builder.setNegativeButton("立即下载", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        // TODO
+                    }
+                });
+                builder.create();
+                builder.show();
+            } else {
+                // TODO
+            }
+        }
     }
 
 }
