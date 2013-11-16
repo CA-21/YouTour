@@ -1,4 +1,4 @@
-package com.sysu.youtour.util;
+package com.sysu.youtour.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,17 +8,15 @@ import com.sysu.youtour.dao.ImageLoader;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-public class Myadapter extends BaseAdapter {
+public class StopListAdapter extends BaseAdapter {
 
     private Activity                           activity;
 
@@ -28,11 +26,11 @@ public class Myadapter extends BaseAdapter {
 
     public ImageLoader                         imageLoader;
 
-    public Myadapter(Activity a, ArrayList<HashMap<String, String>> d) {
+    public StopListAdapter(Activity a, ArrayList<HashMap<String, String>> d, String lineID) {
         activity = a;
         data = d;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        imageLoader = new ImageLoader(activity.getApplicationContext());
+        imageLoader = new ImageLoader(activity.getApplicationContext(), lineID);
     }
 
     @Override
@@ -57,25 +55,18 @@ public class Myadapter extends BaseAdapter {
     public View getView(int position, View converview, ViewGroup parent) {
         View vi = converview;
         if (converview == null)
-            vi = inflater.inflate(R.layout.list_row, parent, false);
+            vi = inflater.inflate(R.layout.stops_list, parent, false);
 
-        TextView address = (TextView) vi.findViewById(R.id.adress);
-        TextView title = (TextView) vi.findViewById(R.id.title);
-        TextView price = (TextView) vi.findViewById(R.id.price_text);
-        ImageView thumb_image = (ImageView) vi.findViewById(R.id.list_image);
-        RatingBar rate_bar = (RatingBar) vi.findViewById(R.id.rating_bar);
+        TextView number = (TextView) vi.findViewById(R.id.number);
+        TextView title = (TextView) vi.findViewById(R.id.stoptitle);
+        ImageView thumb_image = (ImageView) vi.findViewById(R.id.stop_image);
         HashMap<String, String> linedata = new HashMap<String, String>();
         linedata = data.get(position);
-        address.setText(linedata.get("address"));
+        int numberString = position + 1;
+        number.setText(numberString + "");
         title.setText(linedata.get("title"));
-        Log.i("lineprice", linedata.get("price"));
-        if (linedata.get("price").equals("0")) {
-            price.setText("免费");
-        } else {
-            price.setText("￥" + linedata.get("price"));
-        }
-        rate_bar.setRating(Float.parseFloat(linedata.get("score")));
         imageLoader.DisplayImage(linedata.get("thumbnail"), thumb_image);
         return vi;
     }
+
 }

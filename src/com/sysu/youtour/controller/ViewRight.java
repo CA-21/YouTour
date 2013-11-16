@@ -2,7 +2,6 @@ package com.sysu.youtour.controller;
 
 import com.sysu.shen.youtour.R;
 import com.sysu.youtour.util.GlobalConst;
-import com.sysu.youtour.util.TextAdapter;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -16,7 +15,7 @@ public class ViewRight extends RelativeLayout implements ViewBaseAction {
 
     private ListView         mListView;
 
-    private final String[]   items      = GlobalConst.SORT_METHORD;                      // 显示字段
+    private final String[]   items      = GlobalConst.SORT_METHORD;                     // 显示字段
 
     private final String[]   itemsVaule = new String[] { "1", "2", "3", "4", "5", "6" }; // 隐藏id
 

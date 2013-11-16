@@ -1,12 +1,10 @@
-package com.sysu.youtour.util;
+package com.sysu.youtour.model;
 
 import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.sysu.youtour.model.Stop;
 
 public class Line {
 

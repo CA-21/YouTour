@@ -13,15 +13,18 @@ class StopMainFragmentAdapter extends FragmentPagerAdapter implements IconPagerA
 
     private int               mCount;
 
-    public StopMainFragmentAdapter(FragmentManager fm, ArrayList<String> stopImagesArray) {
+    private String            lineID;
+
+    public StopMainFragmentAdapter(FragmentManager fm, ArrayList<String> stopImagesArray, String ID) {
         super(fm);
         images = stopImagesArray;
         mCount = images.size();
+        lineID = ID;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return StopImageFragment.newInstance(images.get(position));
+        return StopImageFragment.newInstance(images.get(position), lineID);
     }
 
     @Override

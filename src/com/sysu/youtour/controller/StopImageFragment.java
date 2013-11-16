@@ -25,13 +25,17 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.Toast;
 
 public final class StopImageFragment extends Fragment {
-    public ImageLoader imageLoader;
+    private ImageLoader imageLoader;
 
-    private String     imageResourceUrl;
+    private String      imageResourceUrl;
 
-    public static StopImageFragment newInstance(String imageUrl) {
+    private String      lineID;
+
+    public static StopImageFragment newInstance(String imageUrl, String ID) {
         StopImageFragment fragment = new StopImageFragment();
         fragment.imageResourceUrl = imageUrl;
+        fragment.lineID = ID;
+        fragment.imageLoader = new ImageLoader(fragment.getActivity(), fragment.lineID);
         return fragment;
     }
 
@@ -60,7 +64,7 @@ public final class StopImageFragment extends Fragment {
         // new DownloadImageTask(image).execute(imageResourceUrl);
         // }
         // else{
-        imageLoader = new ImageLoader(getActivity());
+
         imageLoader.DisplayImage(imageResourceUrl, image);
         // }
 

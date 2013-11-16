@@ -2,6 +2,7 @@ package com.sysu.youtour.controller;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,6 +23,7 @@ import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView.OnQRCodeReadListener;
 import com.sysu.shen.youtour.R;
 import com.sysu.youtour.dao.JSONFunctions;
+import com.sysu.youtour.util.GlobalConst;
 
 public class DecoderActivity extends Activity implements OnQRCodeReadListener {
 
@@ -135,8 +137,10 @@ public class DecoderActivity extends Activity implements OnQRCodeReadListener {
             if (jarray != null) {
                 Intent it = new Intent(DecoderActivity.this, MapPopup.class);
                 try {
-                    it.putExtra("lineString", jarray.getJSONObject(0).toString());
+                    JSONObject lineJson = jarray.getJSONObject(0);
+                    it.putExtra("lineString", lineJson.toString());
                     it.putExtra("type", "line");
+                    it.putExtra("stopLineID", "null");
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {

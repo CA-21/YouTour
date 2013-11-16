@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import com.sysu.shen.youtour.R;
 import com.sysu.youtour.dao.ImageLoader;
+import com.sysu.youtour.util.GlobalConst;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -59,6 +60,8 @@ public class LineMain extends Activity {
 
     private int         stopNumInt;
 
+    private String      lineID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,8 +78,13 @@ public class LineMain extends Activity {
     }
 
     private void initView() {
-        imageLoader1 = new ImageLoader(this.getApplicationContext());
-        imageLoader2 = new ImageLoader(this.getApplicationContext());
+        try {
+            lineID = lineJson.getString(GlobalConst._ID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        imageLoader1 = new ImageLoader(this.getApplicationContext(), GlobalConst.LINE_THUMBNAIL_DIR_NAME);
+        imageLoader2 = new ImageLoader(this.getApplicationContext(), lineID);
         lineThumb = (ImageView) findViewById(R.id.line_image);
         lineTitle = (TextView) findViewById(R.id.title);
         lineAddress = (TextView) findViewById(R.id.adress);
@@ -187,6 +195,7 @@ public class LineMain extends Activity {
                     try {
                         it.putExtra("stopJArray", lineJson.getJSONArray("stops").toString());
                         it.putExtra("lineName", lineTitle.getText());
+                        it.putExtra("lineID", lineID);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -200,6 +209,7 @@ public class LineMain extends Activity {
             try {
                 it.putExtra("stopJArray", lineJson.getJSONArray("stops").toString());
                 it.putExtra("lineName", lineTitle.getText());
+                it.putExtra("lineID", lineID);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

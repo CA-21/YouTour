@@ -66,6 +66,8 @@ public class StopMap extends FragmentActivity implements OnMarkerClickListener {
 
     private int                    mode            = Route.DrivingLeastDistance;
 
+    private String                 lineID;
+
     // private ProgressDialog mProgressDialog;s
 
     @Override
@@ -75,6 +77,7 @@ public class StopMap extends FragmentActivity implements OnMarkerClickListener {
         setContentView(R.layout.stop_map);
         Bundle extras = getIntent().getExtras();
         stopslistString = extras.getString("stopsJarray");
+        lineID = extras.getString("lineID");
         // 初始化地图
         init();
         // 分析json得到坐标生成marker
@@ -228,6 +231,7 @@ public class StopMap extends FragmentActivity implements OnMarkerClickListener {
         it.putExtra("stopsJarray", stopsJsonArray.toString());
         it.putExtra("position", arg0.getTitle());
         it.putExtra("type", "stop");
+        it.putExtra("stopLineID", lineID);
         startActivity(it);
 
         return false;

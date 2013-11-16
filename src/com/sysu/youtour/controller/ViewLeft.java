@@ -14,7 +14,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.sysu.shen.youtour.R;
-import com.sysu.youtour.util.TextAdapter;
 
 import android.content.Context;
 import android.content.res.AssetManager;

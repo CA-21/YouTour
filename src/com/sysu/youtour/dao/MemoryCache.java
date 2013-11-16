@@ -1,4 +1,4 @@
-package com.sysu.youtour.util;
+package com.sysu.youtour.dao;
 
 import java.lang.ref.SoftReference;
 import java.util.Collections;

@@ -12,7 +12,6 @@ import com.sysu.shen.youtour.R;
 import com.sysu.youtour.controller.MyListView.OnRefreshListener;
 import com.sysu.youtour.dao.JSONFunctions;
 import com.sysu.youtour.util.GlobalConst;
-import com.sysu.youtour.util.Myadapter;
 
 import android.app.Activity;
 import android.content.Context;

@@ -16,7 +16,6 @@ import java.util.concurrent.Executors;
 
 import com.sysu.shen.youtour.R;
 import com.sysu.youtour.util.GlobalConst;
-import com.sysu.youtour.util.MemoryCache;
 import com.sysu.youtour.util.Utils;
 
 import android.app.Activity;
@@ -36,8 +35,8 @@ public class ImageLoader {
 
     ExecutorService                executorService;
 
-    public ImageLoader(Context context) {
-        fileCache = new FileCache(context);
+    public ImageLoader(Context context, String lineID) {
+        fileCache = new FileCache(context, lineID);
         executorService = Executors.newFixedThreadPool(5);
     }
 

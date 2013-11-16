@@ -89,6 +89,8 @@ public class StopMain extends BaseSampleActivity {
 
     private String                      audioURL;
 
+    private String                      lineID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,11 +98,12 @@ public class StopMain extends BaseSampleActivity {
         Bundle extras = getIntent().getExtras();
         stopslistString = extras.getString("stopsJarray");
         position = extras.getString("position");
+        lineID = extras.getString("lineID");
 
         initView();
         initValue();
 
-        mAdapter = new StopMainFragmentAdapter(getSupportFragmentManager(), stopImagesArray);
+        mAdapter = new StopMainFragmentAdapter(getSupportFragmentManager(), stopImagesArray, lineID);
 
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
@@ -287,6 +290,7 @@ public class StopMain extends BaseSampleActivity {
             Intent it = new Intent(StopMain.this, StopMain.class);
             it.putExtra("stopsJarray", stopslistString);
             it.putExtra("position", (Integer.parseInt(position) - 1) + "");
+            it.putExtra("lineID", lineID);
             startActivity(it);
             player.stop();
             if (task != null) {
@@ -309,6 +313,7 @@ public class StopMain extends BaseSampleActivity {
             Intent it = new Intent(StopMain.this, StopMain.class);
             it.putExtra("stopsJarray", stopslistString);
             it.putExtra("position", (Integer.parseInt(position) + 1) + "");
+            it.putExtra("lineID", lineID);
             startActivity(it);
             player.stop();
             if (task != null) {

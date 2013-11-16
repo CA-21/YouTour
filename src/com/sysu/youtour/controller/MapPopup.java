@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import com.sysu.shen.youtour.R;
 import com.sysu.youtour.dao.ImageLoader;
+import com.sysu.youtour.util.GlobalConst;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -48,16 +49,22 @@ public class MapPopup extends Activity {
 
     private String         type;
 
+    private String         lineID;
+
+    private String         stopLineID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_popup_view);
         Bundle extras = getIntent().getExtras();
         type = extras.getString("type");
+        stopLineID = extras.getString("stopLineID");
         if (type.equals("line")) {
             try {
                 lineString = extras.getString("lineString");
                 lineJson = new JSONObject(lineString);
+                lineID = lineJson.getString(GlobalConst._ID);
             } catch (JSONException e) {
                 Log.e("mappopup", "praseLinejsonerror:" + e.toString());
             }
@@ -77,7 +84,6 @@ public class MapPopup extends Activity {
 
     private void initView() {
         mapPopupLayout = (RelativeLayout) findViewById(R.id.map_popup_line);
-        imageLoader = new ImageLoader(this.getApplicationContext());
         thumb = (ImageView) findViewById(R.id.line_image);
         title = (TextView) findViewById(R.id.title);
         address = (TextView) findViewById(R.id.adress);
@@ -89,6 +95,7 @@ public class MapPopup extends Activity {
 
         if (type.equals("line")) {
             try {
+                imageLoader = new ImageLoader(this.getApplicationContext(), GlobalConst.LINE_THUMBNAIL_DIR_NAME);
                 imageLoader.DisplayImage(lineJson.getString("coverThumbnail"), thumb);
                 address.setText(lineJson.getString("mapAddress"));
                 title.setText(lineJson.getString("lineName"));
@@ -101,6 +108,7 @@ public class MapPopup extends Activity {
             }
         } else {
             try {
+                imageLoader = new ImageLoader(this.getApplicationContext(), stopLineID);
                 imageLoader.DisplayImage(stopsJArray.getJSONObject(position).getString("stopThumbnail"), thumb);
                 address.setVisibility(View.INVISIBLE);
                 title.setText(stopsJArray.getJSONObject(position).getString("stopName"));
@@ -149,6 +157,7 @@ public class MapPopup extends Activity {
                         try {
                             it.putExtra("stopJArray", lineJson.getJSONArray("stops").toString());
                             it.putExtra("lineName", title.getText());
+                            it.putExtra("lineID", lineID);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -157,6 +166,7 @@ public class MapPopup extends Activity {
                         Intent it = new Intent(MapPopup.this, StopMain.class);
                         it.putExtra("stopsJarray", stopsJArray.toString());
                         it.putExtra("position", (position + 1) + "");
+                        it.putExtra("lineID", stopLineID);
                         startActivity(it);
                     }
                 }
@@ -169,6 +179,7 @@ public class MapPopup extends Activity {
                 try {
                     it.putExtra("stopJArray", lineJson.getJSONArray("stops").toString());
                     it.putExtra("lineName", title.getText());
+                    it.putExtra("lineID", lineID);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -177,6 +188,7 @@ public class MapPopup extends Activity {
                 Intent it = new Intent(MapPopup.this, StopMain.class);
                 it.putExtra("stopsJarray", stopsJArray.toString());
                 it.putExtra("position", (position + 1) + "");
+                it.putExtra("lineID", stopLineID);
                 startActivity(it);
             }
         }

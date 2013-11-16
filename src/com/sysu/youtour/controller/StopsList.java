@@ -8,7 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.sysu.shen.youtour.R;
-import com.sysu.youtour.util.StopListAdapter;
+import com.sysu.youtour.util.GlobalConst;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -37,6 +37,8 @@ public class StopsList extends Activity {
 
     private String          lineNameString;
 
+    private String          lineID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,7 @@ public class StopsList extends Activity {
         Bundle extras = getIntent().getExtras();
         stopString = extras.getString("stopJArray");
         lineNameString = extras.getString("lineName");
+        lineID = extras.getString("lineID");
         try {
             stopsJArray = new JSONArray(stopString);
         } catch (JSONException e) {
@@ -81,7 +84,7 @@ public class StopsList extends Activity {
         } catch (Exception e) {
             Log.v("log_tag", "analyseJsonexception:" + e.toString());
         }
-        myadapter = new StopListAdapter(this, mylist);
+        myadapter = new StopListAdapter(this, mylist, lineID);
 
         list.addHeaderView(header, null, false);
         list.addFooterView(footer, null, false);
@@ -93,6 +96,7 @@ public class StopsList extends Activity {
                 Intent it = new Intent(StopsList.this, StopMain.class);
                 it.putExtra("stopsJarray", stopsJArray.toString());
                 it.putExtra("position", position + "");
+                it.putExtra("lineID", lineID);
                 startActivity(it);
 
             }
@@ -117,6 +121,7 @@ public class StopsList extends Activity {
     public void mapbuttonClicked(View v) {
         Intent it = new Intent(StopsList.this, StopMap.class);
         it.putExtra("stopsJarray", stopsJArray.toString());
+        it.putExtra("lineID", lineID);
         startActivity(it);
     }
 

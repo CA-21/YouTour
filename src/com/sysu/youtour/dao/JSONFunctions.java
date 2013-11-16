@@ -85,7 +85,30 @@ public class JSONFunctions {
         // 把刚刚得到的json缓存到本地
         saveInLocal(context, URLString, result, GlobalConst.SDCARD_JSONCACHE_DIR);
 
+        // 根据json创建线路缓存结构
+        dispatchIndir(context, jarray);
+
         return jarray;
+    }
+
+    /**
+     * 根据json创建线路缓存结构
+     * 
+     * @param jarray
+     */
+    private static void dispatchIndir(Context context, JSONArray jarray) {
+        JSONObject line = null;
+        for (int i = 0; i < jarray.length(); i++) {
+            try {
+                line = jarray.getJSONObject(i);
+                String lineID = line.getString(GlobalConst._ID);
+                saveInLocal(context, GlobalConst.JSON_FILE_NAME, line.toString(), GlobalConst.SDCARD_CACHE_DIR + "/"
+                        + lineID.hashCode());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     /**
@@ -109,6 +132,8 @@ public class JSONFunctions {
     }
 
     /**
+     * 把得到的结果缓存到本地
+     * 
      * @param context
      * @param URLString
      * @param result
@@ -139,6 +164,8 @@ public class JSONFunctions {
     }
 
     /**
+     * 从文件缓存中读取结果
+     * 
      * @param context
      * @param URLString
      * @param result
@@ -174,6 +201,7 @@ public class JSONFunctions {
         HashMap<String, String> lineMap = new HashMap<String, String>();
         try {
             lineMap.put("address", line.getString("mapAddress"));
+            lineMap.put("lineID", line.getString(GlobalConst._ID));
             lineMap.put("title", line.getString("lineName"));
             lineMap.put("thumbnail", line.getString("coverThumbnail"));
             lineMap.put("price", line.getString("price"));

@@ -10,11 +10,11 @@ public class FileCache {
 
     private File cacheDir;
 
-    public FileCache(Context context) {
+    public FileCache(Context context, String lineID) {
         // Find the dir to save cached images
         if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED))
             cacheDir = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath()
-                    + GlobalConst.SDCARD_IMAGECACHE_DIR);
+                    + GlobalConst.SDCARD_CACHE_DIR + "/" + lineID.hashCode());
         else
             cacheDir = context.getCacheDir();
         if (!cacheDir.exists())

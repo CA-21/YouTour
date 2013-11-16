@@ -1,4 +1,4 @@
-package com.sysu.youtour.util;
+package com.sysu.youtour.controller;
 
 import java.util.List;
 

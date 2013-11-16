@@ -382,6 +382,7 @@ public class NearMe extends FragmentActivity implements LocationSource, AMapLoca
         try {
             it.putExtra("lineString", jarray.getJSONObject(Integer.parseInt(arg0.getSnippet())).toString());
             it.putExtra("type", "line");
+            it.putExtra("stopLineID", "null");
         } catch (NumberFormatException e) {
             e.printStackTrace();
         } catch (JSONException e) {
