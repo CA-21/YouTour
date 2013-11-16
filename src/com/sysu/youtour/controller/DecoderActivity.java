@@ -23,7 +23,6 @@ import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView.OnQRCodeReadListener;
 import com.sysu.shen.youtour.R;
 import com.sysu.youtour.dao.JSONFunctions;
-import com.sysu.youtour.util.GlobalConst;
 
 public class DecoderActivity extends Activity implements OnQRCodeReadListener {
 
@@ -128,7 +127,6 @@ public class DecoderActivity extends Activity implements OnQRCodeReadListener {
             } else {
                 jarray = JSONFunctions.getJSONFromFile(activity, URLString);
             }
-
             return null;
         }
 

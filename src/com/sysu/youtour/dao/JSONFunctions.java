@@ -119,13 +119,15 @@ public class JSONFunctions {
      * @return
      */
     public static JSONArray getJSONFromFile(Context context, String URLString) {
-        String result = "";
+        String result = null;
         JSONArray jarray = null;
         result = loadFromLocal(context, URLString, GlobalConst.SDCARD_JSONCACHE_DIR);
-        try {
-            jarray = new JSONArray(result);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (result != null) {
+            try {
+                jarray = new JSONArray(result);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         return jarray;
@@ -172,7 +174,7 @@ public class JSONFunctions {
      * @return
      */
     public static String loadFromLocal(Context context, String URLString, String sdcardDir) {
-        String result = "";
+        String result = null;
         try {
             File cacheDir;
             if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED))
