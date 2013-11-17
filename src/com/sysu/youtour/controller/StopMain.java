@@ -1,5 +1,6 @@
 package com.sysu.youtour.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -165,7 +166,7 @@ public class StopMain extends BaseSampleActivity {
         stopDetail.setText(stopDetailString);
         stopNum.setText(position);
 
-        player = new Player(audioURL, skbProgress, songTotalDurationLabel, songCurrentDurationLabel,lineID);
+        player = new Player(audioURL, skbProgress, songTotalDurationLabel, songCurrentDurationLabel, lineID);
 
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         telephonyManager.listen(new MyPhoneListener(), PhoneStateListener.LISTEN_CALL_STATE);
@@ -341,52 +342,62 @@ public class StopMain extends BaseSampleActivity {
         if (!haveAudio) {
             Toast.makeText(this, "这个站点没有音频信息哦", Toast.LENGTH_SHORT).show();
         } else {
+
             if (firstClick) {
-                // 判断是否wifi环境
-                ConnectivityManager connManager = (ConnectivityManager) this
-                        .getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo mobileCon = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-                NetworkInfo netInfo = connManager.getActiveNetworkInfo();
-                if (mobileCon.isConnected()) {
-                    // 使用移动网络连接
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setIcon(android.R.drawable.ic_dialog_info);
-                    builder.setTitle("设置WIFI更流畅");
-                    builder.setMessage("小游检测到您正使用移动网络，设置WIFI音频更流畅哦，还是设置一下WIFI吧！");
-                    builder.setPositiveButton("马上设置", new DialogInterface.OnClickListener() {
-
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            final Intent intent = new Intent(Intent.ACTION_MAIN, null);
-                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                            final ComponentName cn = new ComponentName("com.android.settings",
-                                    "com.android.settings.wifi.WifiSettings");
-                            intent.setComponent(cn);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                        }
-                    });
-                    builder.setNegativeButton("继续使用移动网络", new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                            task = new PlayMusicAsynTack();
-                            task.execute();
-                            // new PlayMusicAsynTack().execute();
-                            firstClick = false;
-                        }
-                    });
-                    builder.create();
-                    builder.show();
-                } else if (netInfo == null || !netInfo.isConnectedOrConnecting()) {
-                } else {
-                    // 使用非移动网络
-                    // new PlayMusicAsynTack().execute();
+                File stopAudioFile = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath()
+                        + GlobalConst.SDCARD_CACHE_DIR + "/" + lineID.hashCode() + "/" + audioURL.hashCode());
+                if (stopAudioFile.exists()) {
                     task = new PlayMusicAsynTack();
                     task.execute();
                     firstClick = false;
-                }
+                } else {
+                    // 判断是否wifi环境
+                    ConnectivityManager connManager = (ConnectivityManager) this
+                            .getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo mobileCon = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+                    NetworkInfo netInfo = connManager.getActiveNetworkInfo();
+                    if (mobileCon.isConnected()) {
+                        // 使用移动网络连接
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        builder.setIcon(android.R.drawable.ic_dialog_info);
+                        builder.setTitle("设置WIFI更流畅");
+                        builder.setMessage("小游检测到您正使用移动网络，设置WIFI音频更流畅哦，还是设置一下WIFI吧！");
+                        builder.setPositiveButton("马上设置", new DialogInterface.OnClickListener() {
 
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                final Intent intent = new Intent(Intent.ACTION_MAIN, null);
+                                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                                final ComponentName cn = new ComponentName("com.android.settings",
+                                        "com.android.settings.wifi.WifiSettings");
+                                intent.setComponent(cn);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+                        });
+                        builder.setNegativeButton("继续使用移动网络", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                                task = new PlayMusicAsynTack();
+                                task.execute();
+                                // new PlayMusicAsynTack().execute();
+                                firstClick = false;
+                            }
+                        });
+                        builder.create();
+                        builder.show();
+                    } else if (netInfo == null || !netInfo.isConnectedOrConnecting()) {
+
+                    } else {
+                        // 使用非移动网络
+                        // new PlayMusicAsynTack().execute();
+                        task = new PlayMusicAsynTack();
+                        task.execute();
+                        firstClick = false;
+                    }
+
+                }
             } else {
                 boolean pause = player.pause();
                 if (pause) {
