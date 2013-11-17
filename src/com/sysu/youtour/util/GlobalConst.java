@@ -43,7 +43,17 @@ public class GlobalConst {
 
     public static final String   JSON_FILE_NAME          = "lineJson";
 
+    public static final String   LINE_ID_FILE_NAME       = "lineid";
+
     public static final String   LINE_THUMBNAIL_DIR_NAME = "thumbnail_dir";
 
     public static final String   ALL_DOWNLOADED          = "alldownload";
+
+    public static final String   JSON_IDENTIFY           = "json";
+
+    public static final String   LINE_THUNMNAIL_IDENTIFY = "line_thumnail";
+
+    public static final String   OTHER_IMAGE_IDENTIFY    = "other_image";
+
+    public static final String   AUDIO_IDENTIFY          = "audio";
 }

@@ -107,7 +107,8 @@ public class Utils {
         File jsonFile = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath()
                 + GlobalConst.SDCARD_CACHE_DIR + "/" + lineID.hashCode() + "/" + GlobalConst.JSON_FILE_NAME.hashCode());
         if (!jsonFile.exists()) {
-            urls.add(GlobalConst.HOST + GlobalConst.URL_HAEDER_LINEID + lineID);
+            // TODO There may be a problem to phase this json for it's a jsonarray with only one object.
+            urls.add(GlobalConst.JSON_IDENTIFY + "-" + GlobalConst.HOST + GlobalConst.URL_HAEDER_LINEID + lineID);
         }
 
         // check the json file format, phase all the url and check the resource file exist
@@ -118,7 +119,8 @@ public class Utils {
             MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
             /* Instead of using default, pass in a decoder. */
             String result = Charset.defaultCharset().decode(bb).toString();
-            lineJson = new JSONObject(result);
+            JSONArray ja = new JSONArray(result);
+            lineJson = ja.getJSONObject(0);
             stream.close();
 
             String coverThumbnail = lineJson.getString("coverThumbnail");
@@ -126,14 +128,14 @@ public class Utils {
                     + GlobalConst.SDCARD_CACHE_DIR + "/" + GlobalConst.LINE_THUMBNAIL_DIR_NAME.hashCode() + "/"
                     + (GlobalConst.HOST + coverThumbnail).hashCode());
             if (!coverThumbnailFile.exists()) {
-                urls.add(GlobalConst.HOST + coverThumbnail);
+                urls.add(GlobalConst.LINE_THUNMNAIL_IDENTIFY + "-" + GlobalConst.HOST + coverThumbnail);
             }
             String authorImage = lineJson.getString("authorImage");
             File authorImagelFile = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath()
                     + GlobalConst.SDCARD_CACHE_DIR + "/" + lineID.hashCode() + "/"
                     + (GlobalConst.HOST + authorImage).hashCode());
             if (!authorImagelFile.exists()) {
-                urls.add(GlobalConst.HOST + authorImage);
+                urls.add(GlobalConst.OTHER_IMAGE_IDENTIFY + "-" + GlobalConst.HOST + authorImage);
             }
             JSONArray stops = lineJson.getJSONArray("stops");
             for (int i = 0; i < stops.length(); i++) {
@@ -147,14 +149,14 @@ public class Utils {
                         + "/"
                         + (GlobalConst.HOST + stopThumbnail).hashCode());
                 if (!stopThumbnailFile.exists()) {
-                    urls.add(GlobalConst.HOST + stopThumbnail);
+                    urls.add(GlobalConst.OTHER_IMAGE_IDENTIFY + "-" + GlobalConst.HOST + stopThumbnail);
                 }
                 String stopAudio = stopJsonObject.getString("stopAudio");
                 File stopAudioFile = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath()
                         + GlobalConst.SDCARD_CACHE_DIR + "/" + lineID.hashCode() + "/"
                         + (GlobalConst.HOST + stopAudio).hashCode());
                 if (!stopAudioFile.exists()) {
-                    urls.add(GlobalConst.HOST + stopAudio);
+                    urls.add(GlobalConst.AUDIO_IDENTIFY + "-" + GlobalConst.HOST + stopAudio);
                 }
                 JSONArray stopImages = stopJsonObject.getJSONArray("stopImages");
                 for (int j = 0; j < stopImages.length(); j++) {
@@ -167,13 +169,14 @@ public class Utils {
                             + "/"
                             + (GlobalConst.HOST + stopImage).hashCode());
                     if (!stopImageFile.exists()) {
-                        urls.add(GlobalConst.HOST + stopImage);
+                        urls.add(GlobalConst.OTHER_IMAGE_IDENTIFY + "-" + GlobalConst.HOST + stopImage);
                     }
                 }
 
             }
         } catch (Exception e) {
-            urls.add(GlobalConst.HOST + GlobalConst.URL_HAEDER_LINEID + lineID);
+            // TODO There may be a problem to phase this json for it's a jsonarray with only one object.
+            urls.add(GlobalConst.JSON_IDENTIFY + "-" + GlobalConst.HOST + GlobalConst.URL_HAEDER_LINEID + lineID);
             e.printStackTrace();
         }
         // if downloaded save a allDownLoaded file in line cache to indicate it's finish

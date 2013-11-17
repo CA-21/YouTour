@@ -165,7 +165,7 @@ public class StopMain extends BaseSampleActivity {
         stopDetail.setText(stopDetailString);
         stopNum.setText(position);
 
-        player = new Player(audioURL, skbProgress, songTotalDurationLabel, songCurrentDurationLabel);
+        player = new Player(audioURL, skbProgress, songTotalDurationLabel, songCurrentDurationLabel,lineID);
 
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         telephonyManager.listen(new MyPhoneListener(), PhoneStateListener.LISTEN_CALL_STATE);
@@ -379,8 +379,6 @@ public class StopMain extends BaseSampleActivity {
                     builder.create();
                     builder.show();
                 } else if (netInfo == null || !netInfo.isConnectedOrConnecting()) {
-                    // 无网络连接
-                    Toast.makeText(this, "连上网络才可以听音频介绍哦！", Toast.LENGTH_SHORT).show();
                 } else {
                     // 使用非移动网络
                     // new PlayMusicAsynTack().execute();

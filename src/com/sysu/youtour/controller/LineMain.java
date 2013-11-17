@@ -8,16 +8,22 @@ import org.json.JSONObject;
 import com.sysu.shen.youtour.R;
 import com.sysu.youtour.dao.ImageLoader;
 import com.sysu.youtour.util.GlobalConst;
+import com.sysu.youtour.util.PreferencesUtils;
 import com.sysu.youtour.util.Utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -69,6 +75,15 @@ public class LineMain extends Activity {
 
     private ArrayList<String> needDownloadURLS;
 
+    private DownloadManager   downloadManager;
+
+    private CompleteReceiver  completeReceiver;
+
+    private int               nowDownTotal = 0;
+
+    private Thread            downLoadThread;
+
+    @SuppressLint("InlinedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +95,11 @@ public class LineMain extends Activity {
         } catch (JSONException e) {
             Log.e("linemain", "praselinejsonerror:" + e.toString());
         }
+
+        completeReceiver = new CompleteReceiver();
+        /** register download success broadcast **/
+        registerReceiver(completeReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
         initView();
         initValue();
     }
@@ -241,44 +261,100 @@ public class LineMain extends Activity {
 
     }
 
+    @SuppressLint("NewApi")
     public void downloadClicked(View v) {
+
         if (needDownloadURLS.size() == 0) {
-            Toast.makeText(this, "已下载完成！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "已下载！", Toast.LENGTH_SHORT).show();
         } else {
-            // 判断是否wifi环境
-            ConnectivityManager connManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo mobileCon = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-            if (mobileCon.isConnected()) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setIcon(android.R.drawable.ic_dialog_info);
-                builder.setTitle("设置WIFI省流量");
-                builder.setMessage("站点包括很多图片和音频哦，离线下载还是先设置一下WIFI吧！");
-                builder.setPositiveButton("马上设置", new DialogInterface.OnClickListener() {
+            if (needDownloadURLS.size() != nowDownTotal) {
+                // 判断是否wifi环境
+                ConnectivityManager connManager = (ConnectivityManager) this
+                        .getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
+                if (activeNetwork != null && activeNetwork.isConnected()) {
 
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        final Intent intent = new Intent(Intent.ACTION_MAIN, null);
-                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                        final ComponentName cn = new ComponentName("com.android.settings",
-                                "com.android.settings.wifi.WifiSettings");
-                        intent.setComponent(cn);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    }
-                });
-                builder.setNegativeButton("立即下载", new DialogInterface.OnClickListener() {
+                    NetworkInfo mobileCon = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+                    if (mobileCon.isConnected()) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        builder.setIcon(android.R.drawable.ic_dialog_info);
+                        builder.setTitle("设置WIFI省流量");
+                        builder.setMessage("站点包括很多图片和音频哦，离线下载还是先设置一下WIFI吧！");
+                        builder.setNeutralButton("马上设置", new DialogInterface.OnClickListener() {
 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                        // TODO
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                final Intent intent = new Intent(Intent.ACTION_MAIN, null);
+                                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                                final ComponentName cn = new ComponentName("com.android.settings",
+                                        "com.android.settings.wifi.WifiSettings");
+                                intent.setComponent(cn);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+                        });
+                        builder.create();
+                        builder.show();
+                    } else {
+                        downloadButton.setClickable(false);
+                        Toast.makeText(getApplicationContext(), "正在离线下载，请稍后。。", Toast.LENGTH_LONG).show();
+                        downLoadThread = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                downloadAllResource(needDownloadURLS);
+                            }
+                        });
+                        downLoadThread.start();
+
                     }
-                });
-                builder.create();
-                builder.show();
-            } else {
-                // TODO
+                } else {
+                    Toast.makeText(this, "离线下载需要连上wifi哦！", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
 
+    /**
+     * @param arrayList
+     */
+    @SuppressLint("NewApi")
+    protected void downloadAllResource(ArrayList<String> urls) {
+        for (int i = 0; i < urls.size(); i++) {
+            downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+            String url = urls.get(i);
+            String downloadDir = null;
+            String downloadName = null;
+            if (url.split("-")[0].equals(GlobalConst.LINE_THUNMNAIL_IDENTIFY)) {
+                downloadDir = "youtour/cache/" + GlobalConst.LINE_THUMBNAIL_DIR_NAME.hashCode();
+            } else {
+                downloadDir = "youtour/cache/" + lineID.hashCode();
+            }
+            downloadName = url.split("-")[1];
+            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(downloadName));
+            request.setDestinationInExternalPublicDir(downloadDir, downloadName.hashCode() + "");
+            request.setTitle("正在下载" + lineTitle.getText() + "资源" + i);
+            request.setDescription(url.split("-")[0]);
+            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
+            long downloadId = downloadManager.enqueue(request);
+            PreferencesUtils.putLong(this.getApplicationContext(), lineID + "-" + i, downloadId);
+        }
+    }
+
+    class CompleteReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            nowDownTotal++;
+            if (nowDownTotal == needDownloadURLS.size()) {
+                downloadButton.setBackgroundResource(R.drawable.selector_downloadedbutton);
+                downloadButton.setClickable(true);
+                Toast.makeText(getApplicationContext(), "已完成下载！", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(completeReceiver);
+    }
 }

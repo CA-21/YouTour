@@ -217,7 +217,6 @@ public class MainActivity extends FragmentActivity {
         builder.setTitle("确定退出吗?");
         builder.setPositiveButton("退出", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                unregisterReceiver(hpReceiver);
                 finish();
             }
         });
@@ -308,4 +307,15 @@ public class MainActivity extends FragmentActivity {
     private void showProgress(String message) {
         mProgressDialog = ProgressDialog.show(this, "请稍后", message);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(hpReceiver);
+    }
+    
+    
 }

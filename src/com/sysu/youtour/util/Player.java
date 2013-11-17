@@ -1,5 +1,6 @@
 package com.sysu.youtour.util;
 
+import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,12 +30,15 @@ public class Player implements OnBufferingUpdateListener, MediaPlayer.OnPrepared
 
     private TextView   songTotalDurationLabel;
 
+    private String     lineID;
+
     public Player(String videoUrl, SeekBar skbProgress, TextView songTotalDurationLabel,
-            TextView songCurrentDurationLabel) {
+            TextView songCurrentDurationLabel, String lineID) {
         this.skbProgress = skbProgress;
         this.songCurrentDurationLabel = songCurrentDurationLabel;
         this.songTotalDurationLabel = songTotalDurationLabel;
         this.videoUrl = videoUrl;
+        this.lineID = lineID;
         try {
             mediaPlayer = new MediaPlayer();
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -185,7 +189,14 @@ public class Player implements OnBufferingUpdateListener, MediaPlayer.OnPrepared
              * 必须实现Null 对像的检查. 2.必须实现接收IllegalArgumentException 与IOException 等异常,在很多情况下,你所用的文件当下并不存在. 3.若使用URL
              * 来播放在线媒体文件,该文件应该要能支持pragressive 下载.
              */
-            mediaPlayer.setDataSource(videoUrl);
+            File stopAudioFile = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath()
+                    + GlobalConst.SDCARD_CACHE_DIR + "/" + lineID.hashCode() + "/" + videoUrl.hashCode());
+            if (stopAudioFile.exists()) {
+                mediaPlayer.setDataSource(android.os.Environment.getExternalStorageDirectory().getAbsolutePath()
+                        + GlobalConst.SDCARD_CACHE_DIR + "/" + lineID.hashCode() + "/" + videoUrl.hashCode());
+            } else {
+                mediaPlayer.setDataSource(videoUrl);
+            }
             mediaPlayer.prepare();// 进行缓冲
             mediaPlayer.setOnPreparedListener(new MyPreparedListener(playPosition));
             mediaPlayer.setLooping(true);

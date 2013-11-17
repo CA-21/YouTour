@@ -15,6 +15,7 @@ import java.net.URLEncoder;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.JSONArray;
@@ -22,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.sysu.youtour.util.GlobalConst;
+import com.sysu.youtour.util.Utils;
 
 import android.content.Context;
 import android.util.Log;
@@ -102,8 +104,10 @@ public class JSONFunctions {
             try {
                 line = jarray.getJSONObject(i);
                 String lineID = line.getString(GlobalConst._ID);
-                saveInLocal(context, GlobalConst.JSON_FILE_NAME, line.toString(), GlobalConst.SDCARD_CACHE_DIR + "/"
-                        + lineID.hashCode());
+                saveInLocal(context, GlobalConst.JSON_FILE_NAME, "[" + line.toString() + "]",
+                        GlobalConst.SDCARD_CACHE_DIR + "/" + lineID.hashCode());
+                saveInLocal(context, GlobalConst.LINE_ID_FILE_NAME, lineID,
+                        GlobalConst.SDCARD_CACHE_DIR + "/" + lineID.hashCode());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -131,6 +135,32 @@ public class JSONFunctions {
         }
 
         return jarray;
+    }
+
+    public static ArrayList<String> getDownloadedJSONFromFile(Context context) {
+        String result = null;
+        ArrayList<String> lineJa = new ArrayList<String>();
+        File allLineFileDir = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath()
+                + GlobalConst.SDCARD_CACHE_DIR);
+        if (allLineFileDir.exists()) {
+            for (File lineFileDir : allLineFileDir.listFiles()) {
+                if (lineFileDir.isDirectory()) {
+                    for (File cf : lineFileDir.listFiles()) {
+                        if (cf.getName().equals(GlobalConst.LINE_ID_FILE_NAME.hashCode() + "")) {
+                            result = loadFromLocal(context, GlobalConst.LINE_ID_FILE_NAME,
+                                    GlobalConst.SDCARD_CACHE_DIR + "/" + lineFileDir.getName());
+                            if (result != null && Utils.checkLineDownloaded(result).size() == 0) {
+                                lineJa.add(loadFromLocal(context, GlobalConst.JSON_FILE_NAME,
+                                        GlobalConst.SDCARD_CACHE_DIR + "/" + lineFileDir.getName()));
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+        return lineJa;
     }
 
     /**
