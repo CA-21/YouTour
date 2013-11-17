@@ -26,7 +26,6 @@ import com.amapv2.cn.apis.util.AMapUtil;
 import com.amapv2.cn.apis.util.Constants;
 import com.sysu.shen.youtour.R;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
