@@ -205,7 +205,6 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        unregisterReceiver(hpReceiver);
         this.finish();
         return super.onOptionsItemSelected(item);
     }
