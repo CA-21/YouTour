@@ -53,7 +53,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:src="@drawable/red_line" />
-            
         </RelativeLayout>
 
         <TextView
@@ -74,8 +73,21 @@
             android:gravity="center_horizontal"
             android:paddingBottom="10dp"
             android:text="@string/qrcode_remind"
-            android:textColor="@color/black"
+            android:textColor="@color/deepgry"
             android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/host"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:gravity="center_horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="15dp"
+            android:text="@string/qrcode_host"
+            android:textColor="@color/deepgry"
+            android:textSize="18sp" />
     </RelativeLayout>
 
 </LinearLayout>

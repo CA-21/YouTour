@@ -331,53 +331,54 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int vpiUnderlinePageIndicatorStyle=0x7f010005;
     }
     public static final class bool {
-        public static final int default_circle_indicator_centered=0x7f070000;
-        public static final int default_circle_indicator_snap=0x7f070001;
-        public static final int default_line_indicator_centered=0x7f070002;
-        public static final int default_title_indicator_selected_bold=0x7f070003;
-        public static final int default_underline_indicator_fades=0x7f070004;
+        public static final int default_circle_indicator_centered=0x7f090000;
+        public static final int default_circle_indicator_snap=0x7f090001;
+        public static final int default_line_indicator_centered=0x7f090002;
+        public static final int default_title_indicator_selected_bold=0x7f090003;
+        public static final int default_underline_indicator_fades=0x7f090004;
     }
     public static final class color {
-        public static final int background=0x7f06001a;
-        public static final int black=0x7f06001b;
-        public static final int blue=0x7f060022;
-        public static final int choose_eara_item_press_color=0x7f06001f;
-        public static final int deeporange=0x7f060016;
-        public static final int default_circle_indicator_fill_color=0x7f060008;
-        public static final int default_circle_indicator_page_color=0x7f060009;
-        public static final int default_circle_indicator_stroke_color=0x7f06000a;
-        public static final int default_line_indicator_selected_color=0x7f06000b;
-        public static final int default_line_indicator_unselected_color=0x7f06000c;
-        public static final int default_title_indicator_footer_color=0x7f06000d;
-        public static final int default_title_indicator_selected_color=0x7f06000e;
-        public static final int default_title_indicator_text_color=0x7f06000f;
-        public static final int default_underline_indicator_selected_color=0x7f060010;
-        public static final int elsebackground=0x7f060021;
-        public static final int gold=0x7f060014;
-        public static final int green=0x7f060024;
-        public static final int grey=0x7f060019;
-        public static final int lightgrey=0x7f06001d;
-        public static final int lightorange=0x7f060017;
-        public static final int ligthgree=0x7f06001c;
-        public static final int no_color=0x7f060020;
-        public static final int orange=0x7f060015;
-        public static final int orangetransparent=0x7f060018;
-        public static final int popup_main_background=0x7f06001e;
-        public static final int purple=0x7f060025;
-        public static final int red=0x7f060023;
-        public static final int transparent=0x7f060013;
-        public static final int vpi__background_holo_dark=0x7f060000;
-        public static final int vpi__background_holo_light=0x7f060001;
-        public static final int vpi__bright_foreground_disabled_holo_dark=0x7f060004;
-        public static final int vpi__bright_foreground_disabled_holo_light=0x7f060005;
-        public static final int vpi__bright_foreground_holo_dark=0x7f060002;
-        public static final int vpi__bright_foreground_holo_light=0x7f060003;
-        public static final int vpi__bright_foreground_inverse_holo_dark=0x7f060006;
-        public static final int vpi__bright_foreground_inverse_holo_light=0x7f060007;
-        public static final int vpi__dark_theme=0x7f060026;
-        public static final int vpi__light_theme=0x7f060027;
-        public static final int white=0x7f060011;
-        public static final int whitetransparent=0x7f060012;
+        public static final int background=0x7f08001b;
+        public static final int black=0x7f08001c;
+        public static final int blue=0x7f080023;
+        public static final int choose_eara_item_press_color=0x7f080020;
+        public static final int deepgry=0x7f080017;
+        public static final int deeporange=0x7f080016;
+        public static final int default_circle_indicator_fill_color=0x7f080008;
+        public static final int default_circle_indicator_page_color=0x7f080009;
+        public static final int default_circle_indicator_stroke_color=0x7f08000a;
+        public static final int default_line_indicator_selected_color=0x7f08000b;
+        public static final int default_line_indicator_unselected_color=0x7f08000c;
+        public static final int default_title_indicator_footer_color=0x7f08000d;
+        public static final int default_title_indicator_selected_color=0x7f08000e;
+        public static final int default_title_indicator_text_color=0x7f08000f;
+        public static final int default_underline_indicator_selected_color=0x7f080010;
+        public static final int elsebackground=0x7f080022;
+        public static final int gold=0x7f080014;
+        public static final int green=0x7f080025;
+        public static final int grey=0x7f08001a;
+        public static final int lightgrey=0x7f08001e;
+        public static final int lightorange=0x7f080018;
+        public static final int ligthgree=0x7f08001d;
+        public static final int no_color=0x7f080021;
+        public static final int orange=0x7f080015;
+        public static final int orangetransparent=0x7f080019;
+        public static final int popup_main_background=0x7f08001f;
+        public static final int purple=0x7f080026;
+        public static final int red=0x7f080024;
+        public static final int transparent=0x7f080013;
+        public static final int vpi__background_holo_dark=0x7f080000;
+        public static final int vpi__background_holo_light=0x7f080001;
+        public static final int vpi__bright_foreground_disabled_holo_dark=0x7f080004;
+        public static final int vpi__bright_foreground_disabled_holo_light=0x7f080005;
+        public static final int vpi__bright_foreground_holo_dark=0x7f080002;
+        public static final int vpi__bright_foreground_holo_light=0x7f080003;
+        public static final int vpi__bright_foreground_inverse_holo_dark=0x7f080006;
+        public static final int vpi__bright_foreground_inverse_holo_light=0x7f080007;
+        public static final int vpi__dark_theme=0x7f080027;
+        public static final int vpi__light_theme=0x7f080028;
+        public static final int white=0x7f080011;
+        public static final int whitetransparent=0x7f080012;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -386,258 +387,259 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f09000d;
-        public static final int activity_vertical_margin=0x7f09000e;
-        public static final int button_text_size=0x7f09000f;
-        public static final int default_circle_indicator_radius=0x7f090000;
-        public static final int default_circle_indicator_stroke_width=0x7f090001;
-        public static final int default_line_indicator_gap_width=0x7f090003;
-        public static final int default_line_indicator_line_width=0x7f090002;
-        public static final int default_line_indicator_stroke_width=0x7f090004;
-        public static final int default_title_indicator_clip_padding=0x7f090005;
-        public static final int default_title_indicator_footer_indicator_height=0x7f090007;
-        public static final int default_title_indicator_footer_indicator_underline_padding=0x7f090008;
-        public static final int default_title_indicator_footer_line_height=0x7f090006;
-        public static final int default_title_indicator_footer_padding=0x7f090009;
-        public static final int default_title_indicator_text_size=0x7f09000a;
-        public static final int default_title_indicator_title_padding=0x7f09000b;
-        public static final int default_title_indicator_top_padding=0x7f09000c;
-        public static final int expand_tab_eara_height=0x7f090011;
-        public static final int expand_tab_item_height=0x7f090010;
-        public static final int head_bar_height=0x7f090012;
+        public static final int activity_horizontal_margin=0x7f0b000d;
+        public static final int activity_vertical_margin=0x7f0b000e;
+        public static final int button_text_size=0x7f0b000f;
+        public static final int default_circle_indicator_radius=0x7f0b0000;
+        public static final int default_circle_indicator_stroke_width=0x7f0b0001;
+        public static final int default_line_indicator_gap_width=0x7f0b0003;
+        public static final int default_line_indicator_line_width=0x7f0b0002;
+        public static final int default_line_indicator_stroke_width=0x7f0b0004;
+        public static final int default_title_indicator_clip_padding=0x7f0b0005;
+        public static final int default_title_indicator_footer_indicator_height=0x7f0b0007;
+        public static final int default_title_indicator_footer_indicator_underline_padding=0x7f0b0008;
+        public static final int default_title_indicator_footer_line_height=0x7f0b0006;
+        public static final int default_title_indicator_footer_padding=0x7f0b0009;
+        public static final int default_title_indicator_text_size=0x7f0b000a;
+        public static final int default_title_indicator_title_padding=0x7f0b000b;
+        public static final int default_title_indicator_top_padding=0x7f0b000c;
+        public static final int expand_tab_eara_height=0x7f0b0011;
+        public static final int expand_tab_item_height=0x7f0b0010;
+        public static final int head_bar_height=0x7f0b0012;
     }
     public static final class drawable {
-        public static final int android_building=0x7f020000;
-        public static final int arrow=0x7f020001;
-        public static final int banner3=0x7f020002;
-        public static final int banner_with_fengqi=0x7f020003;
-        public static final int blue=0x7f020004;
-        public static final int btn_green=0x7f020005;
-        public static final int btn_style_red=0x7f020006;
-        public static final int btn_style_zero_focused=0x7f020007;
-        public static final int btn_style_zero_normal=0x7f020008;
-        public static final int btn_style_zero_pressed=0x7f020009;
-        public static final int bus=0x7f02000a;
-        public static final int car=0x7f02000b;
-        public static final int choose_eara_item_selector=0x7f02000c;
-        public static final int choose_item_right=0x7f02000d;
-        public static final int choose_item_selected=0x7f02000e;
-        public static final int choose_plate_item_selector=0x7f02000f;
-        public static final int choosearea_bg_left=0x7f020010;
-        public static final int choosearea_bg_mid=0x7f020011;
-        public static final int choosearea_bg_right=0x7f020012;
-        public static final int choosebar_down=0x7f020013;
-        public static final int choosebar_line=0x7f020014;
-        public static final int choosebar_press_down=0x7f020015;
-        public static final int choosebar_press_up=0x7f020016;
-        public static final int clockblack=0x7f020017;
-        public static final int clockwrite=0x7f020018;
-        public static final int cloud=0x7f020019;
-        public static final int color_icon=0x7f02001a;
-        public static final int custom_info_bubble=0x7f02001b;
-        public static final int download=0x7f02001c;
-        public static final int download_press=0x7f02001d;
-        public static final int downloaded=0x7f02001e;
-        public static final int downloaded_press=0x7f02001f;
-        public static final int expand_tab_selector=0x7f020020;
-        public static final int fengqi_logo_write_chinese=0x7f020021;
-        public static final int fly=0x7f020022;
-        public static final int fly_pressed=0x7f020023;
-        public static final int golf=0x7f020024;
-        public static final int green=0x7f020025;
-        public static final int heart=0x7f020026;
-        public static final int ic_launcher=0x7f020027;
-        public static final int ic_preference_first_normal=0x7f020028;
-        public static final int ic_preference_first_pressed=0x7f020029;
-        public static final int ic_preference_last_normal=0x7f02002a;
-        public static final int ic_preference_last_pressed=0x7f02002b;
-        public static final int ic_preference_normal=0x7f02002c;
-        public static final int ic_preference_pressed=0x7f02002d;
-        public static final int ic_preference_single_normal=0x7f02002e;
-        public static final int ic_preference_single_pressed=0x7f02002f;
-        public static final int img_seekbar_bg=0x7f020030;
-        public static final int img_seekbar_progress_blue=0x7f020031;
-        public static final int img_seekbar_progress_org=0x7f020032;
-        public static final int img_seekbar_progress_org_light=0x7f020033;
-        public static final int left=0x7f020034;
-        public static final int line=0x7f020035;
-        public static final int list2=0x7f020036;
-        public static final int loding_image=0x7f020037;
-        public static final int logo1=0x7f020038;
-        public static final int logo6=0x7f020039;
-        public static final int logo7=0x7f02003a;
-        public static final int man=0x7f02003b;
-        public static final int map1=0x7f02003c;
-        public static final int map2=0x7f02003d;
-        public static final int map2_pressed=0x7f02003e;
-        public static final int map_btn_bg=0x7f02003f;
-        public static final int mapblack=0x7f020040;
-        public static final int maporange=0x7f020041;
-        public static final int mm_submenu=0x7f020042;
-        public static final int mm_submenu_normal=0x7f020043;
-        public static final int mm_submenu_pressed=0x7f020044;
-        public static final int music=0x7f020045;
-        public static final int musicwrite=0x7f020046;
-        public static final int nearme=0x7f020047;
-        public static final int nearmeback=0x7f020048;
-        public static final int nearmesmall=0x7f020049;
-        public static final int next=0x7f02004a;
-        public static final int no_image=0x7f02004b;
-        public static final int number=0x7f02004c;
-        public static final int orangeline=0x7f02004d;
-        public static final int pause=0x7f02004e;
-        public static final int pause_w=0x7f02004f;
-        public static final int play=0x7f020050;
-        public static final int play_w=0x7f020051;
-        public static final int pre=0x7f020052;
-        public static final int preference_first_item=0x7f020053;
-        public static final int preference_item=0x7f020054;
-        public static final int preference_last_item=0x7f020055;
-        public static final int preference_single_item=0x7f020056;
-        public static final int qrback=0x7f020057;
-        public static final int red=0x7f020058;
-        public static final int red_line=0x7f020059;
-        public static final int search=0x7f02005a;
-        public static final int seek_handler=0x7f02005b;
-        public static final int seekbar_progress=0x7f02005c;
-        public static final int seekbar_progress_bg=0x7f02005d;
-        public static final int seekbar_secondprogress_bg=0x7f02005e;
-        public static final int selector_downloadbutton=0x7f02005f;
-        public static final int selector_downloadedbutton=0x7f020060;
-        public static final int selector_explore=0x7f020061;
-        public static final int selector_imagebutton=0x7f020062;
-        public static final int selector_list=0x7f020063;
-        public static final int selector_list2=0x7f020064;
-        public static final int selector_list3=0x7f020065;
-        public static final int selector_mytour=0x7f020066;
-        public static final int selector_setting=0x7f020067;
-        public static final int setting=0x7f020068;
-        public static final int setting_pressed=0x7f020069;
-        public static final int share=0x7f02006a;
-        public static final int share_btn_bg=0x7f02006b;
-        public static final int shareorange=0x7f02006c;
-        public static final int star_full=0x7f02006d;
-        public static final int star_half=0x7f02006e;
-        public static final int star_none=0x7f02006f;
-        public static final int start_style=0x7f020070;
-        public static final int stop1=0x7f020071;
-        public static final int stop10=0x7f020072;
-        public static final int stop11=0x7f020073;
-        public static final int stop2=0x7f020074;
-        public static final int stop3=0x7f020075;
-        public static final int stop4=0x7f020076;
-        public static final int stop5=0x7f020077;
-        public static final int stop6=0x7f020078;
-        public static final int stop7=0x7f020079;
-        public static final int stop8=0x7f02007a;
-        public static final int stop9=0x7f02007b;
-        public static final int stopline=0x7f02007c;
-        public static final int tab_bg=0x7f02007d;
-        public static final int tab_indicator=0x7f02007e;
-        public static final int tab_selected=0x7f02007f;
-        public static final int tab_unselected=0x7f020080;
-        public static final int tourtab_indicator=0x7f020081;
-        public static final int virtualback=0x7f020082;
-        public static final int vpi__tab_indicator=0x7f020083;
-        public static final int vpi__tab_selected_focused_holo=0x7f020084;
-        public static final int vpi__tab_selected_holo=0x7f020085;
-        public static final int vpi__tab_selected_pressed_holo=0x7f020086;
-        public static final int vpi__tab_unselected_focused_holo=0x7f020087;
-        public static final int vpi__tab_unselected_holo=0x7f020088;
-        public static final int vpi__tab_unselected_pressed_holo=0x7f020089;
-        public static final int welcomebg=0x7f02008a;
-        public static final int yellow=0x7f02008b;
+        public static final int arrow=0x7f020000;
+        public static final int back=0x7f020001;
+        public static final int back_create=0x7f020002;
+        public static final int back_favory=0x7f020003;
+        public static final int banner3=0x7f020004;
+        public static final int banner_with_fengqi=0x7f020005;
+        public static final int blue=0x7f020006;
+        public static final int btn_green=0x7f020007;
+        public static final int btn_style_red=0x7f020008;
+        public static final int btn_style_zero_focused=0x7f020009;
+        public static final int btn_style_zero_normal=0x7f02000a;
+        public static final int btn_style_zero_pressed=0x7f02000b;
+        public static final int bus=0x7f02000c;
+        public static final int car=0x7f02000d;
+        public static final int choose_eara_item_selector=0x7f02000e;
+        public static final int choose_item_right=0x7f02000f;
+        public static final int choose_item_selected=0x7f020010;
+        public static final int choose_plate_item_selector=0x7f020011;
+        public static final int choosearea_bg_left=0x7f020012;
+        public static final int choosearea_bg_mid=0x7f020013;
+        public static final int choosearea_bg_right=0x7f020014;
+        public static final int choosebar_down=0x7f020015;
+        public static final int choosebar_line=0x7f020016;
+        public static final int choosebar_press_down=0x7f020017;
+        public static final int choosebar_press_up=0x7f020018;
+        public static final int clockblack=0x7f020019;
+        public static final int clockwrite=0x7f02001a;
+        public static final int cloud=0x7f02001b;
+        public static final int color_icon=0x7f02001c;
+        public static final int custom_info_bubble=0x7f02001d;
+        public static final int download=0x7f02001e;
+        public static final int download_press=0x7f02001f;
+        public static final int downloaded=0x7f020020;
+        public static final int downloaded_press=0x7f020021;
+        public static final int expand_tab_selector=0x7f020022;
+        public static final int fengqi_logo_write_chinese=0x7f020023;
+        public static final int fly=0x7f020024;
+        public static final int fly_pressed=0x7f020025;
+        public static final int golf=0x7f020026;
+        public static final int green=0x7f020027;
+        public static final int heart=0x7f020028;
+        public static final int ic_launcher=0x7f020029;
+        public static final int ic_preference_first_normal=0x7f02002a;
+        public static final int ic_preference_first_pressed=0x7f02002b;
+        public static final int ic_preference_last_normal=0x7f02002c;
+        public static final int ic_preference_last_pressed=0x7f02002d;
+        public static final int ic_preference_normal=0x7f02002e;
+        public static final int ic_preference_pressed=0x7f02002f;
+        public static final int ic_preference_single_normal=0x7f020030;
+        public static final int ic_preference_single_pressed=0x7f020031;
+        public static final int img_seekbar_bg=0x7f020032;
+        public static final int img_seekbar_progress_blue=0x7f020033;
+        public static final int img_seekbar_progress_org=0x7f020034;
+        public static final int img_seekbar_progress_org_light=0x7f020035;
+        public static final int left=0x7f020036;
+        public static final int line=0x7f020037;
+        public static final int list2=0x7f020038;
+        public static final int loding_image=0x7f020039;
+        public static final int logo1=0x7f02003a;
+        public static final int logo6=0x7f02003b;
+        public static final int logo7=0x7f02003c;
+        public static final int logowelcome=0x7f02003d;
+        public static final int man=0x7f02003e;
+        public static final int map1=0x7f02003f;
+        public static final int map2=0x7f020040;
+        public static final int map2_pressed=0x7f020041;
+        public static final int map_btn_bg=0x7f020042;
+        public static final int mapblack=0x7f020043;
+        public static final int maporange=0x7f020044;
+        public static final int mm_submenu=0x7f020045;
+        public static final int mm_submenu_normal=0x7f020046;
+        public static final int mm_submenu_pressed=0x7f020047;
+        public static final int music=0x7f020048;
+        public static final int musicwrite=0x7f020049;
+        public static final int nearme=0x7f02004a;
+        public static final int nearmeback=0x7f02004b;
+        public static final int nearmesmall=0x7f02004c;
+        public static final int next=0x7f02004d;
+        public static final int no_image=0x7f02004e;
+        public static final int number=0x7f02004f;
+        public static final int orangeline=0x7f020050;
+        public static final int pause=0x7f020051;
+        public static final int pause_w=0x7f020052;
+        public static final int play=0x7f020053;
+        public static final int play_w=0x7f020054;
+        public static final int pre=0x7f020055;
+        public static final int preference_first_item=0x7f020056;
+        public static final int preference_item=0x7f020057;
+        public static final int preference_last_item=0x7f020058;
+        public static final int preference_single_item=0x7f020059;
+        public static final int qrback=0x7f02005a;
+        public static final int red=0x7f02005b;
+        public static final int red_line=0x7f02005c;
+        public static final int search=0x7f02005d;
+        public static final int seek_handler=0x7f02005e;
+        public static final int seekbar_progress=0x7f02005f;
+        public static final int seekbar_progress_bg=0x7f020060;
+        public static final int seekbar_secondprogress_bg=0x7f020061;
+        public static final int selector_downloadbutton=0x7f020062;
+        public static final int selector_downloadedbutton=0x7f020063;
+        public static final int selector_explore=0x7f020064;
+        public static final int selector_imagebutton=0x7f020065;
+        public static final int selector_list=0x7f020066;
+        public static final int selector_list2=0x7f020067;
+        public static final int selector_list3=0x7f020068;
+        public static final int selector_mytour=0x7f020069;
+        public static final int selector_setting=0x7f02006a;
+        public static final int setting=0x7f02006b;
+        public static final int setting_pressed=0x7f02006c;
+        public static final int share=0x7f02006d;
+        public static final int share_btn_bg=0x7f02006e;
+        public static final int shareorange=0x7f02006f;
+        public static final int star_full=0x7f020070;
+        public static final int star_half=0x7f020071;
+        public static final int star_none=0x7f020072;
+        public static final int start_style=0x7f020073;
+        public static final int stop1=0x7f020074;
+        public static final int stop10=0x7f020075;
+        public static final int stop11=0x7f020076;
+        public static final int stop2=0x7f020077;
+        public static final int stop3=0x7f020078;
+        public static final int stop4=0x7f020079;
+        public static final int stop5=0x7f02007a;
+        public static final int stop6=0x7f02007b;
+        public static final int stop7=0x7f02007c;
+        public static final int stop8=0x7f02007d;
+        public static final int stop9=0x7f02007e;
+        public static final int stopline=0x7f02007f;
+        public static final int tab_bg=0x7f020080;
+        public static final int tab_indicator=0x7f020081;
+        public static final int tab_selected=0x7f020082;
+        public static final int tab_unselected=0x7f020083;
+        public static final int tourtab_indicator=0x7f020084;
+        public static final int virtualback=0x7f020085;
+        public static final int vpi__tab_indicator=0x7f020086;
+        public static final int vpi__tab_selected_focused_holo=0x7f020087;
+        public static final int vpi__tab_selected_holo=0x7f020088;
+        public static final int vpi__tab_selected_pressed_holo=0x7f020089;
+        public static final int vpi__tab_unselected_focused_holo=0x7f02008a;
+        public static final int vpi__tab_unselected_holo=0x7f02008b;
+        public static final int vpi__tab_unselected_pressed_holo=0x7f02008c;
+        public static final int welcomebg=0x7f02008d;
+        public static final int yellow=0x7f02008e;
     }
     public static final class id {
-        public static final int action_settings=0x7f050051;
-        public static final int adress=0x7f050016;
-        public static final int arrow=0x7f050027;
-        public static final int author=0x7f05001f;
-        public static final int author_bio=0x7f050025;
-        public static final int author_image=0x7f050022;
-        public static final int author_inner=0x7f050020;
-        public static final int author_name=0x7f050023;
-        public static final int author_thumbnail=0x7f050021;
-        public static final int autor_type=0x7f050024;
-        public static final int backBtton=0x7f050005;
-        public static final int banner=0x7f050029;
-        public static final int bottom=0x7f050003;
-        public static final int btn_play=0x7f050038;
-        public static final int collectBttonClicked=0x7f050013;
-        public static final int dis=0x7f050042;
-        public static final int distence=0x7f050046;
-        public static final int download=0x7f050019;
-        public static final int expandtab_view=0x7f05000c;
-        public static final int fengqilogo=0x7f05004f;
-        public static final int head_arrowImageView=0x7f05000f;
-        public static final int head_contentLayout=0x7f05000e;
-        public static final int head_lastUpdatedTextView=0x7f050012;
-        public static final int head_progressBar=0x7f050010;
-        public static final int head_tipsTextView=0x7f050011;
-        public static final int indicator=0x7f050035;
-        public static final int line_image=0x7f050015;
-        public static final int line_language=0x7f05001d;
-        public static final int line_name=0x7f050048;
-        public static final int line_summary=0x7f05001e;
-        public static final int list=0x7f05000d;
-        public static final int listView=0x7f05004c;
-        public static final int listView2=0x7f05004d;
-        public static final int list_image=0x7f050026;
-        public static final int logo1=0x7f05004e;
-        public static final int logo2=0x7f050050;
-        public static final int map=0x7f050030;
-        public static final int mapBtton=0x7f050047;
-        public static final int map_popup_line=0x7f05002e;
-        public static final int mediaPlayer=0x7f050036;
-        public static final int musicplayerbuttom=0x7f05003d;
-        public static final int nearme=0x7f05002c;
-        public static final int nearmeBtton=0x7f05000b;
-        public static final int nearmemap=0x7f05002f;
-        public static final int nextBtton=0x7f050031;
-        public static final int none=0x7f050000;
-        public static final int number=0x7f05003e;
-        public static final int orangebuttom=0x7f05003c;
-        public static final int orangetop=0x7f050037;
-        public static final int pager=0x7f050034;
-        public static final int place=0x7f05002a;
-        public static final int preBtton=0x7f050032;
-        public static final int price_text=0x7f050018;
-        public static final int qrcode=0x7f05002d;
-        public static final int qrcode_about=0x7f050008;
-        public static final int qrdecoderview=0x7f050006;
-        public static final int rating_bar=0x7f050017;
-        public static final int realtabcontent=0x7f050009;
-        public static final int red_line_image=0x7f050007;
-        public static final int searchBtton=0x7f050028;
-        public static final int share=0x7f05003f;
-        public static final int songCurrentDurationLabel=0x7f050039;
-        public static final int songProgressBar=0x7f05003b;
-        public static final int songTotalDurationLabel=0x7f05003a;
-        public static final int stop_detail=0x7f050040;
-        public static final int stop_image=0x7f050044;
-        public static final int stop_list=0x7f050049;
-        public static final int stop_name=0x7f050033;
-        public static final int stopitem=0x7f050043;
-        public static final int stopmap=0x7f050041;
-        public static final int stoptitle=0x7f050045;
-        public static final int tab_icon=0x7f05004a;
-        public static final int tab_title=0x7f05004b;
-        public static final int thumbnail=0x7f050014;
-        public static final int title=0x7f05000a;
-        public static final int top=0x7f050004;
-        public static final int topic=0x7f05002b;
-        public static final int total_length=0x7f05001c;
-        public static final int total_stop=0x7f05001a;
-        public static final int total_time=0x7f05001b;
-        public static final int triangle=0x7f050001;
-        public static final int underline=0x7f050002;
+        public static final int action_settings=0x7f07004f;
+        public static final int adress=0x7f070017;
+        public static final int arrow=0x7f070028;
+        public static final int author=0x7f070020;
+        public static final int author_bio=0x7f070026;
+        public static final int author_image=0x7f070023;
+        public static final int author_inner=0x7f070021;
+        public static final int author_name=0x7f070024;
+        public static final int author_thumbnail=0x7f070022;
+        public static final int autor_type=0x7f070025;
+        public static final int backBtton=0x7f070005;
+        public static final int banner=0x7f07002a;
+        public static final int bottom=0x7f070003;
+        public static final int btn_play=0x7f070039;
+        public static final int collectBttonClicked=0x7f070014;
+        public static final int dis=0x7f070043;
+        public static final int distence=0x7f070047;
+        public static final int download=0x7f07001a;
+        public static final int expandtab_view=0x7f07000d;
+        public static final int head_arrowImageView=0x7f070010;
+        public static final int head_contentLayout=0x7f07000f;
+        public static final int head_lastUpdatedTextView=0x7f070013;
+        public static final int head_progressBar=0x7f070011;
+        public static final int head_tipsTextView=0x7f070012;
+        public static final int host=0x7f070009;
+        public static final int indicator=0x7f070036;
+        public static final int line_image=0x7f070016;
+        public static final int line_language=0x7f07001e;
+        public static final int line_name=0x7f070049;
+        public static final int line_summary=0x7f07001f;
+        public static final int list=0x7f07000e;
+        public static final int listView=0x7f07004d;
+        public static final int listView2=0x7f07004e;
+        public static final int list_image=0x7f070027;
+        public static final int map=0x7f070031;
+        public static final int mapBtton=0x7f070048;
+        public static final int map_popup_line=0x7f07002f;
+        public static final int mediaPlayer=0x7f070037;
+        public static final int musicplayerbuttom=0x7f07003e;
+        public static final int nearme=0x7f07002d;
+        public static final int nearmeBtton=0x7f07000c;
+        public static final int nearmemap=0x7f070030;
+        public static final int nextBtton=0x7f070032;
+        public static final int none=0x7f070000;
+        public static final int number=0x7f07003f;
+        public static final int orangebuttom=0x7f07003d;
+        public static final int orangetop=0x7f070038;
+        public static final int pager=0x7f070035;
+        public static final int place=0x7f07002b;
+        public static final int preBtton=0x7f070033;
+        public static final int price_text=0x7f070019;
+        public static final int qrcode=0x7f07002e;
+        public static final int qrcode_about=0x7f070008;
+        public static final int qrdecoderview=0x7f070006;
+        public static final int rating_bar=0x7f070018;
+        public static final int realtabcontent=0x7f07000a;
+        public static final int red_line_image=0x7f070007;
+        public static final int searchBtton=0x7f070029;
+        public static final int share=0x7f070040;
+        public static final int songCurrentDurationLabel=0x7f07003a;
+        public static final int songProgressBar=0x7f07003c;
+        public static final int songTotalDurationLabel=0x7f07003b;
+        public static final int stop_detail=0x7f070041;
+        public static final int stop_image=0x7f070045;
+        public static final int stop_list=0x7f07004a;
+        public static final int stop_name=0x7f070034;
+        public static final int stopitem=0x7f070044;
+        public static final int stopmap=0x7f070042;
+        public static final int stoptitle=0x7f070046;
+        public static final int tab_icon=0x7f07004b;
+        public static final int tab_title=0x7f07004c;
+        public static final int thumbnail=0x7f070015;
+        public static final int title=0x7f07000b;
+        public static final int top=0x7f070004;
+        public static final int topic=0x7f07002c;
+        public static final int total_length=0x7f07001d;
+        public static final int total_stop=0x7f07001b;
+        public static final int total_time=0x7f07001c;
+        public static final int triangle=0x7f070001;
+        public static final int underline=0x7f070002;
     }
     public static final class integer {
-        public static final int default_circle_indicator_orientation=0x7f080000;
-        public static final int default_title_indicator_footer_indicator_style=0x7f080001;
-        public static final int default_title_indicator_line_position=0x7f080002;
-        public static final int default_underline_indicator_fade_delay=0x7f080003;
-        public static final int default_underline_indicator_fade_length=0x7f080004;
+        public static final int default_circle_indicator_orientation=0x7f0a0000;
+        public static final int default_title_indicator_footer_indicator_style=0x7f0a0001;
+        public static final int default_title_indicator_line_position=0x7f0a0002;
+        public static final int default_underline_indicator_fade_delay=0x7f0a0003;
+        public static final int default_underline_indicator_fade_length=0x7f0a0004;
     }
     public static final class layout {
         public static final int activity_decoder=0x7f030000;
@@ -674,54 +676,55 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int main=0x7f0c0000;
     }
     public static final class string {
-        public static final int about=0x7f0b0013;
-        public static final int action_settings=0x7f0b0003;
-        public static final int appName=0x7f0b0004;
-        public static final int app_name=0x7f0b0000;
-        public static final int author_other=0x7f0b0022;
-        public static final int create=0x7f0b0019;
-        public static final int discover=0x7f0b001f;
-        public static final int download=0x7f0b0018;
-        public static final int downloadmanage=0x7f0b000f;
-        public static final int exit=0x7f0b0015;
-        public static final int explore=0x7f0b0009;
-        public static final int favorite=0x7f0b001a;
-        public static final int feedback=0x7f0b0011;
-        public static final int hello_world=0x7f0b0001;
-        public static final int history=0x7f0b000e;
-        public static final int last_update=0x7f0b001b;
-        public static final int line_detail=0x7f0b0020;
-        public static final int login=0x7f0b0016;
-        public static final int map_not_ready=0x7f0b0026;
-        public static final int menu_settings=0x7f0b0002;
-        public static final int more=0x7f0b0021;
-        public static final int my_preference=0x7f0b000c;
-        public static final int my_tour=0x7f0b000a;
-        public static final int myaccount=0x7f0b000d;
-        public static final int nearme=0x7f0b0007;
-        public static final int nearmestring=0x7f0b0024;
-        public static final int no_data=0x7f0b001e;
-        public static final int nonetwork=0x7f0b001c;
-        public static final int place=0x7f0b0005;
-        public static final int qrcode=0x7f0b0008;
-        public static final int qrcode_about=0x7f0b0027;
-        public static final int qrcode_remind=0x7f0b0028;
-        public static final int rateme=0x7f0b0012;
-        public static final int regiest=0x7f0b0017;
-        public static final int retry=0x7f0b001d;
-        public static final int setting=0x7f0b000b;
-        public static final int stopmaptitle=0x7f0b0025;
-        public static final int systeminfo=0x7f0b0014;
-        public static final int topic=0x7f0b0006;
-        public static final int tourStops=0x7f0b0023;
-        public static final int versionupdate=0x7f0b0010;
+        public static final int about=0x7f050013;
+        public static final int action_settings=0x7f050003;
+        public static final int appName=0x7f050004;
+        public static final int app_name=0x7f050000;
+        public static final int author_other=0x7f050022;
+        public static final int create=0x7f050019;
+        public static final int discover=0x7f05001f;
+        public static final int download=0x7f050018;
+        public static final int downloadmanage=0x7f05000f;
+        public static final int exit=0x7f050015;
+        public static final int explore=0x7f050009;
+        public static final int favorite=0x7f05001a;
+        public static final int feedback=0x7f050011;
+        public static final int hello_world=0x7f050001;
+        public static final int history=0x7f05000e;
+        public static final int last_update=0x7f05001b;
+        public static final int line_detail=0x7f050020;
+        public static final int login=0x7f050016;
+        public static final int map_not_ready=0x7f050026;
+        public static final int menu_settings=0x7f050002;
+        public static final int more=0x7f050021;
+        public static final int my_preference=0x7f05000c;
+        public static final int my_tour=0x7f05000a;
+        public static final int myaccount=0x7f05000d;
+        public static final int nearme=0x7f050007;
+        public static final int nearmestring=0x7f050024;
+        public static final int no_data=0x7f05001e;
+        public static final int nonetwork=0x7f05001c;
+        public static final int place=0x7f050005;
+        public static final int qrcode=0x7f050008;
+        public static final int qrcode_about=0x7f050027;
+        public static final int qrcode_host=0x7f050029;
+        public static final int qrcode_remind=0x7f050028;
+        public static final int rateme=0x7f050012;
+        public static final int regiest=0x7f050017;
+        public static final int retry=0x7f05001d;
+        public static final int setting=0x7f05000b;
+        public static final int stopmaptitle=0x7f050025;
+        public static final int systeminfo=0x7f050014;
+        public static final int topic=0x7f050006;
+        public static final int tourStops=0x7f050023;
+        public static final int versionupdate=0x7f050010;
     }
     public static final class style {
-        public static final int AnimBottom=0x7f0a0008;
-        public static final int AnimFade=0x7f0a0007;
-        public static final int AnimHead=0x7f0a000b;
-        public static final int AnimTop=0x7f0a0009;
-        public static final int AnimTop2=0x7f0a000a;
+        public static final int AnimBottom=0x7f060008;
+        public static final int AnimFade=0x7f060007;
+        public static final int AnimHead=0x7f06000b;
+        public static final int AnimTop=0x7f060009;
+        public static final int AnimTop2=0x7f06000a;
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
@@ -791,7 +794,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f0a0005;
+        public static final int AppBaseTheme=0x7f060000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
  Application theme. 
@@ -799,19 +802,19 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f0a0006;
-        public static final int CustomNotileFullscreen=0x7f0a000c;
-        public static final int CustomNotitle=0x7f0a000d;
+        public static final int AppTheme=0x7f060001;
+        public static final int CustomNotileFullscreen=0x7f06000c;
+        public static final int CustomNotitle=0x7f06000d;
         /** 模糊
          */
-        public static final int MyDialogStyleTop=0x7f0a0010;
-        public static final int MyRatingBar=0x7f0a000e;
-        public static final int PopupWindowAnimation=0x7f0a000f;
-        public static final int TextAppearance_TabPageIndicator=0x7f0a0003;
-        public static final int Theme_PageIndicatorDefaults=0x7f0a0000;
-        public static final int Widget=0x7f0a0001;
-        public static final int Widget_IconPageIndicator=0x7f0a0004;
-        public static final int Widget_TabPageIndicator=0x7f0a0002;
+        public static final int MyDialogStyleTop=0x7f060010;
+        public static final int MyRatingBar=0x7f06000e;
+        public static final int PopupWindowAnimation=0x7f06000f;
+        public static final int TextAppearance_TabPageIndicator=0x7f060005;
+        public static final int Theme_PageIndicatorDefaults=0x7f060002;
+        public static final int Widget=0x7f060003;
+        public static final int Widget_IconPageIndicator=0x7f060006;
+        public static final int Widget_TabPageIndicator=0x7f060004;
     }
     public static final class styleable {
         /** Attributes that can be used with a CirclePageIndicator.
@@ -820,8 +823,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #CirclePageIndicator_android_background android:background}</code></td><td> View background </td></tr>
-           <tr><td><code>{@link #CirclePageIndicator_android_orientation android:orientation}</code></td><td> Orientation of the indicator.</td></tr>
+           <tr><td><code>{@link #CirclePageIndicator_android_background com.sysu.shen.youtour:android_background}</code></td><td> View background </td></tr>
+           <tr><td><code>{@link #CirclePageIndicator_android_orientation com.sysu.shen.youtour:android_orientation}</code></td><td> Orientation of the indicator.</td></tr>
            <tr><td><code>{@link #CirclePageIndicator_centered com.sysu.shen.youtour:centered}</code></td><td> Whether or not the indicators should be centered.</td></tr>
            <tr><td><code>{@link #CirclePageIndicator_fillColor com.sysu.shen.youtour:fillColor}</code></td><td> Color of the filled circle that represents the current page.</td></tr>
            <tr><td><code>{@link #CirclePageIndicator_pageColor com.sysu.shen.youtour:pageColor}</code></td><td> Color of the filled circles that represents pages.</td></tr>
@@ -849,18 +852,16 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>
           @attr description
            View background 
-          <p>This corresponds to the global attribute
-          resource symbol {@link android.R.attr#background}.
-          @attr name android:background
+          <p>This corresponds to the global attribute          resource symbol {@link com.sysu.shen.youtour.R.attr#android_background}.
+          @attr name android:android_background
         */
         public static final int CirclePageIndicator_android_background = 1;
         /**
           <p>
           @attr description
            Orientation of the indicator. 
-          <p>This corresponds to the global attribute
-          resource symbol {@link android.R.attr#orientation}.
-          @attr name android:orientation
+          <p>This corresponds to the global attribute          resource symbol {@link com.sysu.shen.youtour.R.attr#android_orientation}.
+          @attr name android:android_orientation
         */
         public static final int CirclePageIndicator_android_orientation = 0;
         /**
@@ -876,7 +877,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:centered
+          @attr name android:centered
         */
         public static final int CirclePageIndicator_centered = 2;
         /**
@@ -893,7 +894,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:fillColor
+          @attr name android:fillColor
         */
         public static final int CirclePageIndicator_fillColor = 4;
         /**
@@ -910,7 +911,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:pageColor
+          @attr name android:pageColor
         */
         public static final int CirclePageIndicator_pageColor = 5;
         /**
@@ -928,7 +929,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:radius
+          @attr name android:radius
         */
         public static final int CirclePageIndicator_radius = 6;
         /**
@@ -944,7 +945,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:snap
+          @attr name android:snap
         */
         public static final int CirclePageIndicator_snap = 7;
         /**
@@ -961,7 +962,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:strokeColor
+          @attr name android:strokeColor
         */
         public static final int CirclePageIndicator_strokeColor = 8;
         /**
@@ -979,7 +980,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:strokeWidth
+          @attr name android:strokeWidth
         */
         public static final int CirclePageIndicator_strokeWidth = 3;
         /** Attributes that can be used with a LinePageIndicator.
@@ -988,7 +989,7 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #LinePageIndicator_android_background android:background}</code></td><td> View background </td></tr>
+           <tr><td><code>{@link #LinePageIndicator_android_background com.sysu.shen.youtour:android_background}</code></td><td> View background </td></tr>
            <tr><td><code>{@link #LinePageIndicator_centered com.sysu.shen.youtour:centered}</code></td><td> Whether or not the indicators should be centered.</td></tr>
            <tr><td><code>{@link #LinePageIndicator_gapWidth com.sysu.shen.youtour:gapWidth}</code></td><td> Width of the gap between each indicator line.</td></tr>
            <tr><td><code>{@link #LinePageIndicator_lineWidth com.sysu.shen.youtour:lineWidth}</code></td><td> Width of each indicator line.</td></tr>
@@ -1012,9 +1013,8 @@ containing a value of this type.
           <p>
           @attr description
            View background 
-          <p>This corresponds to the global attribute
-          resource symbol {@link android.R.attr#background}.
-          @attr name android:background
+          <p>This corresponds to the global attribute          resource symbol {@link com.sysu.shen.youtour.R.attr#android_background}.
+          @attr name android:android_background
         */
         public static final int LinePageIndicator_android_background = 0;
         /**
@@ -1030,7 +1030,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:centered
+          @attr name android:centered
         */
         public static final int LinePageIndicator_centered = 1;
         /**
@@ -1048,7 +1048,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:gapWidth
+          @attr name android:gapWidth
         */
         public static final int LinePageIndicator_gapWidth = 6;
         /**
@@ -1066,7 +1066,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:lineWidth
+          @attr name android:lineWidth
         */
         public static final int LinePageIndicator_lineWidth = 5;
         /**
@@ -1083,7 +1083,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:selectedColor
+          @attr name android:selectedColor
         */
         public static final int LinePageIndicator_selectedColor = 2;
         /**
@@ -1101,7 +1101,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:strokeWidth
+          @attr name android:strokeWidth
         */
         public static final int LinePageIndicator_strokeWidth = 3;
         /**
@@ -1118,7 +1118,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:unselectedColor
+          @attr name android:unselectedColor
         */
         public static final int LinePageIndicator_unselectedColor = 4;
         /** Attributes that can be used with a TitlePageIndicator.
@@ -1127,9 +1127,9 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #TitlePageIndicator_android_background android:background}</code></td><td> View background </td></tr>
-           <tr><td><code>{@link #TitlePageIndicator_android_textColor android:textColor}</code></td><td> Color of regular titles.</td></tr>
-           <tr><td><code>{@link #TitlePageIndicator_android_textSize android:textSize}</code></td><td> Size of title text.</td></tr>
+           <tr><td><code>{@link #TitlePageIndicator_android_background com.sysu.shen.youtour:android_background}</code></td><td> View background </td></tr>
+           <tr><td><code>{@link #TitlePageIndicator_android_textColor com.sysu.shen.youtour:android_textColor}</code></td><td> Color of regular titles.</td></tr>
+           <tr><td><code>{@link #TitlePageIndicator_android_textSize com.sysu.shen.youtour:android_textSize}</code></td><td> Size of title text.</td></tr>
            <tr><td><code>{@link #TitlePageIndicator_clipPadding com.sysu.shen.youtour:clipPadding}</code></td><td> Screen edge padding.</td></tr>
            <tr><td><code>{@link #TitlePageIndicator_footerColor com.sysu.shen.youtour:footerColor}</code></td><td> Color of the footer line and indicator.</td></tr>
            <tr><td><code>{@link #TitlePageIndicator_footerIndicatorHeight com.sysu.shen.youtour:footerIndicatorHeight}</code></td><td> Height of the indicator above the footer line.</td></tr>
@@ -1169,27 +1169,24 @@ containing a value of this type.
           <p>
           @attr description
            View background 
-          <p>This corresponds to the global attribute
-          resource symbol {@link android.R.attr#background}.
-          @attr name android:background
+          <p>This corresponds to the global attribute          resource symbol {@link com.sysu.shen.youtour.R.attr#android_background}.
+          @attr name android:android_background
         */
         public static final int TitlePageIndicator_android_background = 2;
         /**
           <p>
           @attr description
            Color of regular titles. 
-          <p>This corresponds to the global attribute
-          resource symbol {@link android.R.attr#textColor}.
-          @attr name android:textColor
+          <p>This corresponds to the global attribute          resource symbol {@link com.sysu.shen.youtour.R.attr#android_textColor}.
+          @attr name android:android_textColor
         */
         public static final int TitlePageIndicator_android_textColor = 1;
         /**
           <p>
           @attr description
            Size of title text. 
-          <p>This corresponds to the global attribute
-          resource symbol {@link android.R.attr#textSize}.
-          @attr name android:textSize
+          <p>This corresponds to the global attribute          resource symbol {@link com.sysu.shen.youtour.R.attr#android_textSize}.
+          @attr name android:android_textSize
         */
         public static final int TitlePageIndicator_android_textSize = 0;
         /**
@@ -1207,7 +1204,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:clipPadding
+          @attr name android:clipPadding
         */
         public static final int TitlePageIndicator_clipPadding = 4;
         /**
@@ -1224,7 +1221,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:footerColor
+          @attr name android:footerColor
         */
         public static final int TitlePageIndicator_footerColor = 5;
         /**
@@ -1242,7 +1239,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:footerIndicatorHeight
+          @attr name android:footerIndicatorHeight
         */
         public static final int TitlePageIndicator_footerIndicatorHeight = 8;
         /**
@@ -1262,7 +1259,7 @@ containing a value of this type.
 <tr><td><code>underline</code></td><td>2</td><td></td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:footerIndicatorStyle
+          @attr name android:footerIndicatorStyle
         */
         public static final int TitlePageIndicator_footerIndicatorStyle = 7;
         /**
@@ -1280,7 +1277,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:footerIndicatorUnderlinePadding
+          @attr name android:footerIndicatorUnderlinePadding
         */
         public static final int TitlePageIndicator_footerIndicatorUnderlinePadding = 9;
         /**
@@ -1298,7 +1295,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:footerLineHeight
+          @attr name android:footerLineHeight
         */
         public static final int TitlePageIndicator_footerLineHeight = 6;
         /**
@@ -1316,7 +1313,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:footerPadding
+          @attr name android:footerPadding
         */
         public static final int TitlePageIndicator_footerPadding = 10;
         /**
@@ -1335,7 +1332,7 @@ containing a value of this type.
 <tr><td><code>top</code></td><td>1</td><td></td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:linePosition
+          @attr name android:linePosition
         */
         public static final int TitlePageIndicator_linePosition = 11;
         /**
@@ -1351,7 +1348,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:selectedBold
+          @attr name android:selectedBold
         */
         public static final int TitlePageIndicator_selectedBold = 12;
         /**
@@ -1368,7 +1365,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:selectedColor
+          @attr name android:selectedColor
         */
         public static final int TitlePageIndicator_selectedColor = 3;
         /**
@@ -1386,7 +1383,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:titlePadding
+          @attr name android:titlePadding
         */
         public static final int TitlePageIndicator_titlePadding = 13;
         /**
@@ -1404,7 +1401,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:topPadding
+          @attr name android:topPadding
         */
         public static final int TitlePageIndicator_topPadding = 14;
         /** Attributes that can be used with a UnderlinePageIndicator.
@@ -1413,7 +1410,7 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #UnderlinePageIndicator_android_background android:background}</code></td><td> View background </td></tr>
+           <tr><td><code>{@link #UnderlinePageIndicator_android_background com.sysu.shen.youtour:android_background}</code></td><td> View background </td></tr>
            <tr><td><code>{@link #UnderlinePageIndicator_fadeDelay com.sysu.shen.youtour:fadeDelay}</code></td><td> Length of the delay to fade the indicator.</td></tr>
            <tr><td><code>{@link #UnderlinePageIndicator_fadeLength com.sysu.shen.youtour:fadeLength}</code></td><td> Length of the indicator fade to transparent.</td></tr>
            <tr><td><code>{@link #UnderlinePageIndicator_fades com.sysu.shen.youtour:fades}</code></td><td> Whether or not the selected indicator fades.</td></tr>
@@ -1433,9 +1430,8 @@ containing a value of this type.
           <p>
           @attr description
            View background 
-          <p>This corresponds to the global attribute
-          resource symbol {@link android.R.attr#background}.
-          @attr name android:background
+          <p>This corresponds to the global attribute          resource symbol {@link com.sysu.shen.youtour.R.attr#android_background}.
+          @attr name android:android_background
         */
         public static final int UnderlinePageIndicator_android_background = 0;
         /**
@@ -1451,7 +1447,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:fadeDelay
+          @attr name android:fadeDelay
         */
         public static final int UnderlinePageIndicator_fadeDelay = 3;
         /**
@@ -1467,7 +1463,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:fadeLength
+          @attr name android:fadeLength
         */
         public static final int UnderlinePageIndicator_fadeLength = 4;
         /**
@@ -1483,7 +1479,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:fades
+          @attr name android:fades
         */
         public static final int UnderlinePageIndicator_fades = 2;
         /**
@@ -1500,7 +1496,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:selectedColor
+          @attr name android:selectedColor
         */
         public static final int UnderlinePageIndicator_selectedColor = 1;
         /** Attributes that can be used with a ViewPagerIndicator.
@@ -1536,7 +1532,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:vpiCirclePageIndicatorStyle
+          @attr name android:vpiCirclePageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiCirclePageIndicatorStyle = 0;
         /**
@@ -1548,7 +1544,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:vpiIconPageIndicatorStyle
+          @attr name android:vpiIconPageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiIconPageIndicatorStyle = 1;
         /**
@@ -1560,7 +1556,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:vpiLinePageIndicatorStyle
+          @attr name android:vpiLinePageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiLinePageIndicatorStyle = 2;
         /**
@@ -1572,7 +1568,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:vpiTabPageIndicatorStyle
+          @attr name android:vpiTabPageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiTabPageIndicatorStyle = 4;
         /**
@@ -1584,7 +1580,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:vpiTitlePageIndicatorStyle
+          @attr name android:vpiTitlePageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiTitlePageIndicatorStyle = 3;
         /**
@@ -1596,7 +1592,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.sysu.shen.youtour:vpiUnderlinePageIndicatorStyle
+          @attr name android:vpiUnderlinePageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiUnderlinePageIndicatorStyle = 5;
     };

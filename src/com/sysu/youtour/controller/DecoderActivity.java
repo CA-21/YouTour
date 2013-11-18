@@ -17,12 +17,14 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView.OnQRCodeReadListener;
 import com.sysu.shen.youtour.R;
 import com.sysu.youtour.dao.JSONFunctions;
+import com.sysu.youtour.util.GlobalConst;
 
 public class DecoderActivity extends Activity implements OnQRCodeReadListener {
 
@@ -36,11 +38,16 @@ public class DecoderActivity extends Activity implements OnQRCodeReadListener {
 
     private TranslateAnimation                 mAnimation;
 
+    private TextView                           hostIp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.sendBroadcast(new Intent(MainActivity.SHOWLOCALLIST_HIDE_PROGRESS));
         setContentView(R.layout.activity_decoder);
+
+        hostIp = (TextView) findViewById(R.id.host);
+        hostIp.setText("访问网站" + GlobalConst.HOST + "/查看线路二维码");
 
         mydecoderview = (QRCodeReaderView) findViewById(R.id.qrdecoderview);
         mydecoderview.setOnQRCodeReadListener(this);

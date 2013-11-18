@@ -261,7 +261,6 @@ public class LineMain extends Activity {
 
     }
 
-    @SuppressLint("NewApi")
     public void downloadClicked(View v) {
 
         if (needDownloadURLS.size() == 0) {
@@ -316,7 +315,6 @@ public class LineMain extends Activity {
     /**
      * @param arrayList
      */
-    @SuppressLint("NewApi")
     protected void downloadAllResource(ArrayList<String> urls) {
         for (int i = 0; i < urls.size(); i++) {
             downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);

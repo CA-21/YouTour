@@ -30,7 +30,7 @@
             android:layout_alignParentTop="true"
             android:background="@color/grey"
             android:src="@drawable/banner_with_fengqi"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="5dp" />
 
     </RelativeLayout>
 

@@ -42,5 +42,6 @@
     <string name="qrcode">二维码</string>
     <string name="qrcode_about">马上扫描二维码把线路装进手机！</string>
     <string name="qrcode_remind">（请在方框内扫描二维码图案）</string>
+    <string name="qrcode_host">访问网站http://103.31.20.134:3000/查看线路二维码</string>
 
 </resources>
