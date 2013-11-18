@@ -2,8 +2,6 @@ package com.sysu.youtour.controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -16,7 +14,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import com.sysu.shen.youtour.R;
 import com.sysu.youtour.dao.JSONFunctions;
 import com.sysu.youtour.util.GlobalConst;
-import com.winsontan520.wversionmanager.library.WVersionManager;
 
 import android.app.Activity;
 import android.content.Context;
@@ -128,13 +125,6 @@ public class Welcome extends Activity {
 
                 // 把刚刚得到的hostip缓存到本地
                 JSONFunctions.saveInLocal(activity, HOST_IP, result, GlobalConst.SDCARD_HOSTIP_DIR);
-                // check version
-                WVersionManager versionManager = new WVersionManager(activity);
-                versionManager.setVersionContentUrl(GlobalConst.URL_APP_UPDATE);
-                versionManager.setTitle("检查到新的更新");
-                versionManager.setUpdateNowLabel("马上更新");
-                versionManager.setIgnoreThisVersionLabel("取消");
-                versionManager.checkVersion();
             }
             Intent it = new Intent(Welcome.this, MainActivity.class);
             startActivity(it);
