@@ -204,14 +204,6 @@ public class ExploreMain extends Activity {
             final NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
             if (activeNetwork != null && activeNetwork.isConnected()) {
                 jarray = JSONFunctions.getJsonFromNetwork(activity, URLString);
-                
-                // check version
-                WVersionManager versionManager = new WVersionManager(activity);
-                versionManager.setVersionContentUrl(GlobalConst.URL_APP_UPDATE);
-                versionManager.setTitle("检查到新的更新");
-                versionManager.setUpdateNowLabel("马上更新");
-                versionManager.setIgnoreThisVersionLabel("取消");
-                versionManager.checkVersion();
 
             } else {
                 Message m = new Message();
